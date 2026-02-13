@@ -1,6 +1,175 @@
-<footer style="--ta: center; --bgc: #f1edf7; --w: 100vw; --c: black; box-shadow: 15px 0px 10px rgba(0, 0, 0, 0.4);">
-  
-  <p>Web Design and Development by ChasTech inc.</p>
-  
-  &copy; 2025 WhmisWise&trade; All rights reserved.
+<footer class="whmis-footer">
+    <div class="footer-content">
+        
+        <div class="footer-col brand-col">
+            <img src="/assets/whimiswise2.png" alt="Company Logo" class="site-logo-footer">
+            <span class="vertical-divider">|</span>
+            <p class="tagline">
+                Simplifying safety compliance.
+            </p>
+        </div>
+
+        <div class="footer-col links-col">
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/faq/">Faq</a></li>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col legal-col">
+            <p class="parent-company">
+                A product of <a href="https://chastech.ca" target="_blank">ChasTech Inc.</a>
+            </p>
+            <ul class="legal-list">
+                <li><a href="/privacy_statement">Privacy Policy</a></li>
+                <li class="copyright">&copy; 2025</li>
+            </ul>
+        </div>
+    </div>
 </footer>
+
+<style>
+    /* --- COMPACT FOOTER STYLES --- */
+    .whmis-footer {
+        width: 100%;
+        background-color: #f2f8fc; 
+        /* drastically reduced padding for height control */
+        padding: 15px 30px; 
+        box-sizing: border-box;
+        border-top: 1px solid rgba(25, 31, 79, 0.05);
+        font-family: sans-serif;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center; 
+        gap: 20px;
+    }
+
+    /* --- BRANDING (HORIZONTAL ROW) --- */
+    .brand-col {
+        display: flex;
+        align-items: center; /* Forces logo and text to line up */
+        gap: 15px;
+    }
+
+    .site-logo-footer {
+        height: 80px; /* Much smaller to fit the "bar" look */
+        width: auto;
+        object-fit: contain;
+        display: block;
+    }
+
+    .vertical-divider {
+        color: #ccc;
+        font-size: 1.2rem;
+        font-weight: 300;
+    }
+
+    .tagline { 
+        color: #191f4f; 
+        opacity: 0.7; 
+        font-size: 0.85rem; 
+        margin: 0;
+        white-space: nowrap; /* Keeps it on one line */
+    }
+
+    /* --- NAVIGATION --- */
+    .links-col .nav-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 20px;
+    }
+
+    .links-col a {
+        color: #191f4f; 
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: 0.3s ease;
+    }
+
+    .links-col a:hover {
+        color: #436aee; 
+        transform: translateY(-2px);
+        display: inline-block;
+    }
+
+    /* --- LEGAL & PARENT COMPANY --- */
+    .legal-col { 
+        text-align: right; 
+        display: flex;
+        flex-direction: column; /* Stacked tight on right side */
+        justify-content: center;
+        gap: 2px;
+    }
+    
+    .parent-company {
+        font-size: 0.75rem;
+        color: #191f4f;
+        margin: 0;
+        opacity: 0.8;
+    }
+    
+    .parent-company a { 
+        color: #436aee; 
+        text-decoration: none; 
+        font-weight: bold;
+    }
+
+    .legal-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
+    .legal-list li, .legal-list a {
+        font-size: 0.75rem;
+        color: #191f4f;
+        opacity: 0.6;
+        text-decoration: none;
+    }
+    
+    .legal-list a:hover { opacity: 1; text-decoration: underline; }
+
+    /* --- MOBILE RESPONSIVENESS --- */
+    @media (max-width: 900px) {
+        .footer-content { 
+            flex-direction: column; 
+            text-align: center; 
+            gap: 20px;
+            padding: 10px 0;
+        }
+
+        .brand-col { 
+            flex-direction: column; 
+            gap: 10px;
+        }
+        
+        .vertical-divider { display: none; } /* Hide divider on mobile */
+        
+        .tagline { white-space: normal; } /* Allow text wrap on mobile */
+
+        .nav-links { 
+            gap: 15px; 
+            font-size: 1rem;
+        }
+
+        .legal-col { 
+            text-align: center; 
+            align-items: center;
+        }
+        
+        .legal-list { justify-content: center; }
+    }
+</style>
