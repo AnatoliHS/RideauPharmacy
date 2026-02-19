@@ -1,319 +1,463 @@
-   <script>
-document.addEventListener("DOMContentLoaded", () => {
-  // We removed the 'if' check so this runs on mobile too
-  const sections = document.querySelectorAll('.content, .content-about');
-  
-  requestAnimationFrame(() => {
-    sections.forEach(section => {
-      section.classList.add('visible');
-    });
-  });
-});
-</script>
-    
+---
+layout: default.njk
+title: About Us
+---
+
 <style>
-   
-
-
-  .content, .content-about {
-    opacity: 0;
-    transform: translateY(300px);
-    transition: opacity 1.5s ease-out, transform 0.5s ease-out;
+  /* --- GLOBAL & HERO STYLES (Matched to Index) --- */
+  .hero-section {
+    background-color: #588cba;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    color: white;
+    padding-top: 50px;
+    overflow: hidden;
+    margin-bottom: -1px;
   }
 
-  .content.visible, .content-about.visible {
-    opacity: 1;
-    transform: translateY(0);
+  .hero-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 20px;
   }
 
-   @property --angle-1 {
-      syntax: "<angle>";
-      inherits: false;
-      initial-value: -75deg;
+  .hero-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  .hero-text {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    max-width: 800px;
+  }
+
+  /* --- WAVE ANIMATION (Reused) --- */
+  .waves-container {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    background: #588cba;
+    height: 100px;
+    overflow: hidden;
+    margin-bottom: -1px;
+  }
+
+  .waves {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    margin-bottom: -7px;
+    min-height: 100px;
+    max-height: 150px;
+  }
+
+  .parallax>use {
+    animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+  }
+
+  .parallax>use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+    fill: rgba(88, 140, 186, 0.7);
+  }
+
+  .parallax>use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+    fill: rgba(125, 170, 208, 0.7);
+  }
+
+  .parallax>use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+    fill: rgba(163, 201, 230, 0.7);
+  }
+
+  .parallax>use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+    fill: #f2f8fc;
+  }
+
+  @keyframes move-forever {
+    0% {
+      transform: translate3d(-90px, 0, 0);
     }
 
-    @property --angle-2 {
-      syntax: "<angle>";
-      inherits: false;
-      initial-value: -45deg;
+    100% {
+      transform: translate3d(85px, 0, 0);
+    }
+  }
+
+  /* --- CONTENT SECTIONS --- */
+  .content-section {
+    padding: 80px 20px;
+    background: #ffffff;
+  }
+
+  .content-section.alt-bg {
+    background: #f2f8fc;
+  }
+
+  .content-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+  }
+
+  .content-container.reverse {
+    flex-direction: row-reverse;
+  }
+
+  .content-text {
+    flex: 1;
+  }
+
+  .content-image-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .content-image {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    color: #191f4f;
+    margin-bottom: 20px;
+    font-weight: 800;
+  }
+
+  .section-paragraph {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 20px;
+  }
+
+  /* --- MEET THE TEAM --- */
+  .team-section {
+    padding: 100px 20px;
+    background: #ffffff;
+    text-align: center;
+  }
+
+  .team-card {
+    background: #f2f8fc;
+    padding: 40px;
+    border-radius: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    text-align: left;
+    box-shadow: 0 10px 25px rgba(88, 140, 186, 0.15);
+  }
+
+  .team-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+  }
+
+  .team-info h3 {
+    font-size: 2rem;
+    color: #191f4f;
+    margin-bottom: 5px;
+  }
+
+  .team-role {
+    font-size: 1.1rem;
+    color: #588cba;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  /* --- WHY CHOOSE US GRID --- */
+  .why-us-section {
+    padding: 100px 20px;
+    background: #191f4f;
+    color: white;
+  }
+
+  .why-us-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px;
+  }
+
+  .why-us-header h2 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    color: white;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .feature-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .feature-icon-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    display: block;
+    opacity: 0.9;
+  }
+
+  .feature-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: #588cba;
+  }
+
+  .feature-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+  }
+
+  /* --- RESPONSIVE (OPTIMIZED FOR MOBILE) --- */
+  @media (max-width: 900px) {
+
+    /* Reduce overall section padding to save screen space */
+    .content-section,
+    .team-section,
+    .why-us-section {
+      padding: 50px 20px;
     }
 
-    :root {
-      --global--size: clamp(2rem, 4vw, 5rem);
-      --anim--hover-time: 400ms;
-      --anim--hover-ease: cubic-bezier(0.25, 1, 0.5, 1);
+    /* Typography scaling */
+    .hero-title {
+      font-size: 2.2rem;
     }
 
-    .button-wrap {
-      position: relative;
-      z-index: 2;
-      border-radius: 999vw;
-      background: transparent;
-      pointer-events: none;
-      transition: all var(--anim--hover-time) var(--anim--hover-ease);
+    .hero-text {
+      font-size: 1.2rem;
     }
 
-    .button-shadow {
-      --shadow-cuttoff-fix: 2em;
-      position: absolute;
-      width: calc(100% + var(--shadow-cuttoff-fix));
-      height: calc(100% + var(--shadow-cuttoff-fix));
-      top: calc(0% - var(--shadow-cuttoff-fix) / 2);
-      left: calc(0% - var(--shadow-cuttoff-fix) / 2);
-      filter: blur(clamp(2px, 0.125em, 12px));
-      pointer-events: none;
+    .section-title {
+      font-size: 2rem;
     }
 
-    .button-shadow::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 999vw;
-      background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.1));
-      width: calc(100% - var(--shadow-cuttoff-fix) - 0.25em);
-      height: calc(100% - var(--shadow-cuttoff-fix) - 0.25em);
-      top: calc(var(--shadow-cuttoff-fix) - 0.5em);
-      left: calc(var(--shadow-cuttoff-fix) - 0.875em);
-      padding: 0.125em;
-      box-sizing: border-box;
-      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      mask-composite: exclude;
+    .why-us-header h2 {
+      font-size: 2.2rem;
     }
 
-    .glass-button {
-      --border-width: clamp(1px, 0.0625em, 4px);
-      all: unset;
-      cursor: pointer;
-      position: relative;
-      z-index: 3;
-      pointer-events: auto;
-      border-radius: 999vw;
-      background: linear-gradient(-75deg, rgba(1, 213, 255,0.05), rgba(1, 213, 255,0.2), rgba(1, 213, 255,0.05));
-      box-shadow:
-        inset 0 0.125em 0.125em rgba(0,0,0,0.05),
-        inset 0 -0.125em 0.125em rgba(255,255,255,0.5),
-        0 0.25em 0.125em -0.125em rgba(0,0,0,0.2),
-        0 0 0.1em 0.25em inset rgba(255,255,255,0.2),
-        0 0 0 0 rgba(255,255,255,1);
-      backdrop-filter: blur(clamp(1px, 0.125em, 4px));
-      transition: all var(--anim--hover-time) var(--anim--hover-ease);
-      min-width: 220px;
-      text-align: center;
-      font-size: 25px;
-      -webkit-tap-highlight-color: transparent;
-          -webkit-touch-callout: none;
-          user-select: none;
-    }
-
-    .glass-button:hover {
-      transform: scale(0.975);
-      backdrop-filter: blur(0.01em);
-      box-shadow:
-        inset 0 0.125em 0.125em rgba(0,0,0,0.05),
-        inset 0 -0.125em 0.125em rgba(255,255,255,0.5),
-        0 0.15em 0.05em -0.1em rgba(0,0,0,0.25),
-        0 0 0.05em 0.1em inset rgba(255,255,255,0.5),
-        0 0 0 0 rgba(255,255,255,1);
-    }
-
-    .glass-button span {
-      display: block;
-      position: relative;
-      font-weight: 500;
-      letter-spacing: -0.05em;
-      color: #323232;
-      text-shadow: 0em 0.25em 0.05em rgba(0,0,0,0.1);
-      padding: 0.875em 1.5em;
-    }
-
-    .glass-button span::after {
-      content: "";
-      position: absolute;
-      z-index: 1;
-      width: calc(100% - var(--border-width));
-      height: calc(100% - var(--border-width));
-      top: calc(var(--border-width) / 2);
-      left: calc(var(--border-width) / 2);
-      border-radius: 999vw;
-      background: linear-gradient(var(--angle-2), rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 40% 50%, rgba(255,255,255,0) 55%);
-      background-size: 200% 200%;
-      background-position: 0% 50%;
-      mix-blend-mode: screen;
-      pointer-events: none;
-      transition: background-position calc(var(--anim--hover-time) * 1.25) var(--anim--hover-ease), --angle-2 calc(var(--anim--hover-time) * 1.25) var(--anim--hover-ease);
-    }
-
-    .glass-button:hover span::after {
-      background-position: 25% 50%;
-    }
-
-    .glass-button:active span::after {
-      background-position: 50% 15%;
-      --angle-2: -15deg;
-    }
-
-    .glass-button::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 999vw;
-      width: calc(100% + var(--border-width));
-      height: calc(100% + var(--border-width));
-      top: calc(0% - var(--border-width) / 2);
-      left: calc(0% - var(--border-width) / 2);
-      padding: var(--border-width);
-      background: conic-gradient(
-        from var(--angle-1) at 50% 50%,
-        rgba(0,0,0,0.5),
-        rgba(0,0,0,0) 5% 40%,
-        rgba(0,0,0,0.5) 50%,
-        rgba(0,0,0,0) 60% 95%,
-        rgba(0,0,0,0.5)
-      ),
-      linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.5));
-      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      mask-composite: exclude;
-      transition: all var(--anim--hover-time) var(--anim--hover-ease), --angle-1 500ms ease;
-      box-shadow: inset 0 0 0 calc(var(--border-width) / 2) rgba(255,255,255,0.5);
-    }
-
-    .glass-button:hover::after {
-      --angle-1: -125deg;
-    }
-
-    .glass-button:active::after {
-      --angle-1: -75deg;
-    }
-
-    .button-container {
-      --w: 100%;
-      --ai: center;
-      --fd: column;
-      --d: flex;
-      --mt: 50px;
-      display: flex;
-      align-items: center;
+    /* Container stacking & gap reduction */
+    .content-container,
+    .content-container.reverse {
       flex-direction: column;
-      margin-top: 50px;
+      text-align: center;
+      gap: 30px;
+      /* Reduced from 60px */
     }
 
-    .button-row {
-      display: flex;
-      justify-content: center;
-      flex-direction: row;
-      flex-wrap: wrap;
-      max-width: 1100px;
-      padding: 0 5vw;
-      gap: 80px;
-      
-    }
-    @media (max-width: 768px) {
-       
-        .button-row {
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-            padding: 0 5vw;
-        }
-            
-        .button-wrap {
-            width: 100%;
-        }
-
-        .glass-button {
-            width: 100%;
-            
-        }
-        
+    .content-image {
+      max-width: 100%;
+      height: auto;
     }
 
+    /* Team section mobile fix */
+    .team-card {
+      flex-direction: column;
+      text-align: center;
+      padding: 30px 20px;
+      gap: 20px;
+      /* Reduced from 50px */
+    }
+
+    .team-image {
+      width: 180px;
+      /* Scaled down from 250px */
+      height: 180px;
+    }
+
+    .team-info {
+      width: 100%;
+    }
+
+    /* Features/Cards Mobile Fix */
+    .why-us-header {
+      margin: 0 auto 30px;
+      /* Reduced bottom margin */
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+      /* Force 1 column strictly */
+      gap: 20px;
+    }
+
+    .feature-card {
+      padding: 25px 20px;
+      text-align: center;
+      /* Center text inside the card */
+    }
+
+    .feature-icon-img {
+      margin: 0 auto 15px;
+      /* Center the icon above the text */
+    }
+  }
 </style>
-    
-    <div class="info-box"></div>
-    <div class="content">
-        <h1 style="
-      font-size: 2rem;
-      font-weight: bold;
-      background: linear-gradient(90deg, #0968e5, #091970);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 0.3px grey;
-      background-clip: text;
-      text-fill-color: transparent;
-    "><strong>About Us</strong></h1>
-        <p>Our WHMIS course follows all current Canadian safety standards and fully aligns with WHMIS 2015 (GHS). The training was created and reviewed by a Certified WHMIS Trainer, ensuring the content is accurate, compliant, and practical for real workplace settings. Our goal is to provide clear, reliable safety education that helps workers and employers stay compliant and safe.</p>
-            </div>
-    <div class="content">
-        <h1 style="
-      font-size: 2rem;
-      font-weight: bold;
-      background: linear-gradient(90deg, #0968e5, #091970);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 0.3px grey;
-      background-clip: text;
-      text-fill-color: transparent;
-    "><strong>About Our Dental WHMIS Training</strong></h1>
-        <p>Our Dental WHMIS Training is designed specifically for dental professionals, 
-            ensuring that your team is well-equipped to handle workplace hazards unique to 
-            dental clinics. Unlike generic WHMIS courses, our program focuses on the specific
-             chemicals, biohazards, and safety protocols relevant to dental settings.</p>
-            </div>
-            <br>
-            <div class="content">
-            <h1 style="
-      font-size: 2rem;
-      font-weight: bold;
-      background: linear-gradient(90deg, #0968e5, #091970);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 0.3px grey;
-      background-clip: text;
-      text-fill-color: transparent;
-    "><strong>Why Choose Our Online WHMIS Training?</strong></h1>
-                <ul>
-                    <li> Trusted & Verified by Dental Professionals – Our course is developed and reviewed 
-                        by industry experts to meet the latest safety and compliance standards.</li>
-                    <li> Convenient & Accessible – Complete the training 100% online at your own pace, 
-                        from any device, without the need for in-person sessions.</li>
-                    
-                    
-                </ul>
-            <p>By choosing our dental-specific WHMIS training, you are ensuring a safer workplace, regulatory compliance, and a 
-                seamless certification process—all tailored to the unique needs of dental professionals.</p>
-            
-            
-                </div>
-            <br>
-        
-    <br>
-    <!--<div class="content-about">
-        <h5 style="--mx:30px;"><strong>Professional Affiliations</strong></h5>
-        <br>
-        <div class="img" style="--d: flex; --ai: center; --jc: center;">
-           
-            <img src="/assets/OAHI2.png" style="width: 55px; height: auto; --p: 5px;  --w-lg: 120px;" alt="Description of Image 1">
-           
-           
-            <img src="/assets/internachi2.png" style="width: 55px; height: auto;--p: 5px;  --w-lg: 120px;"alt="Description of Image 2">
-           
-           
-            <img src="/assets/flir2.png" style="width: 55px; height: auto;--p: 5px; --w-lg: 120px;"alt="Description of Image 3">
-           
-            
-            <img src="/assets/carson2.png" style="width: 55px; height: auto;--p: 5px;  --w-lg: 120px;"alt="Description of Image 4">
-           
-           
-            <img src="/assets/homegauge2.png"style="width: 55px; height: auto;--p: 5px;  --w-lg: 120px;" alt="Description of Image 5">
-           
-           
-            <img src="/assets/iac22.png"style="width: 55px; height: auto;--p: 5px;  --w-lg: 120px;" alt="Description of Image 5">
-           
-        </div>
-    </div>-->
-    
-    <br>
 
-   
-   
+<div class="hero-section">
+  <div class="hero-container">
+    <h1 class="hero-title">More Than Just a Pharmacy.<br>We Are Your Healthcare Partners.</h1>
+    <p class="hero-text">Serving Ottawa with personalized care, fast service, and a commitment to your health.</p>
+  </div>
+</div>
 
+<div class="waves-container">
+  <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none"
+    shape-rendering="auto">
+    <defs>
+      <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+    </defs>
+    <g class="parallax">
+      <use xlink:href="#gentle-wave" x="48" y="0" />
+      <use xlink:href="#gentle-wave" x="48" y="3" />
+      <use xlink:href="#gentle-wave" x="48" y="5" />
+      <use xlink:href="#gentle-wave" x="48" y="7" />
+    </g>
+  </svg>
+</div>
+
+<section class="content-section alt-bg">
+  <div class="content-container">
+    <div class="content-text">
+      <h2 class="section-title">Who We Are</h2>
+      <p class="section-paragraph">
+        Located in the heart of Ottawa at the corner of Rideau Street and King Edward Avenue, I.D.A. Rideau Pharmacy is
+        a proud, locally operated community pharmacy. We believe that your pharmacist should be your most accessible
+        healthcare provider.
+      </p>
+      <p class="section-paragraph">
+        Whether you live in the downtown core, work nearby, or are a student in the area, our mission is to provide you
+        with fast, personalized, and comprehensive healthcare without the "big box" wait times.
+      </p>
+    </div>
+    <div class="content-image-wrapper">
+      <img src="/assets/team.jpg" alt="Rideau Pharmacy Exterior" class="content-image">
+    </div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="content-container reverse">
+    <div class="content-text">
+      <h2 class="section-title">Our Philosophy</h2>
+      <p class="section-paragraph">
+        Healthcare shouldn't be a hassle. That’s why we’ve built a pharmacy that goes beyond just counting pills. With
+        an on-site telemedicine walk-in clinic and the ability to prescribe medications directly for minor ailments, we
+        are designed to be your first stop for health and wellness.
+      </p>
+      <p class="section-paragraph">
+        From custom medication compounding to offering services in both English and Arabic, we adapt to the unique needs
+        of our diverse Ottawa community.
+      </p>
+    </div>
+    <div class="content-image-wrapper">
+      <img src="/assets/consultation.png" alt="Personalized Care" class="content-image">
+    </div>
+  </div>
+</section>
+
+<section class="team-section">
+  <h2 class="section-title" style="text-align: center; margin-bottom: 50px;">Meet Our Team</h2>
+
+  <div class="team-card">
+    <img src="/assets/user.png" alt="Mirelle (Mira) Tawdrous" class="team-image">
+    <div class="team-info">
+      <h3>Mirelle (Mira) Tawdrous</h3>
+      <span class="team-role">Pharmacist & Manager</span>
+      <p class="section-paragraph">
+        Led by Mira, our dedicated team is known for being friendly, knowledgeable, and always ready to help. Mira and
+        our staff take the time to know our patients by name, review medications thoroughly to prevent interactions, and
+        offer practical advice on managing your day-to-day health.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="why-us-section">
+  <div class="why-us-header">
+    <h2>Why Choose Rideau Pharmacy?</h2>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <img src="/assets/pharmacist.png" alt="Prescribing Icon" class="feature-icon-img">
+      <h3>Prescribing Pharmacists</h3>
+      <p>Skip the clinic wait. We can assess and prescribe treatments for minor ailments like pink eye, rashes, UTIs,
+        and insect bites right at the counter.</p>
+    </div>
+
+    <div class="feature-card">
+      <img src="/assets/doctor.png" alt="Clinic Icon" class="feature-icon-img">
+      <h3>On-Site Walk-In Clinic</h3>
+      <p>Need a doctor? Access our enhanced telemedicine clinic directly from the pharmacy for quick and easy
+        consultations.</p>
+    </div>
+
+    <div class="feature-card">
+      <img src="/assets/modern2.png" alt="Delivery Icon" class="feature-icon-img">
+      <h3>Modern Convenience</h3>
+      <p>We offer easy prescription transfers, automatic refills, and free local delivery throughout the Ottawa area.
+      </p>
+    </div>
+
+    <div class="feature-card">
+      <img src="/assets/care.png" alt="Care Icon" class="feature-icon-img">
+      <h3>Tailored Care</h3>
+      <p>From custom medication compounding to compliance blister packaging, we fit your healthcare to your lifestyle.
+      </p>
+    </div>
+  </div>
+</section>

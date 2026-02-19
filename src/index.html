@@ -1,388 +1,602 @@
 ---
-layout: landing.njk
+layout: default.njk
+title: Home
 ---
 
-<div class="logo-container">
-  <img src="/assets/WW.png" alt="Company Logo" class="site-logo">
-</div>
-
-<div class="intro-container">
-  <div class="inner-container">
-    <h1 class="gradient-text">
-      Work Smart. Stay Safe. Be WHMIS Wise
-    </h1>
-    <p>
-     We provide industry-focused WHMIS training — including Foundational, Dental, and Pharmacy streams — designed to address the unique safety needs of various work environments while ensuring workplace safety, regulatory compliance, and informed handling of hazardous materials.
-    </p>
-  </div>
-</div>
-
-
- <div class="button-container">
-    <div class="button-row">
-      <div class="button-wrap" onclick="location.href='/homeReg/'">
-  <div class="button-label">Foundational</div>
-  <button class="glass-button">
-    <img src="/assets/whimiswise2.png" alt="Foundational WHMIS">
-  </button>
-  
-</div>
-
-      <div class="button-wrap" onclick="location.href='/homePharm/'">
-  <div class="button-label">Pharmaceutical</div>
-  <button class="glass-button">
-    <img src="/assets/pharmaWhmis2.png" alt="Pharmaceutical WHMIS">
-  </button>
-  
-</div>
-
-      <div class="button-wrap" onclick="location.href='/homeDent/'">
-  <div class="button-label">Dental</div>
-  <button class="glass-button">
-    <img src="/assets/whimiswise.png" alt="Dental WHMIS">
-  </button>
-  
-</div>
-    
-  </div>
-
- 
 <style>
-  .button-label {
-  text-align: center;
-  font-size: 2rem;
-  font-weight: 600;
-  background: linear-gradient(90deg, #0968e5, #091970);
-   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 0.3px grey;
-  background-clip: text;
-  text-fill-color: transparent;
-  margin-bottom: 10px;
-  pointer-events: none; /* prevents click blocking */
-}
-/* === Gradient text (your existing style) === */
-.gradient-text { 
-  font-size: 2.5rem;
-  font-weight: bold;
-  background: linear-gradient(90deg, #0968e5, #091970);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 0.3px grey;
-  background-clip: text;
-  text-fill-color: transparent;
-}
-
-.intro-container {
-  display: flex;
-  justify-content: center;   /* centers horizontally */
-  align-items: center;       /* centers vertically if you give container height */
-  text-align: center;        /* centers inline text inside */
-  padding: 20px;
-}
-
-.inner-container {
-  max-width: 900px; /* keeps text from stretching too wide */
-  margin: 0 auto;
-}
-
-.intro-container p {
-  font-size: 28px;       /* default font size for larger screens */
-  line-height: 1.6;
-}
-
-.logo-container {
-  display: flex;
-  justify-content: center;  /* centers logo horizontally */
-  
-}
-
-.button-row {
-  display: flex;
-  justify-content: center; /* centers the row */
-  gap: 20px;              /* space between buttons */
-  margin-top: 30px;       /* space above the buttons */
-  flex-wrap: wrap;        /* wraps on small screens */
-}
-
-@property --angle-1 {
-      syntax: "<angle>";
-      inherits: false;
-      initial-value: -75deg;
+    /* --- 1. GLOBAL & HERO STYLES --- */
+    .hero-section {
+        background-color: #588cba;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 500px;
+        color: white;
+        padding-top: 50px;
+        overflow: hidden;
+        margin-bottom: -1px;
     }
 
-    @property --angle-2 {
-      syntax: "<angle>";
-      inherits: false;
-      initial-value: -45deg;
+    .hero-container {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
     }
 
-    :root {
-      --global--size: clamp(2rem, 4vw, 5rem);
-      --anim--hover-time: 400ms;
-      --anim--hover-ease: cubic-bezier(0.25, 1, 0.5, 1);
+    .hero-left {
+        flex: 1;
+        overflow: hidden;
     }
 
-.button-wrap {
-      position: relative;
-      z-index: 2;
-      border-radius: 999vw;
-      background: transparent;
-      pointer-events: none;
-      transition: all var(--anim--hover-time) var(--anim--hover-ease);
+    .hero-left img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        min-height: 500px;
     }
 
-    .button-shadow {
-      --shadow-cuttoff-fix: 2em;
-      position: absolute;
-      width: calc(100% + var(--shadow-cuttoff-fix));
-      height: calc(100% + var(--shadow-cuttoff-fix));
-      top: calc(0% - var(--shadow-cuttoff-fix) / 2);
-      left: calc(0% - var(--shadow-cuttoff-fix) / 2);
-      filter: blur(clamp(2px, 0.125em, 12px));
-      pointer-events: none;
+    .hero-right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 40px;
+        text-align: left;
     }
 
-    .button-shadow::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 999vw;
-      background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.1));
-      width: calc(100% - var(--shadow-cuttoff-fix) - 0.25em);
-      height: calc(100% - var(--shadow-cuttoff-fix) - 0.25em);
-      top: calc(var(--shadow-cuttoff-fix) - 0.5em);
-      left: calc(var(--shadow-cuttoff-fix) - 0.875em);
-      padding: 0.125em;
-      box-sizing: border-box;
-      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      mask-composite: exclude;
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+        line-height: 1.2;
     }
 
-    .glass-button {
-      --border-width: clamp(1px, 0.0625em, 4px);
-      all: unset;
-      cursor: pointer;
-      position: relative;
-      z-index: 3;
-      pointer-events: auto;
-      border-radius: 999vw;
-      background: linear-gradient(-75deg, rgba(213, 255, 1, 0.05), rgba(1, 213, 255,0.2), rgba(1, 213, 255,0.05));
-      box-shadow:
-        inset 0 0.125em 0.125em rgba(0,0,0,0.05),
-        inset 0 -0.125em 0.125em rgba(255,255,255,0.5),
-        0 0.25em 0.125em -0.125em rgba(0,0,0,0.2),
-        0 0 0.1em 0.25em inset rgba(255,255,255,0.2),
-        0 0 0 0 rgba(255,255,255,1);
-      backdrop-filter: blur(clamp(1px, 0.125em, 4px));
-      transition: all var(--anim--hover-time) var(--anim--hover-ease);
-      min-width: 220px;
-      text-align: center;
-      font-size: 25px;
-      -webkit-tap-highlight-color: transparent;
-          -webkit-touch-callout: none;
-          user-select: none;
+    .hero-text {
+        font-size: 1.9rem;
+        line-height: 1.6;
     }
 
-    .glass-button img {
-  max-width: 150px; /* adjust as needed */
-  height: auto;
-  display: block;
-  margin: 0 auto; /* center image inside button */
-}
-
-    .glass-button:hover {
-      transform: scale(0.975);
-      backdrop-filter: blur(0.01em);
-      box-shadow:
-        inset 0 0.125em 0.125em rgba(0,0,0,0.05),
-        inset 0 -0.125em 0.125em rgba(255,255,255,0.5),
-        0 0.15em 0.05em -0.1em rgba(0,0,0,0.25),
-        0 0 0.05em 0.1em inset rgba(255,255,255,0.5),
-        0 0 0 0 rgba(255,255,255,1);
+    /* --- 2. WAVE ANIMATION --- */
+    .waves-container {
+        position: relative;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        background: #588cba;
+        height: 100px;
+        overflow: hidden;
+        margin-bottom: -1px;
     }
 
-    .glass-button span {
-      display: block;
-      position: relative;
-      font-weight: 500;
-      letter-spacing: -0.05em;
-      color: #323232;
-      text-shadow: 0em 0.25em 0.05em rgba(0,0,0,0.1);
-      padding: 0.875em 1.5em;
+    .waves {
+        position: relative;
+        width: 100%;
+        height: 100px;
+        margin-bottom: -7px;
+        min-height: 100px;
+        max-height: 150px;
     }
 
-    .glass-button span::after {
-      content: "";
-      position: absolute;
-      z-index: 1;
-      width: calc(100% - var(--border-width));
-      height: calc(100% - var(--border-width));
-      top: calc(var(--border-width) / 2);
-      left: calc(var(--border-width) / 2);
-      border-radius: 999vw;
-      background: linear-gradient(var(--angle-2), rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 40% 50%, rgba(255,255,255,0) 55%);
-      background-size: 200% 200%;
-      background-position: 0% 50%;
-      mix-blend-mode: screen;
-      pointer-events: none;
-      transition: background-position calc(var(--anim--hover-time) * 1.25) var(--anim--hover-ease), --angle-2 calc(var(--anim--hover-time) * 1.25) var(--anim--hover-ease);
+    .parallax>use {
+        animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
     }
 
-    .glass-button:hover span::after {
-      background-position: 25% 50%;
+    .parallax>use:nth-child(1) {
+        animation-delay: -2s;
+        animation-duration: 7s;
+        fill: rgba(88, 140, 186, 0.7);
     }
 
-    .glass-button:active span::after {
-      background-position: 50% 15%;
-      --angle-2: -15deg;
+    .parallax>use:nth-child(2) {
+        animation-delay: -3s;
+        animation-duration: 10s;
+        fill: rgba(125, 170, 208, 0.7);
     }
 
-    .glass-button::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 999vw;
-      width: calc(100% + var(--border-width));
-      height: calc(100% + var(--border-width));
-      top: calc(0% - var(--border-width) / 2);
-      left: calc(0% - var(--border-width) / 2);
-      padding: var(--border-width);
-      background: conic-gradient(
-        from var(--angle-1) at 50% 50%,
-        rgba(0,0,0,0.5),
-        rgba(0,0,0,0) 5% 40%,
-        rgba(0,0,0,0.5) 50%,
-        rgba(0,0,0,0) 60% 95%,
-        rgba(0,0,0,0.5)
-      ),
-      linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.5));
-      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      mask-composite: exclude;
-      transition: all var(--anim--hover-time) var(--anim--hover-ease), --angle-1 500ms ease;
-      box-shadow: inset 0 0 0 calc(var(--border-width) / 2) rgba(255,255,255,0.5);
+    .parallax>use:nth-child(3) {
+        animation-delay: -4s;
+        animation-duration: 13s;
+        fill: rgba(163, 201, 230, 0.7);
     }
 
-    .glass-button:hover::after {
-      --angle-1: -125deg;
+    .parallax>use:nth-child(4) {
+        animation-delay: -5s;
+        animation-duration: 20s;
+        fill: #f2f8fc;
     }
 
-    .glass-button:active::after {
-      --angle-1: -75deg;
+    @keyframes move-forever {
+        0% {
+            transform: translate3d(-90px, 0, 0);
+        }
+
+        100% {
+            transform: translate3d(85px, 0, 0);
+        }
     }
 
-    .button-container {
-      --w: 100%;
-      --ai: center;
-      --fd: column;
-      --d: flex;
-      --mt: 50px;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      margin-top: 50px;
+    /* --- 3. CORE POINTS SECTION --- */
+    .core-points-section {
+        padding: 120px 20px 80px;
+        background: #f2f8fc;
+        overflow: hidden;
     }
 
-    .button-row {
-      display: flex;
-      justify-content: center;
-      flex-direction: row;
-      flex-wrap: wrap;
-      max-width: 1100px;
-      padding: 0 5vw;
-      gap: 80px;
-      margin-bottom: 120px;
-      margin-top: -30px;
+    .core-points-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 40px;
     }
 
-    /* Apply the animation */
-.site-logo {
-  max-width: 300px;
-  height: auto;
-  opacity: 0;
-  animation: logoReveal 1.8s ease-out forwards;
-  animation-delay: 0.3s; /* small delay after page load */
-}
+    .core-point {
+        flex: 1;
+        text-align: center;
+        opacity: 0;
+        animation: fadeInUp 1s ease-out forwards;
+    }
 
-    /* Animation for logo reveal */
-@keyframes logoReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(50px); /* starts slightly below */
-    clip-path: inset(100% 0 0 0); /* hidden from bottom */
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(0);
-    clip-path: inset(0 0 0 0); /* fully visible */
-  }
-  100% {
-    opacity: 1;
-    transform: none;
-    clip-path: inset(0 0 0 0);
-  }
-}
+    .core-point:nth-child(1) {
+        animation-delay: 0.5s;
+    }
 
-/* Keyframes for the button "spring up" effect */
-@keyframes springUp {
-  0% {
-    opacity: 0;
-    transform: translateY(80px) scale(0.9);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(-10px) scale(1.05);
-  }
-  80% {
-    transform: translateY(5px) scale(0.98);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
+    .core-point:nth-child(2) {
+        animation-delay: 1.0s;
+    }
 
-/* Apply animation to each button */
-.button-wrap {
-  opacity: 0;
-  animation: springUp 0.9s cubic-bezier(0.25, 1.25, 0.5, 1) forwards;
-}
+    .core-point:nth-child(3) {
+        animation-delay: 1.5s;
+    }
 
-/* Staggered timing + global delay so logo finishes first */
-.button-wrap:nth-child(1) {
-  animation-delay: 1.0s; /* logo (1.8s) + 0.5s pause */
-}
+    .core-point img {
+        height: 250px;
+        width: auto;
+        margin-bottom: 25px;
+        object-fit: contain;
+    }
 
-.button-wrap:nth-child(2) {
-  animation-delay: 1.3s;
-}
+    .core-point h3 {
+        font-size: 1.5rem;
+        color: #191f4f;
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
 
-.button-wrap:nth-child(3) {
-  animation-delay: 1.6s;
-}
+    .core-point p {
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.6;
+    }
 
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
 
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
-@media (max-width: 768px) {
+    /* --- 4. NEW SEQUENCE-STYLE SERVICES SECTION --- */
+    .services-section {
+        padding: 80px 0;
+        background: #f2f8fc;
+        overflow-x: hidden;
+    }
 
-  .button-wrap {
-    opacity: 1 !important;
-    transform: none !important;
-    animation: none !important;
-  }
+    .services-main-title {
+        text-align: center;
+        font-size: 3rem;
+        color: #191f4f;
+        margin-bottom: 60px;
+        font-weight: 800;
+    }
 
-  .intro-container {
-    opacity: 1 !important;
-    transform: scale(1) !important;
-    transition: none;
-  }
+    .sequence-container {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100vw;
+        height: 70vh;
+        margin: 100px 0;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+    }
 
-  .intro-container p {
-    font-size: 20px;     /* smaller font size for mobile */
-  }
-  .button-label {
-    font-size: 18px;
-    margin-bottom: 6px;
-  }
-}
+    .visual-stack {
+        position: relative;
+        width: 60%;
+        height: 100%;
+    }
+
+    .gradient-square {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 55vw;
+        height: 100%;
+        background: #588cba;
+        /* Blue Box */
+        border-radius: 0 20px 20px 0;
+        z-index: 1;
+    }
+
+    .sliding-image-wrap {
+        position: absolute;
+        left: 80px;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 85%;
+        width: 100%;
+        z-index: 2;
+    }
+
+    .design-image {
+        width: 90%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 12px;
+        box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Mirror Logic (Service 2 & 4) */
+    .sequence-container.mirror {
+        flex-direction: row-reverse;
+    }
+
+    .sequence-container.mirror .gradient-square {
+        left: auto;
+        right: 0;
+        background: #ee6257;
+        /* Red Box */
+        border-radius: 20px 0 0 20px;
+    }
+
+    .sequence-container.mirror .sliding-image-wrap {
+        left: auto;
+        right: 80px;
+    }
+
+    /* Text Content */
+    .sequence-content {
+        width: 40%;
+        padding: 0 60px;
+        z-index: 5;
+    }
+
+    .sequence-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #191f4f;
+        margin-bottom: 20px;
+    }
+
+    .service-text {
+        font-size: 1.2rem;
+        line-height: 1.7;
+        color: #333;
+    }
+
+    .quick-contact {
+        padding: 100px 20px;
+        background: #ffffff;
+    }
+
+    .contact-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 80px;
+    }
+
+    .contact-info {
+        flex: 1;
+    }
+
+    .contact-map-placeholder {
+        flex: 1;
+    }
+
+    .contact-title {
+        font-size: 2.8rem;
+        color: #191f4f;
+        margin-bottom: 15px;
+        font-weight: 800;
+    }
+
+    .contact-subtitle {
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 40px;
+        line-height: 1.6;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .info-icon {
+        font-size: 1.8rem;
+        background: #f2f8fc;
+        padding: 15px;
+        border-radius: 50%;
+        line-height: 1;
+    }
+
+    .info-text strong {
+        display: block;
+        font-size: 1.2rem;
+        color: #191f4f;
+        margin-bottom: 5px;
+    }
+
+    .info-text p {
+        font-size: 1.1rem;
+        color: #666;
+        margin: 0;
+    }
+
+    .contact-image {
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+        border-radius: 24px;
+        box-shadow: 0 20px 40px rgba(25, 31, 79, 0.1);
+    }
+
+    /* --- 5. RESPONSIVE BREAKPOINTS --- */
+    @media (max-width: 1024px) {
+        .hero-container {
+            flex-direction: column;
+        }
+
+        .hero-section {
+            padding-top: 40px;
+        }
+
+        .hero-left img {
+            min-height: 250px;
+        }
+
+        .hero-right {
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+        }
+
+        .hero-text {
+            font-size: 1.2rem;
+        }
+
+        .core-points-container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .core-point {
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        /* Mobile Sequence Layout */
+        .sequence-container,
+        .sequence-container.mirror {
+            flex-direction: column !important;
+            height: auto !important;
+            margin: 60px 0 !important;
+            left: 0;
+            transform: none;
+            width: 100%;
+        }
+
+        .visual-stack {
+            width: 100% !important;
+            height: 350px !important;
+        }
+
+        .gradient-square,
+        .sequence-container.mirror .gradient-square {
+            left: 0 !important;
+            right: auto !important;
+            width: 90% !important;
+            height: 350px !important;
+            border-radius: 0 20px 20px 0 !important;
+        }
+
+        .sliding-image-wrap,
+        .sequence-container.mirror .sliding-image-wrap {
+            left: 20px !important;
+            right: auto !important;
+            height: 300px !important;
+            width: 100% !important;
+            top: 25px !important;
+            transform: none;
+        }
+
+        .design-image {
+            width: 90vw !important;
+            height: 100% !important;
+        }
+
+        .sequence-content {
+            width: 100% !important;
+            padding: 40px 20px !important;
+            text-align: center;
+        }
+
+        .contact-container {
+            flex-direction: column;
+            text-align: center;
+            gap: 50px;
+        }
+
+        .info-item {
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-title {
+            font-size: 2.2rem;
+        }
+
+        .contact-image {
+            height: 300px;
+        }
+    }
 </style>
+
+<div class="hero-section">
+    <div class="hero-container">
+        <div class="hero-left">
+            <img src="/assets/rideau-House.png" alt="Pharmacy Interior">
+        </div>
+        <div class="hero-right">
+            <h1 class="hero-title">Your Trusted Neighborhood Pharmacy</h1>
+            <p class="hero-text">Providing quality healthcare, prescription services, and wellness products with care
+                and convenience right in your community.</p>
+        </div>
+    </div>
+</div>
+
+<div class="waves-container">
+    <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none"
+        shape-rendering="auto">
+        <defs>
+            <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+            <use xlink:href="#gentle-wave" x="48" y="0" />
+            <use xlink:href="#gentle-wave" x="48" y="3" />
+            <use xlink:href="#gentle-wave" x="48" y="5" />
+            <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+    </svg>
+</div>
+
+<div class="core-points-section">
+    <div class="core-points-container">
+        <div class="core-point">
+            <img src="/assets/rx.png" alt="Prescription Care">
+            <h3>Personalized Prescription Care</h3>
+            <p>We don’t just fill bottles; we manage your health with precision and expert consultation.</p>
+        </div>
+        <div class="core-point">
+            <img src="/assets/modern.png" alt="Modern Convenience">
+            <h3>Modern Convenience</h3>
+            <p>Easy transfers, online refills, and quick service without the "big box" wait times.</p>
+        </div>
+        <div class="core-point">
+            <img src="/assets/community.png" alt="Community Wellness">
+            <h3>Community-First Wellness</h3>
+            <p>Locally owned and operated, dedicated to the families in our neighborhood.</p>
+        </div>
+    </div>
+</div>
+
+<div class="services-section">
+    <h2 class="services-main-title">Our Services</h2>
+
+    <div class="sequence-container">
+        <div class="visual-stack">
+            <div class="gradient-square"></div>
+            <div class="sliding-image-wrap">
+                <img src="/assets/vaccine.jpg" alt="Vaccination" class="design-image">
+            </div>
+        </div>
+        <div class="sequence-content">
+            <h2 class="sequence-title">Immunizations & Vaccinations</h2>
+            <p class="service-text">Providing a convenient way for the community to stay protected. From annual flu
+                shots to travel vaccines, we offer professional administration without the long wait times.</p>
+        </div>
+    </div>
+
+    <div class="sequence-container mirror">
+        <div class="visual-stack">
+            <div class="gradient-square"></div>
+            <div class="sliding-image-wrap">
+                <img src="/assets/delivery.png" alt="Free Delivery" class="design-image">
+            </div>
+        </div>
+        <div class="sequence-content">
+            <h2 class="sequence-title">Free Local Delivery</h2>
+            <p class="service-text">We bring your health to your doorstep. Our reliable delivery service ensures your
+                prescriptions and wellness essentials arrive safely and on time.</p>
+        </div>
+    </div>
+
+    <div class="sequence-container">
+        <div class="visual-stack">
+            <div class="gradient-square"></div>
+            <div class="sliding-image-wrap">
+                <img src="/assets/pack.jpg" alt="Compliance Packaging" class="design-image">
+            </div>
+        </div>
+        <div class="sequence-content">
+            <h2 class="sequence-title">Compliance Packaging</h2>
+            <p class="service-text">Taking the guesswork out of medication. We organize your daily doses into clearly
+                labeled blister packs, helping you stay on track with complex schedules.</p>
+        </div>
+    </div>
+
+    <div class="sequence-container mirror">
+        <div class="visual-stack">
+            <div class="gradient-square"></div>
+            <div class="sliding-image-wrap">
+                <img src="/assets/consult.png" alt="Consultations" class="design-image">
+            </div>
+        </div>
+        <div class="sequence-content">
+            <h2 class="sequence-title">Professional Consultations</h2>
+            <p class="service-text">Your pharmacist is your most accessible healthcare provider. We offer private
+                one-on-one consultations to review your medications and answer your health questions.</p>
+        </div>
+    </div>
+</div>
+<section class="quick-contact">
+    <div class="contact-container">
+        <div class="contact-info">
+            <h2 class="contact-title">Visit Us Today</h2>
+            <p class="contact-subtitle">We are conveniently located in the heart of the community, ready to serve your
+                healthcare needs.</p>
+
+            <div class="info-item">
+                <span class="info-icon">📍</span>
+                <div class="info-text">
+                    <strong>Our Address</strong>
+                    <p>390 Rideau St, Ottawa, ON K1N 5Y8</p>
+                </div>
+            </div>
+
+            <div class="info-item">
+                <span class="info-icon">📞</span>
+                <div class="info-text">
+                    <strong>Give Us a Call</strong>
+                    <p>(613) 789-4444</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-map-placeholder">
+            <img src="/assets/street.png" alt="Rideau Pharmacy Storefront" class="contact-image">
+        </div>
+    </div>
+</section>
