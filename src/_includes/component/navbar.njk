@@ -246,9 +246,30 @@
 
   function handleNavigation(event, url) {
     event.preventDefault();
+    navbar.classList.remove('open'); // Close the mobile menu after selection
+    
     const link = event.currentTarget;
     link.style.opacity = "0.7";
-    setTimeout(() => { window.location.href = url; }, 450);
+
+    setTimeout(() => {
+      link.style.opacity = "1";
+      if (url.startsWith('#')) {
+        const target = document.querySelector(url);
+        if (target) {
+          // Calculate if we need a custom offset for the sticky header
+          const headerOffset = 100;
+          const elementPosition = target.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }
+      } else {
+        window.location.href = url;
+      }
+    }, 500); // Increased delay to allow mobile menu to fully close (400ms transition)
   }
 
   // Adjust mobile floating button position to prevent overlapping footer
