@@ -4,44 +4,162 @@ title: Home
 ---
 
 <style>
+    html {
+        scroll-behavior: smooth;
+    }
+
     /* --- 1. GLOBAL & HERO STYLES --- */
+    .core-points-section {
+        background: #ffffff;
+        padding: 60px 30px 100px;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        box-sizing: border-box;
+    }
+
+    /* --- INTRO DESCRIPTION --- */
+    .intro-description-section {
+        padding: 100px 30px 40px;
+        background: #f2f8fc;
+        text-align: center;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        box-sizing: border-box;
+    }
+
+    @media (min-width: 1025px) {
+        .intro-description-section {
+            padding-top: 150px;
+        }
+    }
+
+    .intro-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    @media (min-width: 1025px) {
+        .intro-container {
+            max-width: 1200px;
+        }
+    }
+
+    .intro-text-large {
+        font-family: 'Teodor', serif;
+        font-size: 2rem;
+        line-height: 1.6;
+        color: #191f4f;
+        font-weight: 400;
+        margin-bottom: 30px;
+    }
+
+    @media (min-width: 1025px) {
+        .intro-text-large {
+            font-size: 2.5rem;
+            line-height: 1.4;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .intro-text-large {
+            font-size: 1.5rem;
+            line-height: 1.5;
+        }
+    }
+
     .hero-section {
-        background-color: #588cba;
+        background: linear-gradient(#588cba, #345470);
         width: 100vw;
         margin-left: calc(-50vw + 50%);
         display: flex;
-        align-items: center;
-        justify-content: center;
+        flex-direction: column;
         min-height: 500px;
         color: white;
-        padding-top: 50px;
+        padding-top: 20px;
+        position: relative;
         overflow: hidden;
         margin-bottom: -1px;
+    }
+
+    /* --- ANIMATIONS --- */
+    @keyframes slideInRight {
+        from {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(5%);
+        }
+
+        /* Desktop Offset */
+    }
+
+    @keyframes slideInCenter {
+        from {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Mobile Centered */
+    }
+
+    @keyframes slideInLeft {
+        from {
+            opacity: 0;
+            transform: translateX(-100px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideInTop {
+        from {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     .hero-container {
         display: flex;
         flex-direction: row;
         width: 100%;
-        max-width: 100%;
-        margin: 0;
+        max-width: 1400px;
+        margin: 0 auto;
+        z-index: 2;
+        align-items: center;
+        gap: 20px;
+        flex-grow: 1;
     }
 
     .hero-left {
-        flex: 1;
-        overflow: hidden;
-    }
-
-    .hero-left img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        min-height: 500px;
-    }
-
-    .hero-right {
-        flex: 1;
+        flex: 0.6;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -49,27 +167,111 @@ title: Home
         text-align: left;
     }
 
+    .hero-right {
+        flex: 1.4;
+        padding: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* --- HERO CAROUSEL --- */
+    .hero-carousel {
+        width: 100%;
+        max-width: 800px;
+        aspect-ratio: 16 / 10;
+        position: relative;
+        overflow: hidden;
+        border-radius: 40px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        opacity: 0;
+        animation: slideInRight 1s ease-out forwards;
+        animation-delay: 0s;
+    }
+
+    .carousel-track {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .carousel-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+    }
+
+    .carousel-slide.active {
+        opacity: 1;
+        z-index: 10;
+    }
+
+    .carousel-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .carousel-dots {
+        position: absolute;
+        bottom: 25px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 12px;
+        z-index: 20;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.4);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .dot.active {
+        background: white;
+        transform: scale(1.3);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
     .hero-title {
-        font-size: 3.5rem;
-        font-weight: bold;
+        font-size: 4.8rem;
+        font-weight: 400;
         margin-bottom: 20px;
-        line-height: 1.2;
+        line-height: 1.1;
+        color: white;
+        opacity: 0;
+        animation: slideInTop 1s ease-out forwards;
+        animation-delay: 0.5s;
     }
 
     .hero-text {
-        font-size: 1.9rem;
+        font-size: 1.4rem;
         line-height: 1.6;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 10px;
+        opacity: 0;
+        animation: slideInLeft 1s ease-out forwards;
+        animation-delay: 1.0s;
     }
 
     /* --- 2. WAVE ANIMATION --- */
     .waves-container {
         position: relative;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        background: #588cba;
+        width: 100%;
         height: 100px;
-        overflow: hidden;
-        margin-bottom: -1px;
+        z-index: 2;
+        margin-bottom: -7px;
     }
 
     .waves {
@@ -144,15 +346,15 @@ title: Home
     }
 
     .core-point:nth-child(1) {
-        animation-delay: 0.5s;
+        animation-delay: 1.5s;
     }
 
     .core-point:nth-child(2) {
-        animation-delay: 1.0s;
+        animation-delay: 1.8s;
     }
 
     .core-point:nth-child(3) {
-        animation-delay: 1.5s;
+        animation-delay: 2.1s;
     }
 
     .core-point img {
@@ -175,31 +377,21 @@ title: Home
         line-height: 1.6;
     }
 
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(40px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    /* --- 4. NEW SEQUENCE-STYLE SERVICES SECTION --- */
+    /* --- 4. SERVICES SECTION --- */
     .services-section {
         padding: 80px 0;
-        background: #f2f8fc;
+        background: #ffffff;
+        /* Changed to white to contrast the diagonal slice */
         overflow-x: hidden;
     }
 
     .services-main-title {
         text-align: center;
-        font-size: 3rem;
+        font-size: 3.5rem;
         color: #191f4f;
         margin-bottom: 60px;
-        font-weight: 800;
+        font-weight: 500;
+        letter-spacing: -0.5px;
     }
 
     .sequence-container {
@@ -226,8 +418,7 @@ title: Home
         top: 0;
         width: 55vw;
         height: 100%;
-        background: #588cba;
-        /* Blue Box */
+        background: linear-gradient(#588cba, #345470);
         border-radius: 0 20px 20px 0;
         z-index: 1;
     }
@@ -250,7 +441,6 @@ title: Home
         box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
     }
 
-    /* Mirror Logic (Service 2 & 4) */
     .sequence-container.mirror {
         flex-direction: row-reverse;
     }
@@ -258,17 +448,15 @@ title: Home
     .sequence-container.mirror .gradient-square {
         left: auto;
         right: 0;
-        background: #ee6257;
-        /* Red Box */
+        background: linear-gradient(#ee6257, #8f3b34);
         border-radius: 20px 0 0 20px;
     }
 
     .sequence-container.mirror .sliding-image-wrap {
         left: auto;
-        right: 80px;
+        right: 10px;
     }
 
-    /* Text Content */
     .sequence-content {
         width: 40%;
         padding: 0 60px;
@@ -277,7 +465,7 @@ title: Home
 
     .sequence-title {
         font-size: 2.5rem;
-        font-weight: 800;
+        font-weight: 400;
         color: #191f4f;
         margin-bottom: 20px;
     }
@@ -288,6 +476,43 @@ title: Home
         color: #333;
     }
 
+    /* --- PARALLAX SECTION --- */
+    .parallax-divider {
+        background-image: url('/assets/pharmacy8.png');
+        height: 600px;
+        /* Distinct height for the parallax effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+    }
+
+    @media (max-width: 1024px) {
+        .parallax-divider {
+            background-image: none; /* Handled by pseudo-element */
+            background-attachment: scroll;
+            height: 450px;
+            clip-path: inset(0);
+            position: relative;
+        }
+
+        .parallax-divider::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/assets/pharmacy8.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            will-change: transform;
+        }
+    }
+
+    /* --- 5. CONTACT SECTION --- */
     .quick-contact {
         padding: 100px 20px;
         background: #ffffff;
@@ -302,10 +527,6 @@ title: Home
     }
 
     .contact-info {
-        flex: 1;
-    }
-
-    .contact-map-placeholder {
         flex: 1;
     }
 
@@ -359,31 +580,71 @@ title: Home
         box-shadow: 0 20px 40px rgba(25, 31, 79, 0.1);
     }
 
-    /* --- 5. RESPONSIVE BREAKPOINTS --- */
+    /* --- 6. RESPONSIVE BREAKPOINTS --- */
     @media (max-width: 1024px) {
         .hero-container {
             flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 10px 20px 40px 20px;
         }
 
         .hero-section {
-            padding-top: 40px;
+            padding-top: 5px;
         }
 
-        .hero-left img {
-            min-height: 250px;
+        .waves-container {
+            transform: translateY(-40px);
         }
 
-        .hero-right {
-            padding: 30px 20px;
-            text-align: center;
+        .hero-left {
+            display: contents;
         }
 
         .hero-title {
-            font-size: 2rem;
+            font-size: 2.8rem;
+            order: 1;
+            margin-bottom: 0;
+            text-align: center;
+        }
+
+        .hero-right {
+            order: 2;
+            padding: 0;
+            margin: 0 0 25px 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-carousel {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 16 / 10;
+            border-radius: 24px; /* Slightly tighter on mobile */
+            animation: slideInCenter 1s ease-out forwards;
+        }
+
+        .carousel-dots {
+            bottom: 15px;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+        }
+
+        .hero-right img {
+            max-height: 350px;
+            transform: none;
+            animation: slideInCenter 1s ease-out forwards;
         }
 
         .hero-text {
             font-size: 1.2rem;
+            order: 3;
+            padding: 0 10px;
         }
 
         .core-points-container {
@@ -396,7 +657,6 @@ title: Home
             margin-bottom: 40px;
         }
 
-        /* Mobile Sequence Layout */
         .sequence-container,
         .sequence-container.mirror {
             flex-direction: column !important;
@@ -462,35 +722,458 @@ title: Home
             height: 300px;
         }
     }
+
+    /* --- 7. NEW SHARED CONTENT STYLES (FROM ABOUT/FAQ/CONTACT) --- */
+    .content-section {
+        padding: 80px 20px;
+        background: #ffffff;
+    }
+
+    .content-section.alt-bg {
+        background: #f2f8fc;
+    }
+
+    .content-container-wide {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 60px;
+    }
+
+    .content-container-wide.reverse {
+        flex-direction: row-reverse;
+    }
+
+    .content-text {
+        flex: 1;
+    }
+
+    .content-image-wrapper {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .content-image {
+        width: 100%;
+        max-width: 500px;
+        border-radius: 20px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        object-fit: cover;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        color: #191f4f;
+        margin-bottom: 20px;
+        font-weight: 400;
+    }
+
+    .section-paragraph {
+        font-size: 1.15rem;
+        line-height: 1.8;
+        color: #444;
+        margin-bottom: 20px;
+    }
+
+    /* --- TEAM SECTION --- */
+    .team-section {
+        padding: 100px 20px;
+        background: #ffffff;
+        text-align: center;
+    }
+
+    .team-card {
+        background: #f2f8fc;
+        padding: 40px;
+        border-radius: 24px;
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 50px;
+        text-align: left;
+        box-shadow: 0 10px 25px rgba(88, 140, 186, 0.15);
+    }
+
+    .team-image {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid #fff;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        flex-shrink: 0;
+    }
+
+    .team-info h3 {
+        font-size: 2rem;
+        color: #191f4f;
+        margin-bottom: 5px;
+    }
+
+    .team-role {
+        font-size: 1.1rem;
+        color: #588cba;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    /* --- WHY US GRID --- */
+    .why-us-section {
+        padding: 100px 20px;
+        background: #191f4f;
+        color: white;
+    }
+
+    .why-us-header {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 60px;
+    }
+
+    .why-us-header h2 {
+        font-size: 2.8rem;
+        margin-bottom: 20px;
+        color: white;
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .feature-card {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 30px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    .feature-icon-img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        margin-bottom: 20px;
+        display: block;
+        opacity: 0.9;
+    }
+
+    .feature-card h3 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        color: #588cba;
+    }
+
+    .feature-card p {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #e0e0e0;
+    }
+
+    /* --- FAQ STYLES --- */
+    .faq-container {
+        width: 100vw;
+        padding: 100px 20px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #ffffff;
+        margin-left: calc(-50vw + 50%);
+    }
+
+    .faq {
+        position: relative;
+        z-index: 1;
+        margin: 0 auto;
+        background: transparent;
+        border-bottom: 1px solid rgba(25, 31, 79, 0.1);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        width: 100%;
+        max-width: 900px;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .faq:first-of-type {
+        border-top: 1px solid rgba(25, 31, 79, 0.1);
+    }
+
+    .faq.visible {
+        opacity: 1;
+        transform: translateY(0);
+        transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+    }
+
+    .faq:hover {
+        background: rgba(88, 140, 186, 0.03);
+    }
+
+    .faq-question {
+        padding: 30px 10px;
+        cursor: pointer;
+        font-weight: 400;
+        font-size: 1.3rem;
+        color: #191f4f;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        user-select: none;
+        font-family: 'Teodor', serif;
+        transition: color 0.3s ease;
+    }
+
+    .faq-question::after {
+        content: '+';
+        font-size: 1.8rem;
+        color: #588cba;
+        font-weight: 300;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .faq.active .faq-question {
+        color: #588cba;
+    }
+
+    .faq.active .faq-question::after {
+        transform: rotate(45deg);
+        color: #191f4f;
+    }
+
+    .faq-answer {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .answer-content {
+        overflow: hidden;
+        opacity: 0;
+        transition: opacity 0.4s ease-out;
+        padding: 0 10px;
+    }
+
+    .answer-content p {
+        margin-top: 0;
+        margin-bottom: 30px;
+        color: #555;
+        line-height: 1.8;
+        font-size: 1.1rem;
+    }
+
+    .faq.active .faq-answer {
+        grid-template-rows: 1fr;
+    }
+
+    .faq.active .answer-content {
+        opacity: 1;
+        transition-delay: 0.1s;
+    }
+
+    /* --- BOOKING STYLES --- */
+    .booking-section {
+        padding: 100px 20px;
+        background: #ffffff;
+    }
+
+    .booking-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* --- ENHANCED CONTACT STYLES --- */
+    .contact-details {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .contact-icon {
+        font-size: 1.8rem;
+        background: #f2f8fc;
+        padding: 15px;
+        border-radius: 50%;
+        line-height: 1;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .contact-item strong {
+        display: block;
+        font-size: 1.2rem;
+        color: #191f4f;
+        margin-bottom: 5px;
+    }
+
+    .contact-item p {
+        font-size: 1.1rem;
+        color: #555;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .map-hover:hover {
+        transform: scale(1.02);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    /* --- 8. SECTION ANCHOR OFFSET --- */
+    [id] {
+        scroll-margin-top: 100px;
+    }
+
+    @media (max-width: 1024px) {
+
+        .content-container-wide,
+        .content-container-wide.reverse {
+            flex-direction: column;
+            text-align: center;
+            gap: 30px;
+        }
+
+        .team-card {
+            flex-direction: column;
+            text-align: center;
+            padding: 30px 20px;
+            gap: 20px;
+        }
+
+        .team-image {
+            width: 180px;
+            height: 180px;
+        }
+
+        .features-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .faq-container {
+            padding: 60px 20px;
+        }
+
+        .faq-question {
+            padding: 20px;
+            font-size: 1rem;
+        }
+
+        .answer-content {
+            padding: 0 20px;
+        }
+
+        /* Contact Mobile Fixes */
+        .contact-container {
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+        }
+
+        .contact-info {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .contact-details {
+            align-items: center;
+        }
+
+        .contact-item {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            margin-bottom: 5px;
+        }
+    }
 </style>
 
 <div class="hero-section">
     <div class="hero-container">
         <div class="hero-left">
-            <img src="/assets/rideau-House.png" alt="Pharmacy Interior">
-        </div>
-        <div class="hero-right">
             <h1 class="hero-title">Your Trusted Neighborhood Pharmacy</h1>
             <p class="hero-text">Providing quality healthcare, prescription services, and wellness products with care
                 and convenience right in your community.</p>
         </div>
+        <div class="hero-right">
+            <div class="hero-carousel">
+                <div class="carousel-track">
+                    <div class="carousel-slide active">
+                        <img src="/assets/paralex2.jpg" alt="Rideau Pharmacy Storefront">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/blood-preassure.jpg" alt="Health Monitoring Services">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/medication.jpg" alt="Professional Prescription Care">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/assets/consult2.png" alt="Professional Consultations">
+                    </div>
+                </div>
+                <div class="carousel-dots">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="waves-container">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none"
+            shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" />
+                <use xlink:href="#gentle-wave" x="48" y="3" />
+                <use xlink:href="#gentle-wave" x="48" y="5" />
+                <use xlink:href="#gentle-wave" x="48" y="7" />
+            </g>
+        </svg>
     </div>
 </div>
 
-<div class="waves-container">
-    <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none"
-        shape-rendering="auto">
-        <defs>
-            <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-        </defs>
-        <g class="parallax">
-            <use xlink:href="#gentle-wave" x="48" y="0" />
-            <use xlink:href="#gentle-wave" x="48" y="3" />
-            <use xlink:href="#gentle-wave" x="48" y="5" />
-            <use xlink:href="#gentle-wave" x="48" y="7" />
-        </g>
-    </svg>
-</div>
+<section class="intro-description-section">
+    <div class="intro-container">
+        <p class="intro-text-large">
+            Located in the heart of Ottawa at the corner of Rideau and Friel Street, I.D.A. Rideau Pharmacy is
+            a proud, locally operated community pharmacy. We believe that your pharmacist should be your most
+            accessible healthcare provider. Whether you live in the downtown core, work nearby, or are a student in the
+            area, our mission is to
+            provide you with fast, personalized, and comprehensive healthcare without the "big box" wait times.
+        </p>
+
+    </div>
+</section>
 
 <div class="core-points-section">
     <div class="core-points-container">
@@ -512,9 +1195,88 @@ title: Home
     </div>
 </div>
 
-<div class="services-section">
-    <h2 class="services-main-title">Our Services</h2>
+<div id="about-section">
 
+    <section class="content-section">
+        <div class="content-container-wide reverse">
+            <div class="content-text">
+                <h2 class="section-title">Our Philosophy</h2>
+                <p class="section-paragraph">
+                    Healthcare shouldn't be a hassle. That’s why we’ve built a pharmacy that goes beyond just counting
+                    pills. With
+                    an on-site telemedicine walk-in clinic and the ability to prescribe medications directly for minor
+                    ailments, we
+                    are designed to be your first stop for health and wellness.
+                </p>
+                <p class="section-paragraph">
+                    From custom medication compounding to offering services in both English, French and Arabic, we adapt
+                    to the
+                    unique needs
+                    of our diverse Ottawa community.
+                </p>
+            </div>
+            <div class="content-image-wrapper">
+                <img src="/assets/consultation.png" alt="Our Philosophy" class="content-image">
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 50px;">Meet Our Team</h2>
+        <div class="team-card">
+            <img src="/assets/manager-photo.png" alt="Mirelle (Mira) Tawdrous" class="team-image">
+            <div class="team-info">
+                <h3>Mirelle (Mira) Tawdrous</h3>
+                <span class="team-role">Pharmacist & Manager</span>
+                <p class="section-paragraph">
+                    Led by Mira, our dedicated team is known for being friendly, knowledgeable, and always ready to
+                    help. Mira and
+                    our staff take the time to know our patients by name, review medications thoroughly to prevent
+                    interactions, and
+                    offer practical advice on managing your day-to-day health.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="why-us-section">
+        <div class="why-us-header">
+            <h2>Why Choose Rideau Pharmacy?</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <img src="/assets/pharmacist.png" alt="Prescribing Icon" class="feature-icon-img">
+                <h3>Prescribing Pharmacists</h3>
+                <p>Skip the clinic wait. We can assess and prescribe treatments for minor ailments like pink eye,
+                    rashes, UTIs,
+                    and insect bites right at the counter.</p>
+            </div>
+            <div class="feature-card">
+                <img src="/assets/doctor.png" alt="Clinic Icon" class="feature-icon-img">
+                <h3>On-Site Walk-In Clinic</h3>
+                <p>Need a doctor? Access our enhanced telemedicine clinic directly from the pharmacy for quick and easy
+                    consultations.</p>
+            </div>
+            <div class="feature-card">
+                <img src="/assets/modern2.png" alt="Delivery Icon" class="feature-icon-img">
+                <h3>Modern Convenience</h3>
+                <p>We offer easy prescription transfers, automatic refills, and free local delivery throughout the
+                    Ottawa area.
+                </p>
+            </div>
+            <div class="feature-card">
+                <img src="/assets/care.png" alt="Care Icon" class="feature-icon-img">
+                <h3>Tailored Care</h3>
+                <p>From custom medication compounding to compliance blister packaging, we fit your healthcare to your
+                    lifestyle.
+                </p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div id="services-section" class="services-section">
+    <h2 class="services-main-title">Our Services</h2>
     <div class="sequence-container">
         <div class="visual-stack">
             <div class="gradient-square"></div>
@@ -533,7 +1295,7 @@ title: Home
         <div class="visual-stack">
             <div class="gradient-square"></div>
             <div class="sliding-image-wrap">
-                <img src="/assets/delivery.png" alt="Free Delivery" class="design-image">
+                <img src="/assets/home-delivery.png" alt="Free Delivery" class="design-image">
             </div>
         </div>
         <div class="sequence-content">
@@ -571,32 +1333,205 @@ title: Home
         </div>
     </div>
 </div>
-<section class="quick-contact">
+
+<div class="parallax-divider"></div>
+
+<div id="faq-section" class="faq-container">
+    <h2 class="section-title" style="text-align: center; margin-bottom: 40px;">Frequently Asked Questions</h2>
+    <div class="faq">
+        <div class="faq-question">How do I transfer my prescriptions to Rideau Pharmacy?</div>
+        <div class="faq-answer">
+            <div class="answer-content">
+                <p>It's incredibly easy! Simply give us a call at (613) 789-4444 or bring in your current medication
+                    bottles. Our team will handle the rest by contacting your previous pharmacy to transfer your files
+                    seamlessly.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="faq">
+        <div class="faq-question">Do you offer prescription delivery?</div>
+        <div class="faq-answer">
+            <div class="answer-content">
+                <p>Yes, we offer free local delivery throughout the Ottawa area. Just let us know when you request your
+                    refill, and we will bring your medications straight to your door.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="faq">
+        <div class="faq-question">Can the pharmacist prescribe medications?</div>
+        <div class="faq-answer">
+            <div class="answer-content">
+                <p>Our prescribing pharmacists can assess and write prescriptions for a variety of minor ailments right
+                    at the counter, including pink eye, UTIs, cold sores, and insect bites.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="faq">
+        <div class="faq-question">How does the on-site telemedicine clinic work?</div>
+        <div class="faq-answer">
+            <div class="answer-content">
+                <p>Consult with a licensed physician via a secure video link from our pharmacy. The doctor can diagnose
+                    conditions and send prescriptions straight to our pharmacists for immediate pickup.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="faq">
+        <div class="faq-question">Do you provide compliance blister packaging?</div>
+        <div class="faq-answer">
+            <div class="answer-content">
+                <p>Absolutely. We offer custom blister packaging to help you organize your daily doses by day and time,
+                    ensuring you take the right medication exactly when needed.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="faq">
+        <div class="faq-question">What languages are spoken at Rideau Pharmacy?</div>
+        <div class="faq-answer">
+            <div class="answer-content">
+                <p>Our friendly team is fluent and ready to assist you in English, French, and Arabic.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="booking-section" class="booking-section">
+    <div class="booking-container">
+        <h2 class="section-title" style="text-align: center;">Book an Appointment</h2>
+        <p class="section-paragraph" style="text-align: center; max-width: 700px; margin: 0 auto 40px;">
+            Select a time that works for you. Our pharmacists are available for consultations, minor ailment
+            prescribing, and medication reviews.
+        </p>
+
+        <div class="calendly-inline-widget" data-url="https://calendly.com/YOUR_LINK_HERE"
+            style="min-width:320px;height:700px;"></div>
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    </div>
+</section>
+
+<section id="contact-section" class="quick-contact">
     <div class="contact-container">
         <div class="contact-info">
             <h2 class="contact-title">Visit Us Today</h2>
             <p class="contact-subtitle">We are conveniently located in the heart of the community, ready to serve your
                 healthcare needs.</p>
-
-            <div class="info-item">
-                <span class="info-icon">📍</span>
-                <div class="info-text">
-                    <strong>Our Address</strong>
-                    <p>390 Rideau St, Ottawa, ON K1N 5Y8</p>
+            <div class="contact-details">
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <div class="info-text">
+                        <strong>Our Address</strong>
+                        <p>390 Rideau St, Ottawa, ON K1N 5Y8</p>
+                    </div>
                 </div>
-            </div>
-
-            <div class="info-item">
-                <span class="info-icon">📞</span>
-                <div class="info-text">
-                    <strong>Give Us a Call</strong>
-                    <p>(613) 789-4444</p>
+                <div class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <div class="info-text">
+                        <strong>Give Us a Call</strong>
+                        <p>(613) 789-4444</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">🕒</span>
+                    <div class="info-text">
+                        <strong>Opening Hours</strong>
+                        <p>Mon - Fri: 9:00 AM - 7:00 PM</p>
+                        <p>Saturday: 10:00 AM - 5:00 PM</p>
+                        <p>Sunday: Closed</p>
+                    </div>
                 </div>
             </div>
         </div>
-
         <div class="contact-map-placeholder">
-            <img src="/assets/street.png" alt="Rideau Pharmacy Storefront" class="contact-image">
+            <a href="https://www.google.com/maps/search/?api=1&query=390+Rideau+St+Ottawa+ON+K1N+5Y8" target="_blank">
+                <img src="/assets/rideau-House.png" alt="Rideau Pharmacy Location" class="contact-image map-hover">
+            </a>
+            <p style="text-align: center; font-size: 0.9rem; color: #666; margin-top: 10px;">Click map to open in Google
+                Maps</p>
         </div>
     </div>
 </section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // 1. FAQ Scroll Trigger
+        const faqs = document.querySelectorAll(".faq");
+        const faqContainer = document.querySelector('.faq-container');
+
+        const faqObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    faqs.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.classList.add("visible");
+                        }, index * 150);
+                    });
+                    faqObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        if (faqContainer) {
+            faqObserver.observe(faqContainer);
+        }
+
+        // 2. FAQ Accordion Handler
+        const questions = document.querySelectorAll('.faq-question');
+        questions.forEach((question) => {
+            question.addEventListener('click', () => {
+                const parent = question.parentElement;
+                const isActive = parent.classList.contains('active');
+
+                // Close others
+                document.querySelectorAll('.faq.active').forEach(openFaq => {
+                    if (openFaq !== parent) openFaq.classList.remove('active');
+                });
+
+                parent.classList.toggle('active');
+            });
+        });
+
+        // 3. Hero Carousel Manager
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+        let slideInterval;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            let next = (currentSlide + 1) % slides.length;
+            showSlide(next);
+        }
+
+        function startRotation() {
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        function resetRotation() {
+            clearInterval(slideInterval);
+            startRotation();
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+                resetRotation();
+            });
+        });
+
+        if (slides.length > 0) {
+            startRotation();
+        }
+    });
+</script>

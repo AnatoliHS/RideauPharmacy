@@ -81,7 +81,6 @@
     overflow: hidden;
     border-radius: 0 0 25px 25px;
     margin-top: -1px;
-    /* Gap Fix */
   }
 
   .navbar.open .navbar-links {
@@ -90,12 +89,12 @@
     padding-bottom: 20px;
   }
 
-  /* --- THE UIVERSE DUAL-LINE ANIMATION --- */
+  /* --- NAV LINK STYLES --- */
   .nav-link {
     text-decoration: none;
     color: #333;
     font-size: 25px;
-    font-weight: 600;
+    font-weight: 400;
     padding: 15px 40px;
     display: block;
     width: fit-content;
@@ -105,16 +104,7 @@
     transition: transform 0.5s var(--anim--hover-ease), opacity 0.5s ease;
   }
 
-  .nav-link::before {
-    content: '';
-    width: 0%;
-    height: 2px;
-    background: var(--line-color);
-    display: block;
-    transition: 0.5s;
-    margin-left: auto;
-  }
-
+  .nav-link::before,
   .nav-link::after {
     content: '';
     width: 0%;
@@ -122,6 +112,13 @@
     background: var(--line-color);
     display: block;
     transition: 0.5s;
+  }
+
+  .nav-link::before {
+    margin-left: auto;
+  }
+
+  .nav-link::after {
     margin-top: 4px;
   }
 
@@ -130,47 +127,116 @@
     width: 100%;
   }
 
-  /* --- DESKTOP NUDGE --- */
   .navbar.open .nav-link {
     opacity: 1;
     transform: translateX(0);
   }
 
+  /* --- DESKTOP REFACTOR --- */
   @media (min-width: 1025px) {
-    .navbar.open .nav-link {
-      transform: translateX(50px);
+    .hamburger {
+      display: none;
+    }
+
+    .navbar {
+      justify-content: flex-start;
+      gap: 40px;
+      padding: 15px 5%;
+    }
+
+    .navbar-links {
+      position: static;
+      max-height: none;
+      opacity: 1;
+      flex-direction: row;
+      background: transparent;
+      box-shadow: none;
+      width: auto;
+      overflow: visible;
+      gap: 30px;
+    }
+
+    .nav-link {
+      font-size: 1.1rem;
+      padding: 5px 0;
+      opacity: 1;
+      transform: none;
+      color: #191f4f;
+      font-weight: 500;
+    }
+
+    /* Stagger Delays - Disable for desktop static view */
+    .nav-link:nth-child(n) {
+      transition-delay: 0s !important;
     }
   }
 
-  /* Stagger Delays */
-  .navbar.open .nav-link:nth-child(1) {
-    transition-delay: 0.1s;
+  /* Stagger Delays (Mobile Only) */
+  @media (max-width: 1024px) {
+    .navbar.open .nav-link:nth-child(1) {
+      transition-delay: 0.1s;
+    }
+
+    .navbar.open .nav-link:nth-child(2) {
+      transition-delay: 0.2s;
+    }
+
+    .navbar.open .nav-link:nth-child(3) {
+      transition-delay: 0.3s;
+    }
+
+    .navbar.open .nav-link:nth-child(4) {
+      transition-delay: 0.4s;
+    }
   }
 
-  .navbar.open .nav-link:nth-child(2) {
-    transition-delay: 0.2s;
+  /* --- BOOK APPOINTMENT BUTTON --- */
+  .book-appointment-btn {
+    margin-left: auto;
+    background: #191f4f;
+    color: white;
+    text-decoration: none;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    z-index: 102;
   }
 
-  .navbar.open .nav-link:nth-child(3) {
-    transition-delay: 0.3s;
+  .book-appointment-btn:hover {
+    background: #588cba;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(88, 140, 186, 0.3);
   }
 
-  .navbar.open .nav-link:nth-child(4) {
-    transition-delay: 0.4s;
+  @media (max-width: 1024px) {
+    .book-appointment-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      margin-left: 0;
+      padding: 10px 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      font-size: 1rem;
+    }
   }
 </style>
 
 <nav class="navbar">
   <div class="hamburger"><span></span><span></span><span></span></div>
-  <a href="/index/" class="nav-logo" onclick="handleNavigation(event, '/index/')">
+  <a href="/" class="nav-logo" onclick="handleNavigation(event, '/')">
     <img src="/assets/rideau-Logo.png" alt="Logo">
   </a>
   <div class="navbar-links">
-    <a href="/homeDent/" class="nav-link" onclick="handleNavigation(event, '/index/')">Home</a>
-    <a href="/about/" class="nav-link" onclick="handleNavigation(event, '/about/')">About</a>
-    <a href="/faq/" class="nav-link" onclick="handleNavigation(event, '/faq/')">FAQ</a>
-    <a href="/contact/" class="nav-link" onclick="handleNavigation(event, '/contact/')">Contact</a>
+    <a href="/" class="nav-link" onclick="handleNavigation(event, '/')">Home</a>
+    <a href="#about-section" class="nav-link" onclick="handleNavigation(event, '#about-section')">About</a>
+    <a href="#services-section" class="nav-link" onclick="handleNavigation(event, '#services-section')">Services</a>
+    <a href="#faq-section" class="nav-link" onclick="handleNavigation(event, '#faq-section')">FAQ</a>
+    <a href="#contact-section" class="nav-link" onclick="handleNavigation(event, '#contact-section')">Contact</a>
   </div>
+  <a href="#booking-section" class="book-appointment-btn">Book Appointment</a>
 </nav>
 
 <script>
@@ -184,4 +250,29 @@
     link.style.opacity = "0.7";
     setTimeout(() => { window.location.href = url; }, 450);
   }
+
+  // Adjust mobile floating button position to prevent overlapping footer
+  window.addEventListener('scroll', function () {
+    if (window.innerWidth <= 1024) {
+      const btn = document.querySelector('.book-appointment-btn');
+      const footer = document.querySelector('.whmis-footer');
+
+      if (btn && footer) {
+        const footerRect = footer.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        // If the top of the footer is coming into view
+        if (footerRect.top < windowHeight) {
+          // Push the button up so it stays above the footer
+          const visibleFooterHeight = windowHeight - footerRect.top;
+          btn.style.bottom = (20 + visibleFooterHeight) + 'px';
+        } else {
+          btn.style.bottom = '20px';
+        }
+      }
+    } else {
+      const btn = document.querySelector('.book-appointment-btn');
+      if (btn) btn.style.bottom = '';
+    }
+  });
 </script>
