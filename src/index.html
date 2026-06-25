@@ -68,34 +68,33 @@ title: Home
     }
 
     .hero-section {
-        background: linear-gradient(#588cba, #345470);
+        background: transparent;
         width: 100vw;
         margin-left: calc(-50vw + 50%);
         display: flex;
         flex-direction: column;
-        min-height: 500px;
+        min-height: 600px;
         color: white;
-        padding-top: 20px;
+        padding-top: calc(var(--navbar-height, 70px) + 40px);
         position: relative;
         overflow: hidden;
         margin-bottom: -1px;
     }
 
-    /* --- ANIMATIONS --- */
-    @keyframes slideInRight {
-        from {
-            opacity: 0;
-            transform: translateX(100px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateX(5%);
-        }
-
-        /* Desktop Offset */
+    .hero-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 125%;
+        background: linear-gradient(to right, rgba(33, 37, 41, 0.85) 20%, rgba(33, 37, 41, 0.0) 100%), url('/assets/paralex2.jpg') no-repeat center center / cover;
+        z-index: 1;
+        pointer-events: none;
+        transform: translateY(calc(var(--scroll-y, 0px) * 0.35));
+        will-change: transform;
     }
 
+    /* --- ANIMATIONS --- */
     @keyframes slideInCenter {
         from {
             opacity: 0;
@@ -106,8 +105,6 @@ title: Home
             opacity: 1;
             transform: translateX(0);
         }
-
-        /* Mobile Centered */
     }
 
     @keyframes slideInLeft {
@@ -153,102 +150,31 @@ title: Home
         max-width: 1400px;
         margin: 0 auto;
         z-index: 2;
+        position: relative;
         align-items: center;
         gap: 20px;
         flex-grow: 1;
     }
 
     .hero-left {
-        flex: 0.6;
+        flex: 1;
+        max-width: 750px;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 40px;
+        padding: 40px 60px;
         text-align: left;
-    }
-
-    .hero-right {
-        flex: 1.4;
-        padding: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    /* --- HERO CAROUSEL --- */
-    .hero-carousel {
-        width: 100%;
-        max-width: 800px;
-        aspect-ratio: 16 / 10;
-        position: relative;
-        overflow: hidden;
-        border-radius: 40px;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-        opacity: 0;
-        animation: slideInRight 1s ease-out forwards;
-        animation-delay: 0s;
-    }
-
-    .carousel-track {
-        width: 100%;
-        height: 100%;
-        position: relative;
-    }
-
-    .carousel-slide {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        transition: opacity 1s ease-in-out;
-    }
-
-    .carousel-slide.active {
-        opacity: 1;
-        z-index: 10;
-    }
-
-    .carousel-slide img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-    }
-
-    .carousel-dots {
-        position: absolute;
-        bottom: 25px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 12px;
-        z-index: 20;
-    }
-
-    .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.4);
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .dot.active {
-        background: white;
-        transform: scale(1.3);
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        transform: translateY(calc(var(--scroll-y, 0px) * -0.2));
+        will-change: transform;
     }
 
     .hero-title {
-        font-size: 4.8rem;
+        font-size: 6.8rem;
         font-weight: 400;
         margin-bottom: 20px;
         line-height: 1.1;
         color: white;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
         opacity: 0;
         animation: slideInTop 1s ease-out forwards;
         animation-delay: 0.5s;
@@ -258,8 +184,9 @@ title: Home
         font-size: 1.4rem;
         line-height: 1.6;
         font-weight: 400;
-        color: rgba(255, 255, 255, 0.9);
+        color: rgba(255, 255, 255, 0.95);
         margin-bottom: 10px;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
         opacity: 0;
         animation: slideInLeft 1s ease-out forwards;
         animation-delay: 1.0s;
@@ -269,7 +196,7 @@ title: Home
     .waves-container {
         position: relative;
         width: 100%;
-        height: 100px;
+        height: 50px;
         z-index: 2;
         margin-bottom: -7px;
     }
@@ -277,9 +204,9 @@ title: Home
     .waves {
         position: relative;
         width: 100%;
-        height: 100px;
+        height: 50px;
         margin-bottom: -7px;
-        min-height: 100px;
+        min-height: 50px;
         max-height: 150px;
     }
 
@@ -365,14 +292,14 @@ title: Home
     }
 
     .core-point h3 {
-        font-size: 1.5rem;
+        font-size: 1.85rem;
         color: #191f4f;
         margin-bottom: 15px;
         font-weight: 700;
     }
 
     .core-point p {
-        font-size: 1rem;
+        font-size: 1.2rem;
         color: #555;
         line-height: 1.6;
     }
@@ -490,7 +417,8 @@ title: Home
 
     @media (max-width: 1024px) {
         .parallax-divider {
-            background-image: none; /* Handled by pseudo-element */
+            background-image: none;
+            /* Handled by pseudo-element */
             background-attachment: scroll;
             height: 450px;
             clip-path: inset(0);
@@ -580,70 +508,55 @@ title: Home
         box-shadow: 0 20px 40px rgba(25, 31, 79, 0.1);
     }
 
+    @media (prefers-reduced-motion: reduce) {
+        .hero-bg, .hero-left {
+            transform: none !important;
+        }
+    }
+
     /* --- 6. RESPONSIVE BREAKPOINTS --- */
     @media (max-width: 1024px) {
         .hero-container {
             flex-direction: column;
             align-items: center;
             text-align: center;
-            padding: 10px 20px 40px 20px;
+            padding: 80px 20px 80px 20px;
         }
 
         .hero-section {
-            padding-top: 5px;
+            padding-top: 40px;
+            min-height: 500px;
+            background: transparent;
+        }
+
+        .hero-bg {
+            background: linear-gradient(to bottom, rgba(33, 37, 41, 0.85) 40%, rgba(33, 37, 41, 0.1) 100%), url('/assets/paralex2.jpg') no-repeat center center / cover;
+            height: 120%;
+            transform: translateY(calc(var(--scroll-y, 0px) * 0.2));
         }
 
         .waves-container {
-            transform: translateY(-40px);
+            transform: translateY(-5px);
         }
 
         .hero-left {
-            display: contents;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            padding: 0;
+            transform: translateY(calc(var(--scroll-y, 0px) * -0.1));
         }
 
         .hero-title {
-            font-size: 2.8rem;
-            order: 1;
-            margin-bottom: 0;
+            font-size: 3.4rem;
+            margin-bottom: 20px;
             text-align: center;
-        }
-
-        .hero-right {
-            order: 2;
-            padding: 0;
-            margin: 0 0 25px 0;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .hero-carousel {
-            width: 100%;
-            max-width: 500px;
-            aspect-ratio: 16 / 10;
-            border-radius: 24px; /* Slightly tighter on mobile */
-            animation: slideInCenter 1s ease-out forwards;
-        }
-
-        .carousel-dots {
-            bottom: 15px;
-            gap: 8px;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-        }
-
-        .hero-right img {
-            max-height: 350px;
-            transform: none;
-            animation: slideInCenter 1s ease-out forwards;
         }
 
         .hero-text {
             font-size: 1.2rem;
-            order: 3;
             padding: 0 10px;
         }
 
@@ -741,22 +654,20 @@ title: Home
     }
 
     .philosophy-progress-track {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        max-width: 1100px;
-        width: calc(100% - 40px);
+        grid-row: 3;
+        grid-column: 1;
+        width: 100%;
         height: 4px;
-        background: rgba(238, 98, 87, 0.15);
+        background: rgba(25, 31, 79, 0.15);
         z-index: 10;
         border-radius: 2px;
         overflow: hidden;
+        margin-top: 35px;
     }
 
     .philosophy-progress-bar {
         height: 100%;
-        background: linear-gradient(to right, #ee6257, #8f3b34);
+        background: linear-gradient(to right, #56ccf2, #191f4f);
         width: 0;
         opacity: 0.85;
     }
@@ -769,6 +680,7 @@ title: Home
         from {
             width: 0%;
         }
+
         to {
             width: 100%;
         }
@@ -794,10 +706,12 @@ title: Home
         display: flex;
         flex-direction: row;
         align-items: center;
+        justify-content: flex-start;
         gap: 15px;
         margin-top: 30px;
         z-index: 15;
     }
+
 
     .philosophy-nav-btn {
         width: 46px;
@@ -831,7 +745,7 @@ title: Home
             justify-content: center;
             margin-top: 25px;
         }
-        
+
         .philosophy-section {
             padding-bottom: 100px !important;
         }
@@ -892,15 +806,13 @@ title: Home
     .philosophy-icon {
         width: 280px;
         height: auto;
-        opacity: 0.18;
         transform: rotate(var(--phil-rotation, 0deg)) scale(1);
-        transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease;
+        transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         margin: 0 !important;
     }
 
     .philosophy-icon:hover {
         transform: rotate(var(--phil-rotation, 0deg)) scale(1.06);
-        opacity: 0.35;
     }
 
     .philosophy-right-container {
@@ -917,8 +829,8 @@ title: Home
         grid-area: 1 / 1;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
-        gap: 20px;
+        justify-content: center;
+        gap: 10px;
         width: 100%;
         opacity: 0;
         visibility: hidden;
@@ -935,6 +847,17 @@ title: Home
         opacity: 1;
         visibility: visible;
         transform: translateY(0);
+    }
+
+    .philosophy-subheading {
+        font-family: 'Teodor', serif;
+        font-size: 2.8rem;
+        color: #191f4f;
+        /* brand dark blue */
+        font-weight: 400;
+        line-height: 1.2;
+        margin: 0 0 15px 0 !important;
+        padding: 0 !important;
     }
 
     .philosophy-slide .section-paragraph {
@@ -968,7 +891,7 @@ title: Home
         }
 
         .philosophy-icon {
-            width: 180px;
+            width: 110px;
             margin-top: 20px !important;
         }
 
@@ -976,6 +899,19 @@ title: Home
             flex: none;
             order: 2;
             width: 100%;
+        }
+
+        .philosophy-subheading {
+            font-size: 2.0rem;
+            margin-bottom: 12px !important;
+        }
+
+        .philosophy-slide .section-paragraph {
+            line-height: 1.5;
+        }
+
+        .philosophy-progress-track {
+            margin-top: 20px;
         }
     }
 
@@ -1198,9 +1134,11 @@ title: Home
             bottom: -120px;
             transform: translateX(0) rotate(0deg);
         }
+
         50% {
             transform: translateX(30px) rotate(180deg);
         }
+
         100% {
             bottom: calc(100% + 120px);
             transform: translateX(0) rotate(360deg);
@@ -1212,9 +1150,11 @@ title: Home
             bottom: -120px;
             transform: translateX(0) rotate(0deg);
         }
+
         50% {
             transform: translateX(-30px) rotate(-180deg);
         }
+
         100% {
             bottom: calc(100% + 120px);
             transform: translateX(0) rotate(-360deg);
@@ -1269,7 +1209,8 @@ title: Home
     .why-us-num {
         font-family: 'Teodor', serif;
         font-size: 2.2rem;
-        color: #ee6257; /* brand red */
+        color: #ee6257;
+        /* brand red */
         font-weight: 500;
         line-height: 1;
         opacity: 0.95;
@@ -1295,6 +1236,7 @@ title: Home
     }
 
     @media (max-width: 1024px) {
+
         /* Hide selected icons to prevent overcrowding on mobile screens */
         .why-us-floating-icon.icon-4,
         .why-us-floating-icon.icon-6,
@@ -1580,7 +1522,7 @@ title: Home
 
         .faq-question {
             padding: 20px;
-            font-size: 1rem;
+            font-size: 1.3rem;
         }
 
         .answer-content {
@@ -1617,35 +1559,12 @@ title: Home
 </style>
 
 <div class="hero-section">
+    <div class="hero-bg"></div>
     <div class="hero-container">
         <div class="hero-left">
             <h1 class="hero-title">Your Trusted Neighborhood Pharmacy</h1>
             <p class="hero-text">Providing quality healthcare, prescription services, and wellness products with care
                 and convenience right in your community.</p>
-        </div>
-        <div class="hero-right">
-            <div class="hero-carousel">
-                <div class="carousel-track">
-                    <div class="carousel-slide active">
-                        <img src="/assets/paralex2.jpg" alt="Rideau Pharmacy Storefront">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="/assets/blood-preassure.jpg" alt="Health Monitoring Services">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="/assets/medication.jpg" alt="Professional Prescription Care">
-                    </div>
-                    <div class="carousel-slide">
-                        <img src="/assets/consult2.png" alt="Professional Consultations">
-                    </div>
-                </div>
-                <div class="carousel-dots">
-                    <div class="dot active"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -1706,81 +1625,68 @@ title: Home
             <div class="philosophy-right-container">
                 <!-- Slide 1: Our Philosophy -->
                 <div class="philosophy-slide active">
+                    <h3 class="philosophy-subheading">Our Philosophy</h3>
                     <p class="section-paragraph">
-                        Healthcare should not be a hassle. That is why we have built a pharmacy that goes beyond just counting
-                        pills. With
-                        an on site telemedicine walk in clinic and the ability to prescribe medications directly for minor
-                        ailments, we
-                        are designed to be your first stop for health and wellness.
-                    </p>
-                    <p class="section-paragraph">
-                        From custom medication compounding to tailoring daily dosage solutions, we adapt directly to the
-                        unique healthcare needs
-                        of our diverse Ottawa community.
+                        Healthcare should not be a hassle. At Rideau Pharmacy, we go beyond counting pills—offering on
+                        site telemedicine, prescribing for minor ailments, and custom medication compounding tailored to
+                        the unique needs of our Ottawa community.
                     </p>
                 </div>
 
                 <!-- Slide 2: Multilingual Care -->
                 <div class="philosophy-slide">
+                    <h3 class="philosophy-subheading">Multilingual Care</h3>
                     <p class="section-paragraph">
-                        We are proud to serve the diverse Ottawa community by offering comprehensive healthcare consultations 
-                        and pharmacy services in English, French, and Arabic.
-                    </p>
-                    <p class="section-paragraph">
-                        Clear communication is vital to safe medical care. Discussing your health goals in your preferred 
-                        language helps us ensure you feel confident, informed, and fully supported in your wellness journey.
+                        We are proud to serve the diverse Ottawa community by offering comprehensive pharmacy services
+                        and consultations in English, French, and Arabic. Discussing your health in your preferred
+                        language helps us ensure you feel confident and supported.
                     </p>
                 </div>
 
                 <!-- Slide 3: Medication Reviews -->
                 <div class="philosophy-slide">
+                    <h3 class="philosophy-subheading">Medication Reviews</h3>
                     <p class="section-paragraph">
-                        Gain complete clarity about your health. We offer comprehensive MedsCheck consultations to sit down 
-                        individually and review your prescriptions, over the counter medications, and natural supplements.
-                    </p>
-                    <p class="section-paragraph">
-                        We help identify potential drug interactions, manage side effects, and optimize your medication schedule 
-                        to ensure you feel confident and supported in your daily health management.
+                        Gain complete clarity about your health. We sit down with you to review your prescriptions, over
+                        the counter medications, and supplements, helping to identify potential drug interactions,
+                        manage side effects, and optimize your schedule.
                     </p>
                 </div>
 
                 <!-- Slide 4: Health & Wellness Coaching -->
                 <div class="philosophy-slide">
+                    <h3 class="philosophy-subheading">Health & Wellness Coaching</h3>
                     <p class="section-paragraph">
-                        Our care goes far beyond filling prescriptions. We partner with you to manage chronic conditions, offering 
-                        on site blood pressure monitoring, diabetes support, and healthy lifestyle coaching tailored to you.
-                    </p>
-                    <p class="section-paragraph">
-                        From allergy relief to choosing the right vitamins and clinical supplements, our pharmacists are your 
-                        accessible, daily resources for trusted medical advice in the heart of Ottawa.
+                        Our care goes far beyond filling prescriptions. We partner with you to manage chronic conditions
+                        with on site blood pressure monitoring, diabetes support, and healthy lifestyle coaching
+                        tailored to your daily needs.
                     </p>
                 </div>
                 <!-- Navigational Arrows -->
                 <div class="philosophy-nav-container">
                     <button class="philosophy-nav-btn prev-btn" aria-label="Previous Slide">
-                        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                        </svg>
                     </button>
                     <button class="philosophy-nav-btn next-btn" aria-label="Next Slide">
-                        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                        </svg>
                     </button>
+                </div>
+                <!-- Progress Bar Indicator -->
+                <div class="philosophy-progress-track">
+                    <div class="philosophy-progress-bar animating"></div>
                 </div>
             </div>
 
-            <!-- Right Column: Persistent Icon and Fading Titles -->
+            <!-- Right Column: Persistent Icon -->
             <div class="philosophy-left-container">
-                <div class="philosophy-title-container">
-                    <h2 class="section-title active">Our Philosophy</h2>
-                    <h2 class="section-title">Multilingual Care</h2>
-                    <h2 class="section-title">Medication Reviews</h2>
-                    <h2 class="section-title">Health & Wellness Coaching</h2>
-                </div>
                 <!-- Persistent Cross Icon -->
-                <img src="/assets/cross.png" alt="Pharmacy Icon" id="persistent-philosophy-icon" class="philosophy-icon" style="--phil-rotation: 0deg;">
+                <img src="/assets/cross2.png" alt="Pharmacy Icon" id="persistent-philosophy-icon"
+                    class="philosophy-icon" style="--phil-rotation: 0deg;">
             </div>
-        </div>
-        <!-- Progress Bar Indicator -->
-        <div class="philosophy-progress-track">
-            <div class="philosophy-progress-bar animating"></div>
         </div>
     </section>
 
@@ -1830,7 +1736,8 @@ title: Home
                     <span class="why-us-num">01</span>
                     <div class="why-us-content">
                         <h3>Prescribing Pharmacists</h3>
-                        <p>Skip the clinic wait. We can assess and prescribe treatments for minor ailments like pink eye, rashes, UTIs, and insect bites right at the counter.</p>
+                        <p>Skip the clinic wait. We can assess and prescribe treatments for minor ailments like pink
+                            eye, rashes, UTIs, and insect bites right at the counter.</p>
                     </div>
                 </div>
 
@@ -1839,7 +1746,8 @@ title: Home
                     <span class="why-us-num">02</span>
                     <div class="why-us-content">
                         <h3>On Site Walk In Clinic</h3>
-                        <p>Need a doctor? Access our enhanced telemedicine clinic directly from the pharmacy for quick and easy consultations.</p>
+                        <p>Need a doctor? Access our enhanced telemedicine clinic directly from the pharmacy for quick
+                            and easy consultations.</p>
                     </div>
                 </div>
 
@@ -1848,7 +1756,8 @@ title: Home
                     <span class="why-us-num">03</span>
                     <div class="why-us-content">
                         <h3>Modern Convenience</h3>
-                        <p>We offer easy prescription transfers, automatic refills, and free local delivery throughout the Ottawa area.</p>
+                        <p>We offer easy prescription transfers, automatic refills, and free local delivery throughout
+                            the Ottawa area.</p>
                     </div>
                 </div>
 
@@ -1857,7 +1766,8 @@ title: Home
                     <span class="why-us-num">04</span>
                     <div class="why-us-content">
                         <h3>Tailored Care</h3>
-                        <p>From custom medication compounding to compliance blister packaging, we fit your healthcare to your lifestyle.</p>
+                        <p>From custom medication compounding to compliance blister packaging, we fit your healthcare to
+                            your lifestyle.</p>
                     </div>
                 </div>
             </div>
@@ -2084,49 +1994,22 @@ title: Home
             });
         });
 
-        // 3. Hero Carousel Manager
-        const slides = document.querySelectorAll('.carousel-slide');
-        const dots = document.querySelectorAll('.dot');
-        let currentSlide = 0;
-        let slideInterval;
 
-        function showSlide(index) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            
-            slides[index].classList.add('active');
-            dots[index].classList.add('active');
-            currentSlide = index;
-        }
-
-        function nextSlide() {
-            let next = (currentSlide + 1) % slides.length;
-            showSlide(next);
-        }
-
-        function startRotation() {
-            slideInterval = setInterval(nextSlide, 5000);
-        }
-
-        function resetRotation() {
-            clearInterval(slideInterval);
-            startRotation();
-        }
-
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                showSlide(index);
-                resetRotation();
-            });
-        });
-
-        if (slides.length > 0) {
-            startRotation();
+        // Hero scroll parallax driver
+        const heroSection = document.querySelector('.hero-section');
+        if (heroSection) {
+            const onHeroScroll = () => {
+                const scrollY = window.scrollY;
+                if (scrollY <= 800) {
+                    heroSection.style.setProperty('--scroll-y', scrollY + 'px');
+                }
+            };
+            window.addEventListener('scroll', onHeroScroll, { passive: true });
+            onHeroScroll();
         }
 
         // 4. Philosophy Rotation Manager (10s intervals)
         const philSlides = document.querySelectorAll('.philosophy-slide');
-        const philTitles = document.querySelectorAll('.philosophy-title-container .section-title');
         const philIcon = document.getElementById('persistent-philosophy-icon');
         const philProgressBar = document.querySelector('.philosophy-progress-bar');
         let currentPhilSlide = 0;
@@ -2137,12 +2020,8 @@ title: Home
             if (index === currentPhilSlide && philRotation !== 0) return;
 
             philSlides.forEach(slide => slide.classList.remove('active'));
-            philTitles.forEach(title => title.classList.remove('active'));
 
             philSlides[index].classList.add('active');
-            if (philTitles[index]) {
-                philTitles[index].classList.add('active');
-            }
 
             if (index !== currentPhilSlide) {
                 if (direction === 'backward') {
