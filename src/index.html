@@ -733,6 +733,252 @@ title: Home
         background: #f2f8fc;
     }
 
+    .philosophy-section {
+        padding: 100px 20px;
+        background: #ffffff !important;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .philosophy-progress-track {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 1100px;
+        width: calc(100% - 40px);
+        height: 4px;
+        background: rgba(238, 98, 87, 0.15);
+        z-index: 10;
+        border-radius: 2px;
+        overflow: hidden;
+    }
+
+    .philosophy-progress-bar {
+        height: 100%;
+        background: linear-gradient(to right, #ee6257, #8f3b34);
+        width: 0;
+        opacity: 0.85;
+    }
+
+    .philosophy-progress-bar.animating {
+        animation: philProgress 15s linear forwards;
+    }
+
+    @keyframes philProgress {
+        from {
+            width: 0%;
+        }
+        to {
+            width: 100%;
+        }
+    }
+
+    .philosophy-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 60px;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        position: relative;
+    }
+
+    .philosophy-nav-container {
+        grid-row: 2;
+        grid-column: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+        margin-top: 30px;
+        z-index: 15;
+    }
+
+    .philosophy-nav-btn {
+        width: 46px;
+        height: 46px;
+        background: #ffffff;
+        border: 1px solid rgba(25, 31, 79, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        padding: 0;
+    }
+
+    .philosophy-nav-btn:hover {
+        background: #f2f8fc;
+        transform: scale(1.08);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .philosophy-nav-btn svg {
+        width: 20px;
+        height: 20px;
+        fill: #191f4f;
+    }
+
+    @media (max-width: 1024px) {
+        .philosophy-nav-container {
+            justify-content: center;
+            margin-top: 25px;
+        }
+        
+        .philosophy-section {
+            padding-bottom: 100px !important;
+        }
+    }
+
+    .philosophy-left-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        flex: 0.8;
+        order: 2;
+        gap: 25px;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    .philosophy-title-container {
+        position: relative;
+        width: 100%;
+        min-height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    .philosophy-title-container .section-title {
+        font-size: 2.8rem;
+        color: #191f4f;
+        margin: 0 !important;
+        font-family: 'Teodor', serif;
+        font-weight: 400;
+        line-height: 1.2;
+        position: absolute;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.6s;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    .philosophy-title-container .section-title.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        position: relative;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    .philosophy-icon {
+        width: 280px;
+        height: auto;
+        opacity: 0.18;
+        transform: rotate(var(--phil-rotation, 0deg)) scale(1);
+        transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease;
+        margin: 0 !important;
+    }
+
+    .philosophy-icon:hover {
+        transform: rotate(var(--phil-rotation, 0deg)) scale(1.06);
+        opacity: 0.35;
+    }
+
+    .philosophy-right-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        flex: 1.2;
+        order: 1;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    .philosophy-slide {
+        grid-area: 1 / 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 20px;
+        width: 100%;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(15px);
+        transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.8s;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    .philosophy-slide.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .philosophy-slide .section-paragraph {
+        font-size: 1.35rem;
+        line-height: 1.8;
+        color: #444;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    @media (max-width: 1024px) {
+        .philosophy-container {
+            flex-direction: column;
+            gap: 40px;
+            text-align: center;
+        }
+
+        .philosophy-left-container {
+            flex: none;
+            order: 1;
+            align-items: center;
+            width: 100%;
+        }
+
+        .philosophy-title-container {
+            min-height: 60px;
+        }
+
+        .philosophy-title-container .section-title {
+            font-size: 2.3rem;
+        }
+
+        .philosophy-icon {
+            width: 180px;
+            margin-top: 20px !important;
+        }
+
+        .philosophy-right-container {
+            flex: none;
+            order: 2;
+            width: 100%;
+        }
+    }
+
     .content-container-wide {
         max-width: 1100px;
         margin: 0 auto;
@@ -823,65 +1069,322 @@ title: Home
         display: block;
     }
 
-    /* --- WHY US GRID --- */
+    /* --- WHY US SECTION --- */
     .why-us-section {
-        padding: 100px 20px;
+        padding: 120px 20px;
         background: #191f4f;
         color: white;
+        position: relative;
+        overflow: hidden;
     }
 
-    .why-us-header {
-        text-align: center;
-        max-width: 800px;
-        margin: 0 auto 60px;
-    }
-
-    .why-us-header h2 {
-        font-size: 2.8rem;
-        margin-bottom: 20px;
-        color: white;
-    }
-
-    .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 30px;
-        max-width: 1200px;
+    .why-us-container {
+        max-width: 1100px;
         margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        gap: 80px;
+        align-items: flex-start;
+        position: relative;
+        z-index: 1;
     }
 
-    .feature-card {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 30px;
-        border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        transition: transform 0.3s ease;
+    .why-us-bg-icons {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
     }
 
-    .feature-card:hover {
-        transform: translateY(-5px);
-        background: rgba(255, 255, 255, 0.15);
+    .why-us-floating-icon {
+        position: absolute;
+        bottom: -120px;
+        height: auto;
+        opacity: 0.08;
+        filter: brightness(0) invert(1);
+        pointer-events: none;
     }
 
-    .feature-icon-img {
+    .why-us-floating-icon.icon-1 {
+        width: 65px;
+        left: 5%;
+        animation: floatUpRotateCW 25s linear infinite;
+        animation-delay: 0s;
+    }
+
+    .why-us-floating-icon.icon-2 {
+        width: 85px;
+        left: 15%;
+        animation: floatUpRotateCCW 30s linear infinite;
+        animation-delay: 4s;
+    }
+
+    .why-us-floating-icon.icon-3 {
         width: 60px;
-        height: 60px;
-        object-fit: contain;
-        margin-bottom: 20px;
+        left: 25%;
+        animation: floatUpRotateCW 28s linear infinite;
+        animation-delay: 8s;
+    }
+
+    .why-us-floating-icon.icon-4 {
+        width: 80px;
+        left: 35%;
+        animation: floatUpRotateCCW 32s linear infinite;
+        animation-delay: 12s;
+    }
+
+    .why-us-floating-icon.icon-5 {
+        width: 70px;
+        left: 45%;
+        animation: floatUpRotateCW 26s linear infinite;
+        animation-delay: 2s;
+    }
+
+    .why-us-floating-icon.icon-6 {
+        width: 75px;
+        left: 55%;
+        animation: floatUpRotateCCW 29s linear infinite;
+        animation-delay: 16s;
+    }
+
+    .why-us-floating-icon.icon-7 {
+        width: 60px;
+        left: 65%;
+        animation: floatUpRotateCW 24s linear infinite;
+        animation-delay: 6s;
+    }
+
+    .why-us-floating-icon.icon-8 {
+        width: 90px;
+        left: 75%;
+        animation: floatUpRotateCCW 34s linear infinite;
+        animation-delay: 10s;
+    }
+
+    .why-us-floating-icon.icon-9 {
+        width: 70px;
+        left: 85%;
+        animation: floatUpRotateCW 27s linear infinite;
+        animation-delay: 14s;
+    }
+
+    .why-us-floating-icon.icon-10 {
+        width: 80px;
+        left: 95%;
+        animation: floatUpRotateCCW 31s linear infinite;
+        animation-delay: 18s;
+    }
+
+    .why-us-floating-icon.icon-11 {
+        width: 55px;
+        left: 20%;
+        animation: floatUpRotateCW 23s linear infinite;
+        animation-delay: 20s;
+    }
+
+    .why-us-floating-icon.icon-12 {
+        width: 50px;
+        left: 50%;
+        animation: floatUpRotateCCW 22s linear infinite;
+        animation-delay: 22s;
+    }
+
+    @keyframes floatUpRotateCW {
+        0% {
+            bottom: -120px;
+            transform: translateX(0) rotate(0deg);
+        }
+        50% {
+            transform: translateX(30px) rotate(180deg);
+        }
+        100% {
+            bottom: calc(100% + 120px);
+            transform: translateX(0) rotate(360deg);
+        }
+    }
+
+    @keyframes floatUpRotateCCW {
+        0% {
+            bottom: -120px;
+            transform: translateX(0) rotate(0deg);
+        }
+        50% {
+            transform: translateX(-30px) rotate(-180deg);
+        }
+        100% {
+            bottom: calc(100% + 120px);
+            transform: translateX(0) rotate(-360deg);
+        }
+    }
+
+    .why-us-left {
+        flex: 1;
+        position: sticky;
+        top: 120px;
+    }
+
+    .why-us-title {
+        font-size: 3rem;
+        color: #ffffff;
+        font-family: 'Teodor', serif;
+        font-weight: 400;
+        line-height: 1.2;
+        margin: 0 !important;
+    }
+
+    .why-us-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 16px;
+        margin-top: 40px;
         display: block;
-        opacity: 0.9;
     }
 
-    .feature-card h3 {
-        font-size: 1.4rem;
-        margin-bottom: 15px;
-        color: #588cba;
+    .why-us-right {
+        flex: 1.3;
+        display: flex;
+        flex-direction: column;
     }
 
-    .feature-card p {
-        font-size: 1rem;
+    .why-us-item {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 25px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 30px;
+    }
+
+    .why-us-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .why-us-num {
+        font-family: 'Teodor', serif;
+        font-size: 2.2rem;
+        color: #ee6257; /* brand red */
+        font-weight: 500;
+        line-height: 1;
+        opacity: 0.95;
+    }
+
+    .why-us-content {
+        flex: 1;
+    }
+
+    .why-us-content h3 {
+        font-size: 1.65rem;
+        color: #ffffff;
+        margin: 0 0 10px 0 !important;
+        font-weight: 500;
+        font-family: 'Teodor', serif;
+    }
+
+    .why-us-content p {
+        font-size: 1.1rem;
         line-height: 1.6;
-        color: #e0e0e0;
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0 !important;
+    }
+
+    @media (max-width: 1024px) {
+        /* Hide selected icons to prevent overcrowding on mobile screens */
+        .why-us-floating-icon.icon-4,
+        .why-us-floating-icon.icon-6,
+        .why-us-floating-icon.icon-11,
+        .why-us-floating-icon.icon-12 {
+            display: none;
+        }
+
+        /* Adjust positions and scale down for mobile viewports to prevent collisions */
+        .why-us-floating-icon.icon-1 {
+            width: 40px;
+            left: 5%;
+        }
+
+        .why-us-floating-icon.icon-2 {
+            width: 45px;
+            left: 14%;
+        }
+
+        .why-us-floating-icon.icon-3 {
+            width: 35px;
+            left: 23%;
+        }
+
+        .why-us-floating-icon.icon-5 {
+            width: 40px;
+            left: 32%;
+        }
+
+        .why-us-floating-icon.icon-7 {
+            width: 35px;
+            left: 65%;
+        }
+
+        .why-us-floating-icon.icon-8 {
+            width: 50px;
+            left: 74%;
+        }
+
+        .why-us-floating-icon.icon-9 {
+            width: 40px;
+            left: 83%;
+        }
+
+        .why-us-floating-icon.icon-10 {
+            width: 45px;
+            left: 92%;
+        }
+
+        .why-us-section {
+            padding: 80px 20px;
+        }
+
+        .why-us-container {
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .why-us-left {
+            width: 100%;
+            position: static;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .why-us-title {
+            font-size: 2.4rem;
+        }
+
+        .why-us-image {
+            max-width: 280px;
+            margin-top: 25px;
+            margin-bottom: 20px;
+        }
+
+        .why-us-right {
+            width: 100%;
+        }
+
+        .why-us-item {
+            gap: 20px;
+            padding-bottom: 25px;
+            margin-bottom: 25px;
+        }
+
+        .why-us-num {
+            font-size: 1.8rem;
+        }
     }
 
     /* --- FAQ STYLES --- */
@@ -1197,27 +1700,87 @@ title: Home
 
 <div id="about-section">
 
-    <section class="content-section">
-        <div class="content-container-wide reverse">
-            <div class="content-text">
-                <h2 class="section-title">Our Philosophy</h2>
-                <p class="section-paragraph">
-                    Healthcare shouldn't be a hassle. That’s why we’ve built a pharmacy that goes beyond just counting
-                    pills. With
-                    an on-site telemedicine walk-in clinic and the ability to prescribe medications directly for minor
-                    ailments, we
-                    are designed to be your first stop for health and wellness.
-                </p>
-                <p class="section-paragraph">
-                    From custom medication compounding to offering services in both English, French and Arabic, we adapt
-                    to the
-                    unique needs
-                    of our diverse Ottawa community.
-                </p>
+    <section class="content-section philosophy-section">
+        <div class="philosophy-container">
+            <!-- Left Column: Description paragraphs (Fades in/out) -->
+            <div class="philosophy-right-container">
+                <!-- Slide 1: Our Philosophy -->
+                <div class="philosophy-slide active">
+                    <p class="section-paragraph">
+                        Healthcare should not be a hassle. That is why we have built a pharmacy that goes beyond just counting
+                        pills. With
+                        an on site telemedicine walk in clinic and the ability to prescribe medications directly for minor
+                        ailments, we
+                        are designed to be your first stop for health and wellness.
+                    </p>
+                    <p class="section-paragraph">
+                        From custom medication compounding to tailoring daily dosage solutions, we adapt directly to the
+                        unique healthcare needs
+                        of our diverse Ottawa community.
+                    </p>
+                </div>
+
+                <!-- Slide 2: Multilingual Care -->
+                <div class="philosophy-slide">
+                    <p class="section-paragraph">
+                        We are proud to serve the diverse Ottawa community by offering comprehensive healthcare consultations 
+                        and pharmacy services in English, French, and Arabic.
+                    </p>
+                    <p class="section-paragraph">
+                        Clear communication is vital to safe medical care. Discussing your health goals in your preferred 
+                        language helps us ensure you feel confident, informed, and fully supported in your wellness journey.
+                    </p>
+                </div>
+
+                <!-- Slide 3: Medication Reviews -->
+                <div class="philosophy-slide">
+                    <p class="section-paragraph">
+                        Gain complete clarity about your health. We offer comprehensive MedsCheck consultations to sit down 
+                        individually and review your prescriptions, over the counter medications, and natural supplements.
+                    </p>
+                    <p class="section-paragraph">
+                        We help identify potential drug interactions, manage side effects, and optimize your medication schedule 
+                        to ensure you feel confident and supported in your daily health management.
+                    </p>
+                </div>
+
+                <!-- Slide 4: Health & Wellness Coaching -->
+                <div class="philosophy-slide">
+                    <p class="section-paragraph">
+                        Our care goes far beyond filling prescriptions. We partner with you to manage chronic conditions, offering 
+                        on site blood pressure monitoring, diabetes support, and healthy lifestyle coaching tailored to you.
+                    </p>
+                    <p class="section-paragraph">
+                        From allergy relief to choosing the right vitamins and clinical supplements, our pharmacists are your 
+                        accessible, daily resources for trusted medical advice in the heart of Ottawa.
+                    </p>
+                </div>
+                <!-- Navigational Arrows -->
+                <div class="philosophy-nav-container">
+                    <button class="philosophy-nav-btn prev-btn" aria-label="Previous Slide">
+                        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                    </button>
+                    <button class="philosophy-nav-btn next-btn" aria-label="Next Slide">
+                        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                    </button>
+                </div>
             </div>
-            <div class="content-image-wrapper">
-                <img src="/assets/consultation.png" alt="Our Philosophy" class="content-image">
+
+            <!-- Right Column: Persistent Icon and Fading Titles -->
+            <div class="philosophy-left-container">
+                <div class="philosophy-title-container">
+                    <h2 class="section-title active">Our Philosophy</h2>
+                    <h2 class="section-title">Multilingual Care</h2>
+                    <h2 class="section-title">Medication Reviews</h2>
+                    <h2 class="section-title">Health & Wellness Coaching</h2>
+                </div>
+                <!-- Persistent Cross Icon -->
+                <img src="/assets/cross.png" alt="Pharmacy Icon" id="persistent-philosophy-icon" class="philosophy-icon" style="--phil-rotation: 0deg;">
             </div>
+        </div>
+        <!-- Progress Bar Indicator -->
+        <div class="philosophy-progress-track">
+            <div class="philosophy-progress-bar animating"></div>
         </div>
     </section>
 
@@ -1240,36 +1803,63 @@ title: Home
     </section>
 
     <section class="why-us-section">
-        <div class="why-us-header">
-            <h2>Why Choose Rideau Pharmacy?</h2>
+        <!-- Floating background icons -->
+        <div class="why-us-bg-icons">
+            <img src="/assets/cross.png" class="why-us-floating-icon icon-1" alt="">
+            <img src="/assets/mortar.png" class="why-us-floating-icon icon-2" alt="">
+            <img src="/assets/wings.png" class="why-us-floating-icon icon-3" alt="">
+            <img src="/assets/cross.png" class="why-us-floating-icon icon-4" alt="">
+            <img src="/assets/mortar.png" class="why-us-floating-icon icon-5" alt="">
+            <img src="/assets/wings.png" class="why-us-floating-icon icon-6" alt="">
+            <img src="/assets/cross.png" class="why-us-floating-icon icon-7" alt="">
+            <img src="/assets/mortar.png" class="why-us-floating-icon icon-8" alt="">
+            <img src="/assets/wings.png" class="why-us-floating-icon icon-9" alt="">
+            <img src="/assets/cross.png" class="why-us-floating-icon icon-10" alt="">
+            <img src="/assets/mortar.png" class="why-us-floating-icon icon-11" alt="">
+            <img src="/assets/wings.png" class="why-us-floating-icon icon-12" alt="">
         </div>
-        <div class="features-grid">
-            <div class="feature-card">
-                <img src="/assets/pharmacist.png" alt="Prescribing Icon" class="feature-icon-img">
-                <h3>Prescribing Pharmacists</h3>
-                <p>Skip the clinic wait. We can assess and prescribe treatments for minor ailments like pink eye,
-                    rashes, UTIs,
-                    and insect bites right at the counter.</p>
+
+        <div class="why-us-container">
+            <div class="why-us-left">
+                <h2 class="why-us-title">Why Choose Rideau Pharmacy?</h2>
+                <img src="/assets/pharmacist.png" alt="Pharmacist" class="why-us-image">
             </div>
-            <div class="feature-card">
-                <img src="/assets/doctor.png" alt="Clinic Icon" class="feature-icon-img">
-                <h3>On-Site Walk-In Clinic</h3>
-                <p>Need a doctor? Access our enhanced telemedicine clinic directly from the pharmacy for quick and easy
-                    consultations.</p>
-            </div>
-            <div class="feature-card">
-                <img src="/assets/modern2.png" alt="Delivery Icon" class="feature-icon-img">
-                <h3>Modern Convenience</h3>
-                <p>We offer easy prescription transfers, automatic refills, and free local delivery throughout the
-                    Ottawa area.
-                </p>
-            </div>
-            <div class="feature-card">
-                <img src="/assets/care.png" alt="Care Icon" class="feature-icon-img">
-                <h3>Tailored Care</h3>
-                <p>From custom medication compounding to compliance blister packaging, we fit your healthcare to your
-                    lifestyle.
-                </p>
+            <div class="why-us-right">
+                <!-- Item 1 -->
+                <div class="why-us-item">
+                    <span class="why-us-num">01</span>
+                    <div class="why-us-content">
+                        <h3>Prescribing Pharmacists</h3>
+                        <p>Skip the clinic wait. We can assess and prescribe treatments for minor ailments like pink eye, rashes, UTIs, and insect bites right at the counter.</p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="why-us-item">
+                    <span class="why-us-num">02</span>
+                    <div class="why-us-content">
+                        <h3>On Site Walk In Clinic</h3>
+                        <p>Need a doctor? Access our enhanced telemedicine clinic directly from the pharmacy for quick and easy consultations.</p>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="why-us-item">
+                    <span class="why-us-num">03</span>
+                    <div class="why-us-content">
+                        <h3>Modern Convenience</h3>
+                        <p>We offer easy prescription transfers, automatic refills, and free local delivery throughout the Ottawa area.</p>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="why-us-item">
+                    <span class="why-us-num">04</span>
+                    <div class="why-us-content">
+                        <h3>Tailored Care</h3>
+                        <p>From custom medication compounding to compliance blister packaging, we fit your healthcare to your lifestyle.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1532,6 +2122,84 @@ title: Home
 
         if (slides.length > 0) {
             startRotation();
+        }
+
+        // 4. Philosophy Rotation Manager (10s intervals)
+        const philSlides = document.querySelectorAll('.philosophy-slide');
+        const philTitles = document.querySelectorAll('.philosophy-title-container .section-title');
+        const philIcon = document.getElementById('persistent-philosophy-icon');
+        const philProgressBar = document.querySelector('.philosophy-progress-bar');
+        let currentPhilSlide = 0;
+        let philRotation = 0;
+        let philInterval;
+
+        function showPhilSlide(index, direction = 'forward') {
+            if (index === currentPhilSlide && philRotation !== 0) return;
+
+            philSlides.forEach(slide => slide.classList.remove('active'));
+            philTitles.forEach(title => title.classList.remove('active'));
+
+            philSlides[index].classList.add('active');
+            if (philTitles[index]) {
+                philTitles[index].classList.add('active');
+            }
+
+            if (index !== currentPhilSlide) {
+                if (direction === 'backward') {
+                    philRotation -= 90;
+                } else {
+                    philRotation += 90;
+                }
+                if (philIcon) {
+                    philIcon.style.setProperty('--phil-rotation', philRotation + 'deg');
+                }
+            }
+
+            // Restart progress bar animation
+            if (philProgressBar) {
+                philProgressBar.classList.remove('animating');
+                void philProgressBar.offsetWidth; // Trigger reflow to restart CSS keyframe animation
+                philProgressBar.classList.add('animating');
+            }
+
+            currentPhilSlide = index;
+        }
+
+        function nextPhilSlide() {
+            let next = (currentPhilSlide + 1) % philSlides.length;
+            showPhilSlide(next, 'forward');
+        }
+
+        function startPhilRotation() {
+            philInterval = setInterval(nextPhilSlide, 15000);
+        }
+
+        function resetPhilRotation() {
+            clearInterval(philInterval);
+            startPhilRotation();
+        }
+
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                let prev = (currentPhilSlide - 1 + philSlides.length) % philSlides.length;
+                showPhilSlide(prev, 'backward');
+                resetPhilRotation();
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                let next = (currentPhilSlide + 1) % philSlides.length;
+                showPhilSlide(next, 'forward');
+                resetPhilRotation();
+            });
+        }
+
+        if (philSlides.length > 0) {
+            startPhilRotation();
         }
     });
 </script>
