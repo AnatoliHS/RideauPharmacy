@@ -306,144 +306,261 @@ title: Home
 
     /* --- 4. SERVICES SECTION --- */
     .services-section {
-        padding: 80px 0;
-        background: #ffffff;
-        /* Changed to white to contrast the diagonal slice */
+        padding: 100px 40px 120px;
+        background: #f7f5f2;
         overflow-x: hidden;
+        position: relative;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        box-sizing: border-box;
     }
 
     .services-main-title {
         text-align: center;
-        font-size: 3.5rem;
+        font-size: clamp(2.2rem, 5vw, 3.8rem);
         color: #191f4f;
-        margin-bottom: 60px;
-        font-weight: 500;
-        letter-spacing: -0.5px;
+        margin-bottom: 16px;
+        font-weight: 700;
+        letter-spacing: -1px;
+        position: relative;
     }
 
-    .sequence-container {
+    .services-subtitle {
+        text-align: center;
+        font-size: 1.1rem;
+        color: #6b7280;
+        margin-bottom: 72px;
+        font-weight: 400;
+        letter-spacing: 0.02em;
         position: relative;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100vw;
-        height: 70vh;
-        margin: 100px 0;
+    }
+
+    /* ── Service Cards Grid ── */
+    .srv-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 28px;
+        max-width: 1100px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .srv-card {
+        background: #ffffff;
+        border-radius: 24px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.35s ease, box-shadow 0.35s ease;
+        position: relative;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+        /* scroll reveal */
+        opacity: 0;
+        transform: translateY(36px);
+    }
+
+    .srv-card.revealed {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .srv-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.13);
+    }
+
+    /* coloured top accent bar per card */
+    .srv-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        border-radius: 24px 24px 0 0;
+        background: var(--srv-accent, linear-gradient(90deg, #63b3ed, #4299e1));
+        opacity: 0.85;
+    }
+
+    .srv-card:nth-child(1) {
+        --srv-accent: linear-gradient(90deg, #63b3ed, #4fd1c5);
+        transition-delay: 0.05s;
+    }
+
+    .srv-card:nth-child(2) {
+        --srv-accent: linear-gradient(90deg, #68d391, #38b2ac);
+        transition-delay: 0.15s;
+    }
+
+    .srv-card:nth-child(3) {
+        --srv-accent: linear-gradient(90deg, #b794f4, #805ad5);
+        transition-delay: 0.25s;
+    }
+
+    .srv-card:nth-child(4) {
+        --srv-accent: linear-gradient(90deg, #f6ad55, #ed8936);
+        transition-delay: 0.35s;
+    }
+
+    .srv-img-wrap {
+        width: 100%;
+        height: 230px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .srv-img-wrap::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, transparent 40%, rgba(13, 17, 23, 0.85) 100%);
+    }
+
+    .srv-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.55s ease;
+    }
+
+    .srv-card:hover .srv-img {
+        transform: scale(1.06);
+    }
+
+    .srv-body {
+        padding: 28px 32px 36px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .srv-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: var(--srv-accent, linear-gradient(135deg, #63b3ed, #4299e1));
         display: flex;
         align-items: center;
+        justify-content: center;
+        margin-bottom: 18px;
+        flex-shrink: 0;
+    }
+
+    .srv-icon svg {
+        width: 22px;
+        height: 22px;
+        fill: none;
+        stroke: #fff;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .srv-title {
+        font-size: 1.35rem;
+        font-weight: 600;
+        color: #191f4f;
+        margin-bottom: 12px;
+        letter-spacing: -0.3px;
+    }
+
+    .srv-text {
+        font-size: 0.97rem;
+        line-height: 1.75;
+        color: #6b7280;
+        flex: 1;
+    }
+
+    .srv-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 22px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #345470;
+        text-decoration: none;
+        letter-spacing: 0.02em;
+        transition: gap 0.25s ease, color 0.25s ease;
+    }
+
+    .srv-link:hover {
+        color: #191f4f;
+        gap: 10px;
+    }
+
+    .srv-link svg {
+        width: 16px;
+        height: 16px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        transition: transform 0.25s ease;
+    }
+
+    .srv-link:hover svg {
+        transform: translateX(3px);
+    }
+
+    /* --- VIDEO DIVIDER SECTION --- */
+
+    .parallax-divider {
+        height: 600px;
+        position: relative;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        box-sizing: border-box;
         overflow: hidden;
     }
 
-    .visual-stack {
-        position: relative;
-        width: 60%;
-        height: 100%;
-    }
-
-    .gradient-square {
+    .parallax-divider video {
         position: absolute;
+        top: -30vh;
         left: 0;
-        top: 0;
-        width: 55vw;
-        height: 100%;
-        background: linear-gradient(#588cba, #345470);
-        border-radius: 0 20px 20px 0;
-        z-index: 1;
-    }
-
-    .sliding-image-wrap {
-        position: absolute;
-        left: 80px;
-        top: 50%;
-        transform: translateY(-50%);
-        height: 85%;
         width: 100%;
-        z-index: 2;
-    }
-
-    .design-image {
-        width: 90%;
-        height: 100%;
+        height: 160vh;
         object-fit: cover;
-        border-radius: 12px;
-        box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2);
+        display: block;
+        will-change: transform;
     }
 
-    .sequence-container.mirror {
-        flex-direction: row-reverse;
-    }
-
-    .sequence-container.mirror .gradient-square {
-        left: auto;
-        right: 0;
-        background: linear-gradient(#ee6257, #8f3b34);
-        border-radius: 20px 0 0 20px;
-    }
-
-    .sequence-container.mirror .sliding-image-wrap {
-        left: auto;
-        right: 10px;
-    }
-
-    .sequence-content {
-        width: 40%;
-        padding: 0 60px;
-        z-index: 5;
-    }
-
-    .sequence-title {
-        font-size: 2.5rem;
-        font-weight: 400;
-        color: #191f4f;
-        margin-bottom: 20px;
-    }
-
-    .service-text {
-        font-size: 1.2rem;
-        line-height: 1.7;
-        color: #333;
-    }
-
-    /* --- PARALLAX SECTION --- */
-    .parallax-divider {
-        background-image: url('/assets/pharmacy8.png');
-        height: 600px;
-        /* Distinct height for the parallax effect */
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        position: relative;
-    }
-
-    @media (max-width: 1024px) {
+    @media (max-width: 768px) {
         .parallax-divider {
-            background-image: none;
-            /* Handled by pseudo-element */
-            background-attachment: scroll;
-            height: 450px;
-            clip-path: inset(0);
-            position: relative;
+            height: 360px;
         }
 
-        .parallax-divider::before {
-            content: "";
-            position: fixed;
+        .parallax-divider video {
+            position: absolute;
             top: 0;
-            left: 0;
-            width: 100%;
+            left: 50%;
+            transform: translateX(-50%) !important;
+            width: auto;
+            min-width: 100%;
             height: 100%;
-            background-image: url('/assets/pharmacy8.png');
-            background-size: cover;
-            background-position: center;
-            z-index: -1;
-            will-change: transform;
+            object-fit: contain;
+            background: #000;
+            will-change: auto;
         }
+    }
+
+    .parallax-divider::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.25);
+        pointer-events: none;
     }
 
     /* --- 5. CONTACT SECTION --- */
     .quick-contact {
         padding: 100px 20px;
         background: #ffffff;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        box-sizing: border-box;
     }
 
     .contact-container {
@@ -509,7 +626,9 @@ title: Home
     }
 
     @media (prefers-reduced-motion: reduce) {
-        .hero-bg, .hero-left {
+
+        .hero-bg,
+        .hero-left {
             transform: none !important;
         }
     }
@@ -570,49 +689,25 @@ title: Home
             margin-bottom: 40px;
         }
 
-        .sequence-container,
-        .sequence-container.mirror {
-            flex-direction: column !important;
-            height: auto !important;
-            margin: 60px 0 !important;
-            left: 0;
-            transform: none;
-            width: 100%;
+        .services-section {
+            padding: 80px 20px 100px;
         }
 
-        .visual-stack {
-            width: 100% !important;
-            height: 350px !important;
+        .services-subtitle {
+            margin-bottom: 48px;
         }
 
-        .gradient-square,
-        .sequence-container.mirror .gradient-square {
-            left: 0 !important;
-            right: auto !important;
-            width: 90% !important;
-            height: 350px !important;
-            border-radius: 0 20px 20px 0 !important;
+        .srv-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
         }
 
-        .sliding-image-wrap,
-        .sequence-container.mirror .sliding-image-wrap {
-            left: 20px !important;
-            right: auto !important;
-            height: 300px !important;
-            width: 100% !important;
-            top: 25px !important;
-            transform: none;
+        .srv-img-wrap {
+            height: 200px;
         }
 
-        .design-image {
-            width: 90vw !important;
-            height: 100% !important;
-        }
-
-        .sequence-content {
-            width: 100% !important;
-            padding: 40px 20px !important;
-            text-align: center;
+        .srv-body {
+            padding: 22px 24px 30px;
         }
 
         .contact-container {
@@ -640,6 +735,9 @@ title: Home
     .content-section {
         padding: 80px 20px;
         background: #ffffff;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        box-sizing: border-box;
     }
 
     .content-section.alt-bg {
@@ -651,6 +749,9 @@ title: Home
         background: #ffffff !important;
         position: relative;
         overflow: hidden;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        box-sizing: border-box;
     }
 
     .philosophy-progress-track {
@@ -964,6 +1065,9 @@ title: Home
         padding: 100px 20px;
         background: #ffffff;
         text-align: center;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        box-sizing: border-box;
     }
 
     .team-card {
@@ -1012,6 +1116,9 @@ title: Home
         color: white;
         position: relative;
         overflow: hidden;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        box-sizing: border-box;
     }
 
     .why-us-container {
@@ -1434,6 +1541,9 @@ title: Home
     .booking-section {
         padding: 100px 20px;
         background: #ffffff;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        box-sizing: border-box;
     }
 
     .booking-container {
@@ -1611,7 +1721,7 @@ title: Home
         </div>
         <div class="core-point">
             <img src="/assets/community.png" alt="Community Wellness">
-            <h3>Community-First Wellness</h3>
+            <h3>Community First Wellness</h3>
             <p>Locally owned and operated, dedicated to the families in our neighborhood.</p>
         </div>
     </div>
@@ -1627,7 +1737,7 @@ title: Home
                 <div class="philosophy-slide active">
                     <h3 class="philosophy-subheading">Our Philosophy</h3>
                     <p class="section-paragraph">
-                        Healthcare should not be a hassle. At Rideau Pharmacy, we go beyond counting pills—offering on
+                        Healthcare should not be a hassle. At Rideau Pharmacy, we go beyond counting pills offering on
                         site telemedicine, prescribing for minor ailments, and custom medication compounding tailored to
                         the unique needs of our Ottawa community.
                     </p>
@@ -1777,64 +1887,173 @@ title: Home
 
 <div id="services-section" class="services-section">
     <h2 class="services-main-title">Our Services</h2>
-    <div class="sequence-container">
-        <div class="visual-stack">
-            <div class="gradient-square"></div>
-            <div class="sliding-image-wrap">
-                <img src="/assets/vaccine.jpg" alt="Vaccination" class="design-image">
-            </div>
-        </div>
-        <div class="sequence-content">
-            <h2 class="sequence-title">Immunizations & Vaccinations</h2>
-            <p class="service-text">Providing a convenient way for the community to stay protected. From annual flu
-                shots to travel vaccines, we offer professional administration without the long wait times.</p>
-        </div>
-    </div>
+    <p class="services-subtitle">Everything you need, all under one roof, delivered with care.</p>
 
-    <div class="sequence-container mirror">
-        <div class="visual-stack">
-            <div class="gradient-square"></div>
-            <div class="sliding-image-wrap">
-                <img src="/assets/home-delivery.png" alt="Free Delivery" class="design-image">
-            </div>
-        </div>
-        <div class="sequence-content">
-            <h2 class="sequence-title">Free Local Delivery</h2>
-            <p class="service-text">We bring your health to your doorstep. Our reliable delivery service ensures your
-                prescriptions and wellness essentials arrive safely and on time.</p>
-        </div>
-    </div>
+    <div class="srv-grid">
 
-    <div class="sequence-container">
-        <div class="visual-stack">
-            <div class="gradient-square"></div>
-            <div class="sliding-image-wrap">
-                <img src="/assets/pack.jpg" alt="Compliance Packaging" class="design-image">
+        <!-- Card 1 – Immunizations -->
+        <div class="srv-card">
+            <div class="srv-img-wrap">
+                <img src="/assets/vaccine.jpg" alt="Vaccination" class="srv-img">
+            </div>
+            <div class="srv-body">
+                <div class="srv-icon">
+                    <!-- syringe icon -->
+                    <svg viewBox="0 0 24 24">
+                        <path d="M18 2l4 4-1.5 1.5-4-4L18 2z" />
+                        <path d="M10.5 9.5L14 6l4 4-3.5 3.5" />
+                        <path d="M2 22l6-6" />
+                        <path d="M7.5 16.5l-2-2 8-8 2 2-8 8z" />
+                    </svg>
+                </div>
+                <h3 class="srv-title">Immunizations &amp; Vaccinations</h3>
+                <p class="srv-text">Stay protected year round. From flu shots to travel vaccines, our pharmacists
+                    administer them safely, no appointment needed.</p>
+                <a href="#contact-section" class="srv-link">Learn more
+                    <svg viewBox="0 0 24 24">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </a>
             </div>
         </div>
-        <div class="sequence-content">
-            <h2 class="sequence-title">Compliance Packaging</h2>
-            <p class="service-text">Taking the guesswork out of medication. We organize your daily doses into clearly
-                labeled blister packs, helping you stay on track with complex schedules.</p>
-        </div>
-    </div>
 
-    <div class="sequence-container mirror">
-        <div class="visual-stack">
-            <div class="gradient-square"></div>
-            <div class="sliding-image-wrap">
-                <img src="/assets/consult.png" alt="Consultations" class="design-image">
+        <!-- Card 2 – Free Delivery -->
+        <div class="srv-card">
+            <div class="srv-img-wrap">
+                <img src="/assets/home-delivery.png" alt="Free Delivery" class="srv-img">
+            </div>
+            <div class="srv-body">
+                <div class="srv-icon">
+                    <!-- delivery / box icon -->
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3" />
+                        <rect x="9" y="11" width="14" height="10" rx="2" />
+                        <path d="M9 15h14" />
+                    </svg>
+                </div>
+                <h3 class="srv-title">Free Local Delivery</h3>
+                <p class="srv-text">We bring your medications to your doorstep reliably and on time, at no extra
+                    charge throughout the Ottawa area.</p>
+                <a href="#contact-section" class="srv-link">Learn more
+                    <svg viewBox="0 0 24 24">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </a>
             </div>
         </div>
-        <div class="sequence-content">
-            <h2 class="sequence-title">Professional Consultations</h2>
-            <p class="service-text">Your pharmacist is your most accessible healthcare provider. We offer private
-                one-on-one consultations to review your medications and answer your health questions.</p>
+
+        <!-- Card 3 – Compliance Packaging -->
+        <div class="srv-card">
+            <div class="srv-img-wrap">
+                <img src="/assets/pack.jpg" alt="Compliance Packaging" class="srv-img">
+            </div>
+            <div class="srv-body">
+                <div class="srv-icon">
+                    <!-- grid / blister pack icon -->
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="14" y="14" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                    </svg>
+                </div>
+                <h3 class="srv-title">Compliance Packaging</h3>
+                <p class="srv-text">We organise your daily doses into clearly labelled blister packs by day and time,
+                    making complex medication schedules effortless.</p>
+                <a href="#contact-section" class="srv-link">Learn more
+                    <svg viewBox="0 0 24 24">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </a>
+            </div>
         </div>
+
+        <!-- Card 4 – Professional Consultations -->
+        <div class="srv-card">
+            <div class="srv-img-wrap">
+                <img src="/assets/consult.png" alt="Consultations" class="srv-img">
+            </div>
+            <div class="srv-body">
+                <div class="srv-icon">
+                    <!-- chat / consult icon -->
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                    </svg>
+                </div>
+                <h3 class="srv-title">Professional Consultations</h3>
+                <p class="srv-text">Your pharmacist is your most accessible healthcare provider. Private, one on one
+                    sessions to review your medications and answer health questions.</p>
+                <a href="#contact-section" class="srv-link">Learn more
+                    <svg viewBox="0 0 24 24">
+                        <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
     </div>
 </div>
 
-<div class="parallax-divider"></div>
+<script>
+    (function () {
+        var cards = document.querySelectorAll('.srv-card');
+        if (!cards.length) return;
+        if ('IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+            cards.forEach(function (card) { io.observe(card); });
+        } else {
+            cards.forEach(function (card) { card.classList.add('revealed'); });
+        }
+    })();
+</script>
+
+<div class="parallax-divider">
+    <video id="parallax-video" autoplay loop muted playsinline>
+        <source src="/movie.mp4" type="video/mp4">
+    </video>
+</div>
+
+<script>
+    (function () {
+        var el = document.getElementById('parallax-video');
+        var container = el && el.closest('.parallax-divider');
+        if (!el || !container) return;
+
+        /* Disable parallax on mobile / touch devices */
+        if (window.innerWidth <= 768 || ('ontouchstart' in window)) return;
+
+        var containerOffsetTop = 0;
+        function calcOffset() {
+            containerOffsetTop = container.getBoundingClientRect().top + window.scrollY;
+        }
+
+        var ticking = false;
+        function update() {
+            /* Shift the video by exactly the scroll amount so it appears fixed */
+            el.style.transform = 'translateY(' + (window.scrollY - containerOffsetTop) + 'px)';
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', function () {
+            if (!ticking) { requestAnimationFrame(update); ticking = true; }
+        }, { passive: true });
+
+        window.addEventListener('resize', function () {
+            calcOffset();
+            update();
+        });
+
+        calcOffset();
+        update();
+    })();
+</script>
 
 <div id="faq-section" class="faq-container">
     <h2 class="section-title" style="text-align: center; margin-bottom: 40px;">Frequently Asked Questions</h2>
@@ -1870,7 +2089,7 @@ title: Home
     </div>
 
     <div class="faq">
-        <div class="faq-question">How does the on-site telemedicine clinic work?</div>
+        <div class="faq-question">How does the on site telemedicine clinic work?</div>
         <div class="faq-answer">
             <div class="answer-content">
                 <p>Consult with a licensed physician via a secure video link from our pharmacy. The doctor can diagnose
