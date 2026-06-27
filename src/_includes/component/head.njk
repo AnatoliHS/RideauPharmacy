@@ -98,6 +98,9 @@
 </script>
   {% endif %}
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://startr.style/style.css" />
 
   <style>
@@ -112,6 +115,8 @@
       --oklch-dark-yellow: oklch(75%, 0.22, 90);
       --oklch-light-gray: oklch(90%, 0.01, 0);
       --oklch-dark-gray: oklch(20%, 0+5, 150);
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --clr-text: #191f4f;
     }
 
     @font-face {
@@ -127,8 +132,13 @@
 
     h1,
     h2,
-    h3 {
-      font-family: 'Teodor', serif;
+    h3,
+    h4 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--clr-text);
     }
 
     /* Fixed Global Background */

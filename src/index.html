@@ -45,7 +45,7 @@ title: Home
     }
 
     .intro-text-large {
-        font-family: 'Teodor', serif;
+        font-family: var(--font-display);
         font-size: 2rem;
         line-height: 1.6;
         color: #191f4f;
@@ -87,7 +87,7 @@ title: Home
         left: 0;
         width: 100%;
         height: 125%;
-        background: linear-gradient(to right, rgba(33, 37, 41, 0.85) 20%, rgba(33, 37, 41, 0.0) 100%), url('/assets/paralex2.jpg') no-repeat center center / cover;
+        background: linear-gradient(to right, rgba(33, 37, 41, 0.85) 20%, rgba(33, 37, 41, 0.0) 100%), url('/assets/hero-cell.png') no-repeat center center / cover;
         z-index: 1;
         pointer-events: none;
         transform: translateY(calc(var(--scroll-y, 0px) * 0.35));
@@ -170,7 +170,7 @@ title: Home
 
     .hero-title {
         font-size: 6.8rem;
-        font-weight: 400;
+        font-weight: 600;
         margin-bottom: 20px;
         line-height: 1.1;
         color: white;
@@ -181,7 +181,7 @@ title: Home
     }
 
     .hero-text {
-        font-size: 1.4rem;
+        font-size: 1.8rem;
         line-height: 1.6;
         font-weight: 400;
         color: rgba(255, 255, 255, 0.95);
@@ -285,23 +285,26 @@ title: Home
     }
 
     .core-point img {
+        width: 100%;
         height: 250px;
-        width: auto;
         margin-bottom: 25px;
-        object-fit: contain;
+        object-fit: cover;
+        border-radius: 16px;
     }
 
     .core-point h3 {
-        font-size: 1.85rem;
+        font-size: 1.7rem;
         color: #191f4f;
         margin-bottom: 15px;
-        font-weight: 700;
+        font-weight: 600;
+        font-family: var(--font-display);
     }
 
     .core-point p {
-        font-size: 1.2rem;
+        font-size: 1.15rem;
         color: #555;
         line-height: 1.6;
+        margin: 0;
     }
 
     /* --- 4. SERVICES SECTION --- */
@@ -649,7 +652,7 @@ title: Home
         }
 
         .hero-bg {
-            background: linear-gradient(to bottom, rgba(33, 37, 41, 0.85) 40%, rgba(33, 37, 41, 0.1) 100%), url('/assets/paralex2.jpg') no-repeat center center / cover;
+            background: linear-gradient(to bottom, rgba(33, 37, 41, 0.85) 40%, rgba(33, 37, 41, 0.1) 100%), url('/assets/hero-cell.png') no-repeat center center / cover;
             height: 120%;
             transform: translateY(calc(var(--scroll-y, 0px) * 0.2));
         }
@@ -675,7 +678,7 @@ title: Home
         }
 
         .hero-text {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             padding: 0 10px;
         }
 
@@ -878,11 +881,11 @@ title: Home
     }
 
     .philosophy-title-container .section-title {
-        font-size: 2.8rem;
+        font-size: clamp(2.2rem, 5vw, 3.8rem);
         color: #191f4f;
         margin: 0 !important;
-        font-family: 'Teodor', serif;
-        font-weight: 400;
+        font-family: var(--font-display);
+        font-weight: 600;
         line-height: 1.2;
         position: absolute;
         opacity: 0;
@@ -951,11 +954,11 @@ title: Home
     }
 
     .philosophy-subheading {
-        font-family: 'Teodor', serif;
+        font-family: var(--font-display);
         font-size: 2.8rem;
         color: #191f4f;
         /* brand dark blue */
-        font-weight: 400;
+        font-weight: 600;
         line-height: 1.2;
         margin: 0 0 15px 0 !important;
         padding: 0 !important;
@@ -1047,10 +1050,10 @@ title: Home
     }
 
     .section-title {
-        font-size: 2.5rem;
+        font-size: clamp(2.2rem, 5vw, 3.8rem);
         color: #191f4f;
         margin-bottom: 20px;
-        font-weight: 400;
+        font-weight: 600;
     }
 
     .section-paragraph {
@@ -1275,10 +1278,10 @@ title: Home
     }
 
     .why-us-title {
-        font-size: 3rem;
+        font-size: clamp(2.2rem, 5vw, 3.8rem);
         color: #ffffff;
-        font-family: 'Teodor', serif;
-        font-weight: 400;
+        font-family: var(--font-display);
+        font-weight: 600;
         line-height: 1.2;
         margin: 0 !important;
     }
@@ -1314,7 +1317,7 @@ title: Home
     }
 
     .why-us-num {
-        font-family: 'Teodor', serif;
+        font-family: var(--font-display);
         font-size: 2.2rem;
         color: #ee6257;
         /* brand red */
@@ -1331,8 +1334,8 @@ title: Home
         font-size: 1.65rem;
         color: #ffffff;
         margin: 0 0 10px 0 !important;
-        font-weight: 500;
-        font-family: 'Teodor', serif;
+        font-weight: 600;
+        font-family: var(--font-display);
     }
 
     .why-us-content p {
@@ -1479,14 +1482,14 @@ title: Home
     .faq-question {
         padding: 30px 10px;
         cursor: pointer;
-        font-weight: 400;
+        font-weight: 600;
         font-size: 1.3rem;
         color: #191f4f;
         display: flex;
         justify-content: space-between;
         align-items: center;
         user-select: none;
-        font-family: 'Teodor', serif;
+        font-family: var(--font-display);
         transition: color 0.3s ease;
     }
 
@@ -1673,8 +1676,7 @@ title: Home
     <div class="hero-container">
         <div class="hero-left">
             <h1 class="hero-title">Your Trusted Neighborhood Pharmacy</h1>
-            <p class="hero-text">Providing quality healthcare, prescription services, and wellness products with care
-                and convenience right in your community.</p>
+            <p class="hero-text">Right Corner. Right Care. Right Now.</p>
         </div>
     </div>
 
@@ -1710,17 +1712,17 @@ title: Home
 <div class="core-points-section">
     <div class="core-points-container">
         <div class="core-point">
-            <img src="/assets/rx.png" alt="Prescription Care">
+            <img src="/assets/pesronal.jpg" alt="Prescription Care">
             <h3>Personalized Prescription Care</h3>
             <p>We don’t just fill bottles; we manage your health with precision and expert consultation.</p>
         </div>
         <div class="core-point">
-            <img src="/assets/modern.png" alt="Modern Convenience">
+            <img src="/assets/modern.jpg" alt="Modern Convenience">
             <h3>Modern Convenience</h3>
             <p>Easy transfers, online refills, and quick service without the "big box" wait times.</p>
         </div>
         <div class="core-point">
-            <img src="/assets/community.png" alt="Community Wellness">
+            <img src="/assets/community.jpg" alt="Community Wellness">
             <h3>Community First Wellness</h3>
             <p>Locally owned and operated, dedicated to the families in our neighborhood.</p>
         </div>
