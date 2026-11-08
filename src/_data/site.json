@@ -1,8 +1,72 @@
 {
-    "name": "Rideau Pharmacy",
-    "title": "Local Community Pharmacy",
-    "description": "Rideau Pharmacy is your trusted local community pharmacy in Ottawa, Ontario. We offer expert prescription services, health consultations, and everyday health essentials with personalized care.",
-    "phone": "(613) 789-4444",
-    "address": "Ottawa, ON, Canada",
-    "url": "https://rideaupharmacy.pages.dev/"
+    "name": "Guardian Bellfront Pharmacy",
+    "shortName": "Bellfront Pharmacy",
+    "banner": "Guardian",
+    "title": "Community Pharmacy in Belleville, Ontario",
+    "description": "Guardian Bellfront Pharmacy on North Front Street in Belleville, Ontario. Prescriptions and online refills, flu shots, medication reviews, blister packs, delivery and a walk-in medical clinic.",
+    "url": "",
+    "phone": "613.779.9779",
+    "phoneHref": "+16137799779",
+    "fax": "613.779.6007",
+    "address": {
+        "street": "1-366 North Front St",
+        "city": "Belleville",
+        "region": "ON",
+        "regionName": "Ontario",
+        "postal": "K8P 5E6",
+        "country": "CA"
+    },
+    "geo": {
+        "lat": 44.186911,
+        "lng": -77.398705
+    },
+    "directionsUrl": "https://maps.google.com?daddr=44.186911,-77.398705",
+    "mapEmbedUrl": "https://www.google.com/maps?q=1-366+North+Front+St,+Belleville,+ON+K8P+5E6&z=16&output=embed",
+    "refillUrl": "https://app.diemhealth.ca/",
+    "transferUrl": "https://www.guardian-ida-remedysrx.ca/en/prescription-transfer?pharmacyKey=%7BA1EF72F5-3DBB-46E1-B52F-488532CCE71D%7D",
+    "calendlyUrl": "https://calendly.com/YOUR_LINK_HERE",
+    "headPharmacist": {
+        "name": "Praful",
+        "role": "Head Pharmacist"
+    },
+    "hours": [
+        {
+            "label": "Monday to Friday",
+            "days": [1, 2, 3, 4, 5],
+            "open": "09:30",
+            "close": "18:00",
+            "display": "9:30 AM – 6:00 PM"
+        },
+        {
+            "label": "Saturday",
+            "days": [6],
+            "display": "Closed"
+        },
+        {
+            "label": "Sunday",
+            "days": [0],
+            "display": "Closed"
+        }
+    ],
+    "featuredServices": [
+        { "name": "Medication reviews", "text": "Sit down with a pharmacist and go through everything you take.", "image": "/web/consult-counter.webp", "alt": "A pharmacist explaining a prescription to a patient at the counter", "span": 7, "link": "booking" },
+        { "name": "Flu shots", "text": "Seasonal flu vaccination at the pharmacy.", "image": "/web/flu.webp", "alt": "A patient receiving a vaccination in the upper arm", "span": 5, "link": "booking" },
+        { "name": "Blister packs", "text": "Your doses, sorted by day and time.", "image": "/web/blister.webp", "alt": "A weekly pill organiser on a pale blue surface", "span": 4, "link": "booking" },
+        { "name": "Blood pressure screening", "text": "Know your numbers.", "image": "/web/bp.webp", "alt": "A blood pressure cuff being fitted on a patient's arm", "span": 4, "link": "booking" },
+        { "name": "Delivery", "text": "Ask us about having your medications delivered.", "image": "/web/delivery.webp", "alt": "A courier handing a paper bag to a customer at the front door", "span": 4, "link": "visit" },
+        { "name": "Walk-in medical clinic", "text": "Call us for current clinic hours and availability.", "image": "/web/consult-tablet.webp", "alt": "A pharmacist and a patient reviewing a tablet in a pharmacy", "span": 5, "link": "visit" },
+        { "name": "Online refills", "text": "Reorder through your online patient record, any time.", "image": "/web/refill-phone.webp", "alt": "A person using a smartphone", "span": 7, "link": "refill" }
+    ],
+    "moreServices": [
+        { "name": "Prescription transfers", "text": "Move your prescriptions to Bellfront from another pharmacy." },
+        { "name": "Medication take-back", "text": "Bring in expired or unused medications for safe disposal." },
+        { "name": "Naloxone kits", "text": "Ask a member of our team." },
+        { "name": "Senior discount", "text": "Ask in store for details." }
+    ],
+    "reasons": [
+        { "title": "Reviewed, not just refilled", "text": "Book a medication review and go through your prescriptions with a pharmacist, one question at a time.", "image": "/web/consult-talk.webp", "alt": "A pharmacist talking with a patient across the counter" },
+        { "title": "More care under one banner", "text": "A walk-in medical clinic, flu shots and blood pressure screening, all through Bellfront.", "image": "/web/team.webp", "alt": "A group of healthcare professionals standing together" },
+        { "title": "Refills on your schedule", "text": "Request a refill from your online patient record, then ask us about having it delivered.", "image": "/web/marble.webp", "alt": "A few capsules resting on a white marble surface" },
+        { "title": "Medication, made simpler", "text": "Blister packs sorted by day and time, and a safe place to return what you no longer need.", "image": "/web/organiser.webp", "alt": "A hand taking a capsule from a daily pill organiser" }
+    ]
 }

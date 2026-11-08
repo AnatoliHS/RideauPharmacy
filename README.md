@@ -1,11 +1,8 @@
-# Home Inspection Site
+# Guardian Bellfront Pharmacy
 
-## v1.0.0
+Website for Guardian Bellfront Pharmacy in Belleville, Ontario, built with the 11ty static site generator.
 
-This is a simple project to get started with the amazing 11ty static site generator and Startr.Style
+Pharmacy details (hours, phone, address, services, head pharmacist) live in `src/_data/site.json`.
 
-Simply clone the repo and run `make` to get started.
-
-This is my first hotfix.
-
-Home inspection.
+- `npm start` runs the local dev server.
+- `npm run build` builds the site into `dist/`.

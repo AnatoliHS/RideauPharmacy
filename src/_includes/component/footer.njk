@@ -1,238 +1,99 @@
-<footer class="whmis-footer">
-    <div class="footer-grid">
-        <div class="footer-col brand-col">
-            <img src="/assets/rideau-Logo.png" alt="Company Logo" class="site-logo-footer">
-            <p class="footer-description">
-                Your trusted local community pharmacy in Ottawa. Dedicated to providing fast, personalized, and comprehensive healthcare right in your neighborhood.
-            </p>
-            <p class="tagline">Right Corner. Right Care. Right Now</p>
+<footer class="site-footer">
+    <div class="wrap">
+        <p class="site-footer-mark" aria-hidden="true">Bellfront</p>
+        <div class="site-footer-grid">
+            <a href="/" class="brand" aria-label="{{ site.name }}, home">
+                <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M12 3h8v9h9v8h-9v9h-8v-9H3v-8h9z"/></svg>
+                <span class="brand-text">
+                    <span class="brand-banner">{{ site.banner }}</span>
+                    <span class="brand-name">{{ site.shortName }}</span>
+                </span>
+            </a>
+            <p><span class="site-footer-label">Find us</span>{{ site.address.street }}<br>{{ site.address.city }}, {{ site.address.region }} {{ site.address.postal }}</p>
+            <p><span class="site-footer-label">Talk to us</span><a href="tel:{{ site.phoneHref }}">{{ site.phone }}</a><br>Fax {{ site.fax }}</p>
+            <p><span class="site-footer-label">Hours</span>{{ site.hours[0].label }}<br>{{ site.hours[0].display }}<br>Closed weekends</p>
         </div>
-
-        <div class="footer-col links-col">
-            <h4>Quick Links</h4>
-            <ul class="nav-links">
-                <li><a href="/">Home</a></li>
-                <li><a href="#about-section">About Us</a></li>
-                <li><a href="#services-section">Our Services</a></li>
-                <li><a href="#faq-section">FAQs</a></li>
-                <li><a href="#contact-section">Contact</a></li>
-            </ul>
+        <div class="site-footer-bottom">
+            <p>&copy; 2026 {{ site.name }}. All rights reserved.</p>
+            <p>Design &amp; development by <a href="https://chastech.ca" target="_blank" rel="noopener noreferrer">ChasTech Inc.</a></p>
+            <p><a href="/privacy_statement">Privacy Policy</a></p>
         </div>
-
-        <div class="footer-col contact-col">
-            <h4>Contact & Hours</h4>
-            <p class="contact-info"><strong>Phone:</strong> <a href="tel:6137894444" style="color: #436aee; text-decoration: none;">(613) 789-4444</a></p>
-            <p class="contact-info"><strong>Location:</strong> Corner of Rideau & Friel St, Ottawa, ON</p>
-            <div class="hours-info">
-                <strong>Hours:</strong>
-                <p>Mon - Fri: 8:00 AM - 6:00 PM</p>
-                <p>Sat: 9:00 AM - 4:00 PM</p>
-                <p>Sun: 9:00 AM - 3:00 PM</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer-bottom">
-        <p class="copyright">&copy; 2026 Rideau Pharmacy. All rights reserved.</p>
-        <p class="chastech-credit">Design & Development by <a href="https://chastech.ca" target="_blank" rel="noopener noreferrer">ChasTech Inc.</a></p>
-        <ul class="legal-list">
-            <li><a href="/privacy_statement">Privacy Policy</a></li>
-        </ul>
     </div>
 </footer>
 
 <style>
-    /* --- MODERN SPACIOUS FOOTER --- */
-    .whmis-footer {
+    .site-footer {
         width: 100%;
-        background-color: #f8fafc;
-        padding: 80px 20px 40px;
-        box-sizing: border-box;
-        border-top: 1px solid rgba(25, 31, 79, 0.08);
-        font-family: var(--font-display), sans-serif;
+        padding: clamp(56px, 7vw, 96px) 0 32px;
+        background: var(--forest);
+        color: var(--on-dark-muted);
+        font-size: 0.98rem;
+        overflow: hidden;
     }
 
-    .footer-grid {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: 2fr 1fr 1.5fr;
-        gap: 60px;
-        padding-bottom: 50px;
-        border-bottom: 1px solid rgba(25, 31, 79, 0.08);
+    .site-footer p {
+        margin: 0;
     }
 
-    .footer-col {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+    .site-footer a:not(.brand) {
+        color: inherit;
+        text-decoration: none;
     }
 
-    /* --- BRANDING --- */
-    .site-logo-footer {
-        height: 65px;
-        width: auto;
-        object-fit: contain;
+    .site-footer a:not(.brand):hover {
+        color: var(--gold-light);
+    }
+
+    .site-footer .brand {
+        color: var(--on-dark);
+        align-self: start;
+    }
+
+    .site-footer-mark {
+        font-family: var(--font-serif);
+        font-size: clamp(5rem, 21vw, 21rem);
+        line-height: 0.9;
+        letter-spacing: -0.025em;
+        color: var(--gold);
+        opacity: 0.9;
+        margin-bottom: clamp(40px, 6vw, 80px) !important;
+    }
+
+    .site-footer-label {
         display: block;
-        margin-bottom: 20px;
-    }
-
-    .footer-description {
-        color: #555;
-        font-size: 1rem;
-        line-height: 1.6;
-        margin-bottom: 20px;
-        font-family: sans-serif;
-    }
-
-    .brand-col .tagline {
-        color: #191f4f;
-        font-size: 1.05rem;
+        margin-bottom: 10px;
+        font-size: 0.72rem;
         font-weight: 600;
-        margin: 0;
-        letter-spacing: -0.01em;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
     }
 
-    /* --- COLUMN HEADINGS --- */
-    .footer-col h4 {
-        color: #191f4f;
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin: 0 0 25px 0;
-        letter-spacing: -0.02em;
+    .site-footer-grid {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr 1fr 1fr;
+        gap: 32px;
+        padding-bottom: 48px;
     }
 
-    /* --- QUICK LINKS --- */
-    .nav-links {
-        list-style: none;
-        padding: 0;
-        margin: 0;
+    .site-footer-bottom {
         display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .nav-links a {
-        color: #555;
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 1rem;
-        transition: color 0.2s ease, transform 0.2s ease;
-        display: inline-block;
-        font-family: sans-serif;
-    }
-
-    .nav-links a:hover {
-        color: #436aee;
-        transform: translateX(4px);
-    }
-
-    /* --- CONTACT & HOURS --- */
-    .contact-col p, 
-    .contact-col div {
-        color: #555;
-        font-size: 1rem;
-        line-height: 1.6;
-        margin: 0 0 12px 0;
-        font-family: sans-serif;
-    }
-
-    .hours-info p {
-        margin: 4px 0 0 0;
-        font-size: 0.95rem;
-    }
-
-    /* --- BOTTOM BAR --- */
-    .footer-bottom {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding-top: 30px;
-        display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
-        align-items: center;
+        gap: 8px 32px;
+        padding-top: 24px;
+        border-top: 1px solid var(--on-dark-line);
+        font-size: 0.85rem;
     }
 
-    .copyright {
-        color: #777;
-        font-size: 0.9rem;
-        margin: 0;
-        font-family: sans-serif;
-    }
-
-    .chastech-credit {
-        color: #777;
-        font-size: 0.9rem;
-        margin: 0;
-        font-family: sans-serif;
-    }
-
-    .chastech-credit a {
-        color: #436aee;
-        text-decoration: none;
-        font-weight: 600;
-        transition: color 0.2s ease;
-    }
-
-    .chastech-credit a:hover {
-        color: #191f4f;
-        text-decoration: underline;
-    }
-
-    .legal-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        gap: 20px;
-    }
-
-    .legal-list a {
-        font-size: 0.9rem;
-        color: #777;
-        text-decoration: none;
-        transition: color 0.2s ease;
-        font-family: sans-serif;
-    }
-
-    .legal-list a:hover {
-        color: #436aee;
-        text-decoration: underline;
-    }
-
-    /* --- RESPONSIVENESS --- */
     @media (max-width: 900px) {
-        .whmis-footer {
-            padding: 60px 20px 30px;
-        }
-
-        .footer-grid {
+        .site-footer-grid {
             grid-template-columns: 1fr;
-            gap: 40px;
-            padding-bottom: 40px;
+            gap: 28px;
         }
 
-        .footer-col {
-            align-items: center;
-            text-align: center;
-        }
-
-        .site-logo-footer {
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .nav-links a:hover {
-            transform: translateY(-2px);
-        }
-
-        .footer-bottom {
+        .site-footer-bottom {
             flex-direction: column;
-            gap: 15px;
-            text-align: center;
-        }
-
-        .legal-list {
-            justify-content: center;
         }
     }
 </style>

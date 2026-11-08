@@ -1,2305 +1,1358 @@
 ---
 layout: default.njk
 title: Home
+navOverlay: true
 ---
 
 <style>
-    html {
-        scroll-behavior: smooth;
-    }
-
-    /* --- 1. GLOBAL & HERO STYLES --- */
-    .core-points-section {
-        background: #ffffff;
-        padding: 60px 30px 100px;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-    }
-
-    /* --- INTRO DESCRIPTION --- */
-    .intro-description-section {
-        padding: 100px 30px 40px;
-        background: #f2f8fc;
-        text-align: center;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-    }
-
-    @media (min-width: 1025px) {
-        .intro-description-section {
-            padding-top: 150px;
-        }
-    }
-
-    .intro-container {
-        max-width: 900px;
-        margin: 0 auto;
-    }
-
-    @media (min-width: 1025px) {
-        .intro-container {
-            max-width: 1200px;
-        }
-    }
-
-    .intro-text-large {
-        font-family: var(--font-display);
-        font-size: 2rem;
-        line-height: 1.6;
-        color: #191f4f;
-        font-weight: 400;
-        margin-bottom: 30px;
-    }
-
-    @media (min-width: 1025px) {
-        .intro-text-large {
-            font-size: 2.5rem;
-            line-height: 1.4;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .intro-text-large {
-            font-size: 1.5rem;
-            line-height: 1.5;
-        }
-    }
-
-    .hero-section {
-        background: transparent;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
+    /* Shared */
+    .eyebrow {
         display: flex;
-        flex-direction: column;
-        min-height: 600px;
-        color: white;
-        padding-top: calc(var(--navbar-height, 70px) + 40px);
-        position: relative;
-        overflow: hidden;
-        margin-bottom: -1px;
-    }
-
-    .hero-bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 125%;
-        background: linear-gradient(to right, rgba(33, 37, 41, 0.85) 20%, rgba(33, 37, 41, 0.0) 100%), url('/assets/hero-cell.png') no-repeat center center / cover;
-        z-index: 1;
-        pointer-events: none;
-        transform: translateY(calc(var(--scroll-y, 0px) * 0.35));
-        will-change: transform;
-    }
-
-    /* --- ANIMATIONS --- */
-    @keyframes slideInCenter {
-        from {
-            opacity: 0;
-            transform: translateX(100px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-
-    @keyframes slideInLeft {
-        from {
-            opacity: 0;
-            transform: translateX(-100px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-
-    @keyframes slideInTop {
-        from {
-            opacity: 0;
-            transform: translateY(-50px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(40px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .hero-container {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        max-width: 1400px;
-        margin: 0 auto;
-        z-index: 2;
-        position: relative;
         align-items: center;
-        gap: 20px;
-        flex-grow: 1;
-    }
-
-    .hero-left {
-        flex: 1;
-        max-width: 750px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 40px 60px;
-        text-align: left;
-        transform: translateY(calc(var(--scroll-y, 0px) * -0.2));
-        will-change: transform;
-    }
-
-    .hero-title {
-        font-size: 6.8rem;
+        gap: 14px;
+        margin: 0 0 24px;
+        font-size: 0.76rem;
         font-weight: 600;
-        margin-bottom: 20px;
-        line-height: 1.1;
-        color: white;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
-        opacity: 0;
-        animation: slideInTop 1s ease-out forwards;
-        animation-delay: 0.5s;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
     }
 
-    .hero-text {
-        font-size: 1.8rem;
-        line-height: 1.6;
-        font-weight: 400;
-        color: rgba(255, 255, 255, 0.95);
-        margin-bottom: 10px;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-        opacity: 0;
-        animation: slideInLeft 1s ease-out forwards;
-        animation-delay: 1.0s;
+    .eyebrow::before {
+        content: "";
+        width: 36px;
+        height: 1px;
+        background: currentColor;
     }
 
-    /* --- 2. WAVE ANIMATION --- */
-    .waves-container {
-        position: relative;
-        width: 100%;
-        height: 50px;
-        z-index: 2;
-        margin-bottom: -7px;
-    }
-
-    .waves {
-        position: relative;
-        width: 100%;
-        height: 50px;
-        margin-bottom: -7px;
-        min-height: 50px;
-        max-height: 150px;
-    }
-
-    .parallax>use {
-        animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
-    }
-
-    .parallax>use:nth-child(1) {
-        animation-delay: -2s;
-        animation-duration: 7s;
-        fill: rgba(88, 140, 186, 0.7);
-    }
-
-    .parallax>use:nth-child(2) {
-        animation-delay: -3s;
-        animation-duration: 10s;
-        fill: rgba(125, 170, 208, 0.7);
-    }
-
-    .parallax>use:nth-child(3) {
-        animation-delay: -4s;
-        animation-duration: 13s;
-        fill: rgba(163, 201, 230, 0.7);
-    }
-
-    .parallax>use:nth-child(4) {
-        animation-delay: -5s;
-        animation-duration: 20s;
-        fill: #f2f8fc;
-    }
-
-    @keyframes move-forever {
-        0% {
-            transform: translate3d(-90px, 0, 0);
-        }
-
-        100% {
-            transform: translate3d(85px, 0, 0);
-        }
-    }
-
-    /* --- 3. CORE POINTS SECTION --- */
-    .core-points-section {
-        padding: 120px 20px 80px;
-        background: #f2f8fc;
-        overflow: hidden;
-    }
-
-    .core-points-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: flex-start;
-        max-width: 1200px;
-        margin: 0 auto;
-        gap: 40px;
-    }
-
-    .core-point {
-        flex: 1;
-        text-align: center;
-        opacity: 0;
-        animation: fadeInUp 1s ease-out forwards;
-    }
-
-    .core-point:nth-child(1) {
-        animation-delay: 1.5s;
-    }
-
-    .core-point:nth-child(2) {
-        animation-delay: 1.8s;
-    }
-
-    .core-point:nth-child(3) {
-        animation-delay: 2.1s;
-    }
-
-    .core-point img {
-        width: 100%;
-        height: 250px;
-        margin-bottom: 25px;
-        object-fit: cover;
-        border-radius: 16px;
-    }
-
-    .core-point h3 {
-        font-size: 1.7rem;
-        color: #191f4f;
-        margin-bottom: 15px;
-        font-weight: 600;
-        font-family: var(--font-display);
-    }
-
-    .core-point p {
-        font-size: 1.15rem;
-        color: #555;
-        line-height: 1.6;
-        margin: 0;
-    }
-
-    /* --- 4. SERVICES SECTION --- */
-    .services-section {
-        padding: 100px 40px 120px;
-        background: #f7f5f2;
-        overflow-x: hidden;
-        position: relative;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-    }
-
-    .services-main-title {
-        text-align: center;
-        font-size: clamp(2.2rem, 5vw, 3.8rem);
-        color: #191f4f;
-        margin-bottom: 16px;
-        font-weight: 700;
-        letter-spacing: -1px;
-        position: relative;
-    }
-
-    .services-subtitle {
-        text-align: center;
-        font-size: 1.1rem;
-        color: #6b7280;
-        margin-bottom: 72px;
-        font-weight: 400;
-        letter-spacing: 0.02em;
-        position: relative;
-    }
-
-    /* ── Service Cards Grid ── */
-    .srv-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 28px;
-        max-width: 1100px;
-        margin: 0 auto;
-        position: relative;
-    }
-
-    .srv-card {
-        background: #ffffff;
-        border-radius: 24px;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.35s ease, box-shadow 0.35s ease;
-        position: relative;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
-        /* scroll reveal */
-        opacity: 0;
-        transform: translateY(36px);
-    }
-
-    .srv-card.revealed {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .srv-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.13);
-    }
-
-    /* coloured top accent bar per card */
-    .srv-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        border-radius: 24px 24px 0 0;
-        background: var(--srv-accent, linear-gradient(90deg, #63b3ed, #4299e1));
-        opacity: 0.85;
-    }
-
-    .srv-card:nth-child(1) {
-        --srv-accent: linear-gradient(90deg, #63b3ed, #4fd1c5);
-        transition-delay: 0.05s;
-    }
-
-    .srv-card:nth-child(2) {
-        --srv-accent: linear-gradient(90deg, #68d391, #38b2ac);
-        transition-delay: 0.15s;
-    }
-
-    .srv-card:nth-child(3) {
-        --srv-accent: linear-gradient(90deg, #b794f4, #805ad5);
-        transition-delay: 0.25s;
-    }
-
-    .srv-card:nth-child(4) {
-        --srv-accent: linear-gradient(90deg, #f6ad55, #ed8936);
-        transition-delay: 0.35s;
-    }
-
-    .srv-img-wrap {
-        width: 100%;
-        height: 230px;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .srv-img-wrap::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to bottom, transparent 40%, rgba(13, 17, 23, 0.85) 100%);
-    }
-
-    .srv-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        transition: transform 0.55s ease;
-    }
-
-    .srv-card:hover .srv-img {
-        transform: scale(1.06);
-    }
-
-    .srv-body {
-        padding: 28px 32px 36px;
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-    }
-
-    .srv-icon {
-        width: 44px;
-        height: 44px;
-        border-radius: 12px;
-        background: var(--srv-accent, linear-gradient(135deg, #63b3ed, #4299e1));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 18px;
-        flex-shrink: 0;
-    }
-
-    .srv-icon svg {
-        width: 22px;
-        height: 22px;
-        fill: none;
-        stroke: #fff;
-        stroke-width: 2;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-    }
-
-    .srv-title {
-        font-size: 1.35rem;
-        font-weight: 600;
-        color: #191f4f;
-        margin-bottom: 12px;
-        letter-spacing: -0.3px;
-    }
-
-    .srv-text {
-        font-size: 0.97rem;
-        line-height: 1.75;
-        color: #6b7280;
-        flex: 1;
-    }
-
-    .srv-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        margin-top: 22px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: #345470;
-        text-decoration: none;
-        letter-spacing: 0.02em;
-        transition: gap 0.25s ease, color 0.25s ease;
-    }
-
-    .srv-link:hover {
-        color: #191f4f;
-        gap: 10px;
-    }
-
-    .srv-link svg {
-        width: 16px;
-        height: 16px;
-        stroke: currentColor;
-        fill: none;
-        stroke-width: 2;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        transition: transform 0.25s ease;
-    }
-
-    .srv-link:hover svg {
-        transform: translateX(3px);
-    }
-
-    /* --- VIDEO DIVIDER SECTION --- */
-
-    .parallax-divider {
-        height: 600px;
-        position: relative;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-        overflow: hidden;
-    }
-
-    .parallax-divider video {
-        position: absolute;
-        top: -30vh;
-        left: 0;
-        width: 100%;
-        height: 160vh;
-        object-fit: cover;
-        display: block;
-        will-change: transform;
-    }
-
-    @media (max-width: 768px) {
-        .parallax-divider {
-            height: 360px;
-        }
-
-        .parallax-divider video {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%) !important;
-            width: auto;
-            min-width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background: #000;
-            will-change: auto;
-        }
-    }
-
-    .parallax-divider::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.25);
-        pointer-events: none;
-    }
-
-    /* --- 5. CONTACT SECTION --- */
-    .quick-contact {
-        padding: 100px 20px;
-        background: #ffffff;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-    }
-
-    .contact-container {
-        max-width: 1100px;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        gap: 80px;
-    }
-
-    .contact-info {
-        flex: 1;
-    }
-
-    .contact-title {
-        font-size: 2.8rem;
-        color: #191f4f;
-        margin-bottom: 15px;
-        font-weight: 800;
-    }
-
-    .contact-subtitle {
-        font-size: 1.1rem;
-        color: #555;
-        margin-bottom: 40px;
-        line-height: 1.6;
-    }
-
-    .info-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 20px;
-        margin-bottom: 30px;
-    }
-
-    .info-icon {
-        font-size: 1.8rem;
-        background: #f2f8fc;
-        padding: 15px;
-        border-radius: 50%;
-        line-height: 1;
-    }
-
-    .info-text strong {
-        display: block;
-        font-size: 1.2rem;
-        color: #191f4f;
-        margin-bottom: 5px;
-    }
-
-    .info-text p {
-        font-size: 1.1rem;
-        color: #666;
-        margin: 0;
-    }
-
-    .contact-image {
-        width: 100%;
-        height: 450px;
-        object-fit: cover;
-        border-radius: 24px;
-        box-shadow: 0 20px 40px rgba(25, 31, 79, 0.1);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-
-        .hero-bg,
-        .hero-left {
-            transform: none !important;
-        }
-    }
-
-    /* --- 6. RESPONSIVE BREAKPOINTS --- */
-    @media (max-width: 1024px) {
-        .hero-container {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 80px 20px 80px 20px;
-        }
-
-        .hero-section {
-            padding-top: 40px;
-            min-height: 500px;
-            background: transparent;
-        }
-
-        .hero-bg {
-            background: linear-gradient(to bottom, rgba(33, 37, 41, 0.85) 40%, rgba(33, 37, 41, 0.1) 100%), url('/assets/hero-cell.png') no-repeat center center / cover;
-            height: 120%;
-            transform: translateY(calc(var(--scroll-y, 0px) * 0.2));
-        }
-
-        .waves-container {
-            transform: translateY(-5px);
-        }
-
-        .hero-left {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            width: 100%;
-            padding: 0;
-            transform: translateY(calc(var(--scroll-y, 0px) * -0.1));
-        }
-
-        .hero-title {
-            font-size: 3.4rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .hero-text {
-            font-size: 1.4rem;
-            padding: 0 10px;
-        }
-
-        .core-points-container {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .core-point {
-            width: 100%;
-            margin-bottom: 40px;
-        }
-
-        .services-section {
-            padding: 80px 20px 100px;
-        }
-
-        .services-subtitle {
-            margin-bottom: 48px;
-        }
-
-        .srv-grid {
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
-        .srv-img-wrap {
-            height: 200px;
-        }
-
-        .srv-body {
-            padding: 22px 24px 30px;
-        }
-
-        .contact-container {
-            flex-direction: column;
-            text-align: center;
-            gap: 50px;
-        }
-
-        .info-item {
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .contact-title {
-            font-size: 2.2rem;
-        }
-
-        .contact-image {
-            height: 300px;
-        }
-    }
-
-    /* --- 7. NEW SHARED CONTENT STYLES (FROM ABOUT/FAQ/CONTACT) --- */
-    .content-section {
-        padding: 80px 20px;
-        background: #ffffff;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-    }
-
-    .content-section.alt-bg {
-        background: #f2f8fc;
-    }
-
-    .philosophy-section {
-        padding: 100px 20px;
-        background: #ffffff !important;
-        position: relative;
-        overflow: hidden;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-    }
-
-    .philosophy-progress-track {
-        grid-row: 3;
-        grid-column: 1;
-        width: 100%;
-        height: 4px;
-        background: rgba(25, 31, 79, 0.15);
-        z-index: 10;
-        border-radius: 2px;
-        overflow: hidden;
-        margin-top: 35px;
-    }
-
-    .philosophy-progress-bar {
-        height: 100%;
-        background: linear-gradient(to right, #56ccf2, #191f4f);
-        width: 0;
-        opacity: 0.85;
-    }
-
-    .philosophy-progress-bar.animating {
-        animation: philProgress 15s linear forwards;
-    }
-
-    @keyframes philProgress {
-        from {
-            width: 0%;
-        }
-
-        to {
-            width: 100%;
-        }
-    }
-
-    .philosophy-container {
-        max-width: 1100px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        gap: 60px;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-        position: relative;
-    }
-
-    .philosophy-nav-container {
-        grid-row: 2;
-        grid-column: 1;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 15px;
-        margin-top: 30px;
-        z-index: 15;
-    }
-
-
-    .philosophy-nav-btn {
-        width: 46px;
-        height: 46px;
-        background: #ffffff;
-        border: 1px solid rgba(25, 31, 79, 0.1);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        padding: 0;
-    }
-
-    .philosophy-nav-btn:hover {
-        background: #f2f8fc;
-        transform: scale(1.08);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-    }
-
-    .philosophy-nav-btn svg {
-        width: 20px;
-        height: 20px;
-        fill: #191f4f;
-    }
-
-    @media (max-width: 1024px) {
-        .philosophy-nav-container {
-            justify-content: center;
-            margin-top: 25px;
-        }
-
-        .philosophy-section {
-            padding-bottom: 100px !important;
-        }
-    }
-
-    .philosophy-left-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        flex: 0.8;
-        order: 2;
-        gap: 25px;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-    }
-
-    .philosophy-title-container {
-        position: relative;
-        width: 100%;
-        min-height: 80px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-    }
-
-    .philosophy-title-container .section-title {
-        font-size: clamp(2.2rem, 5vw, 3.8rem);
-        color: #191f4f;
-        margin: 0 !important;
-        font-family: var(--font-display);
-        font-weight: 600;
-        line-height: 1.2;
-        position: absolute;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(10px);
-        transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.6s;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-    }
-
-    .philosophy-title-container .section-title.active {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-        position: relative;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-    }
-
-    .philosophy-icon {
-        width: 280px;
-        height: auto;
-        transform: rotate(var(--phil-rotation, 0deg)) scale(1);
-        transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-        margin: 0 !important;
-    }
-
-    .philosophy-icon:hover {
-        transform: rotate(var(--phil-rotation, 0deg)) scale(1.06);
-    }
-
-    .philosophy-right-container {
-        display: grid;
-        grid-template-columns: 1fr;
-        flex: 1.2;
-        order: 1;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-    }
-
-    .philosophy-slide {
-        grid-area: 1 / 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 10px;
-        width: 100%;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(15px);
-        transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.8s;
-        margin: 0 !important;
-        padding: 0 !important;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-    }
-
-    .philosophy-slide.active {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-
-    .philosophy-subheading {
-        font-family: var(--font-display);
-        font-size: 2.8rem;
-        color: #191f4f;
-        /* brand dark blue */
-        font-weight: 600;
-        line-height: 1.2;
-        margin: 0 0 15px 0 !important;
-        padding: 0 !important;
-    }
-
-    .philosophy-slide .section-paragraph {
-        font-size: 1.35rem;
-        line-height: 1.8;
-        color: #444;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    @media (max-width: 1024px) {
-        .philosophy-container {
-            flex-direction: column;
-            gap: 40px;
-            text-align: center;
-        }
-
-        .philosophy-left-container {
-            flex: none;
-            order: 1;
-            align-items: center;
-            width: 100%;
-        }
-
-        .philosophy-title-container {
-            min-height: 60px;
-        }
-
-        .philosophy-title-container .section-title {
-            font-size: 2.3rem;
-        }
-
-        .philosophy-icon {
-            width: 110px;
-            margin-top: 20px !important;
-        }
-
-        .philosophy-right-container {
-            flex: none;
-            order: 2;
-            width: 100%;
-        }
-
-        .philosophy-subheading {
-            font-size: 2.0rem;
-            margin-bottom: 12px !important;
-        }
-
-        .philosophy-slide .section-paragraph {
-            line-height: 1.5;
-        }
-
-        .philosophy-progress-track {
-            margin-top: 20px;
-        }
-    }
-
-    .content-container-wide {
-        max-width: 1100px;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        gap: 60px;
-    }
-
-    .content-container-wide.reverse {
-        flex-direction: row-reverse;
-    }
-
-    .content-text {
-        flex: 1;
-    }
-
-    .content-image-wrapper {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-    }
-
-    .content-image {
-        width: 100%;
-        max-width: 500px;
-        border-radius: 20px;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        object-fit: cover;
+    .on-dark .eyebrow {
+        color: var(--gold);
     }
 
     .section-title {
-        font-size: clamp(2.2rem, 5vw, 3.8rem);
-        color: #191f4f;
-        margin-bottom: 20px;
-        font-weight: 600;
+        margin: 0;
+        font-size: clamp(2.9rem, 6.2vw, 5.8rem);
     }
 
-    .section-paragraph {
-        font-size: 1.15rem;
-        line-height: 1.8;
-        color: #444;
-        margin-bottom: 20px;
+    .section-title em,
+    .hero-title em,
+    .statement em {
+        color: var(--accent);
     }
 
-    /* --- TEAM SECTION --- */
-    .team-section {
-        padding: 100px 20px;
-        background: #ffffff;
-        text-align: center;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
+    .on-dark .section-title em,
+    .hero-title em {
+        color: var(--gold);
     }
 
-    .team-card {
-        background: #f2f8fc;
-        padding: 40px;
-        border-radius: 24px;
-        max-width: 900px;
-        margin: 0 auto;
-        display: flex;
+    .lede {
+        max-width: 34em;
+        margin: 24px 0 0;
+        font-size: clamp(1.08rem, 1.5vw, 1.25rem);
+        color: var(--muted);
+    }
+
+    .on-dark .lede {
+        color: var(--on-dark-muted);
+    }
+
+    .btn {
+        display: inline-flex;
         align-items: center;
-        gap: 50px;
-        text-align: left;
-        box-shadow: 0 10px 25px rgba(88, 140, 186, 0.15);
+        justify-content: center;
+        gap: 14px;
+        min-height: 58px;
+        padding: 0 32px;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        font-size: 1.02rem;
+        font-weight: 500;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
     }
 
-    .team-image {
-        width: 250px;
-        height: 250px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 5px solid #fff;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        flex-shrink: 0;
+    .btn svg,
+    .tile-arrow svg {
+        width: 18px;
+        height: 18px;
+        stroke: currentColor;
+        stroke-width: 1.6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        fill: none;
+        transition: transform 0.5s var(--ease);
     }
 
-    .team-info h3 {
-        font-size: 2rem;
-        color: #191f4f;
-        margin-bottom: 5px;
+    .btn:hover svg {
+        transform: translateX(5px);
     }
 
-    .team-role {
-        font-size: 1.1rem;
-        color: #588cba;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 20px;
-        display: block;
+    .btn-gold {
+        background: var(--gold);
+        color: var(--forest);
     }
 
-    /* --- WHY US SECTION --- */
-    .why-us-section {
-        padding: 120px 20px;
-        background: #191f4f;
-        color: white;
+    .btn-gold:hover {
+        background: var(--gold-light);
+    }
+
+    .btn-ghost {
+        border-color: rgba(246, 242, 234, 0.5);
+        color: var(--on-dark);
+    }
+
+    .btn-ghost:hover {
+        background: var(--on-dark);
+        color: var(--forest);
+    }
+
+    .btn-dark {
+        background: var(--forest);
+        color: var(--on-dark);
+    }
+
+    .btn-dark:hover {
+        background: var(--accent);
+    }
+
+    .btn-outline {
+        border-color: var(--forest);
+        color: var(--forest);
+    }
+
+    .btn-outline:hover {
+        background: var(--forest);
+        color: var(--on-dark);
+    }
+
+    .js [data-reveal] {
+        opacity: 0;
+        transform: translateY(36px);
+        transition: opacity 1.1s var(--ease), transform 1.1s var(--ease);
+        transition-delay: var(--d, 0s);
+    }
+
+    .js [data-reveal].is-in {
+        opacity: 1;
+        transform: none;
+    }
+
+    /* Hero */
+    .hero {
         position: relative;
-        overflow: hidden;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-    }
-
-    .why-us-container {
-        max-width: 1100px;
-        margin: 0 auto;
         display: flex;
-        flex-direction: row;
-        gap: 80px;
-        align-items: flex-start;
-        position: relative;
-        z-index: 1;
+        flex-direction: column;
+        justify-content: flex-end;
+        min-height: clamp(660px, 100svh, 1000px);
+        margin-top: calc(-1 * var(--nav-h) - 1px);
+        padding-top: calc(var(--nav-h) + 40px);
+        background: var(--forest);
+        color: var(--on-dark);
+        overflow: hidden;
     }
 
-    .why-us-bg-icons {
+    .hero-film {
         position: absolute;
-        top: 0;
-        left: 0;
+        inset: 0;
         width: 100%;
         height: 100%;
-        pointer-events: none;
-        overflow: hidden;
-        z-index: 0;
+        object-fit: cover;
+        object-position: 62% 40%;
     }
 
-    .why-us-floating-icon {
+    .hero::after {
+        content: "";
         position: absolute;
-        bottom: -120px;
-        height: auto;
-        opacity: 0.08;
-        filter: brightness(0) invert(1);
-        pointer-events: none;
+        inset: 0;
+        background:
+            linear-gradient(90deg, rgba(14, 42, 36, 0.9) 0%, rgba(14, 42, 36, 0.62) 42%, rgba(14, 42, 36, 0.08) 78%),
+            linear-gradient(0deg, rgba(14, 42, 36, 0.86) 0%, rgba(14, 42, 36, 0) 42%),
+            linear-gradient(180deg, rgba(14, 42, 36, 0.5) 0%, rgba(14, 42, 36, 0) 22%);
     }
 
-    .why-us-floating-icon.icon-1 {
-        width: 65px;
-        left: 5%;
-        animation: floatUpRotateCW 25s linear infinite;
-        animation-delay: 0s;
+    .hero-body,
+    .hero-bar {
+        position: relative;
+        z-index: 1;
     }
 
-    .why-us-floating-icon.icon-2 {
-        width: 85px;
-        left: 15%;
-        animation: floatUpRotateCCW 30s linear infinite;
-        animation-delay: 4s;
+    .hero-body {
+        padding-bottom: clamp(36px, 5vw, 64px);
     }
 
-    .why-us-floating-icon.icon-3 {
-        width: 60px;
-        left: 25%;
-        animation: floatUpRotateCW 28s linear infinite;
-        animation-delay: 8s;
+    .hero-title {
+        max-width: 11.5em;
+        margin: 0;
+        font-size: clamp(3.7rem, 9vw, 9rem);
+        line-height: 0.96;
+        letter-spacing: -0.02em;
     }
 
-    .why-us-floating-icon.icon-4 {
-        width: 80px;
-        left: 35%;
-        animation: floatUpRotateCCW 32s linear infinite;
-        animation-delay: 12s;
+    .hero-title .line {
+        display: block;
+        overflow: hidden;
+        padding-bottom: 0.12em;
+        margin-bottom: -0.12em;
     }
 
-    .why-us-floating-icon.icon-5 {
-        width: 70px;
-        left: 45%;
-        animation: floatUpRotateCW 26s linear infinite;
-        animation-delay: 2s;
-    }
-
-    .why-us-floating-icon.icon-6 {
-        width: 75px;
-        left: 55%;
-        animation: floatUpRotateCCW 29s linear infinite;
-        animation-delay: 16s;
-    }
-
-    .why-us-floating-icon.icon-7 {
-        width: 60px;
-        left: 65%;
-        animation: floatUpRotateCW 24s linear infinite;
-        animation-delay: 6s;
-    }
-
-    .why-us-floating-icon.icon-8 {
-        width: 90px;
-        left: 75%;
-        animation: floatUpRotateCCW 34s linear infinite;
-        animation-delay: 10s;
-    }
-
-    .why-us-floating-icon.icon-9 {
-        width: 70px;
-        left: 85%;
-        animation: floatUpRotateCW 27s linear infinite;
-        animation-delay: 14s;
-    }
-
-    .why-us-floating-icon.icon-10 {
-        width: 80px;
-        left: 95%;
-        animation: floatUpRotateCCW 31s linear infinite;
-        animation-delay: 18s;
-    }
-
-    .why-us-floating-icon.icon-11 {
-        width: 55px;
-        left: 20%;
-        animation: floatUpRotateCW 23s linear infinite;
-        animation-delay: 20s;
-    }
-
-    .why-us-floating-icon.icon-12 {
-        width: 50px;
-        left: 50%;
-        animation: floatUpRotateCCW 22s linear infinite;
-        animation-delay: 22s;
-    }
-
-    @keyframes floatUpRotateCW {
-        0% {
-            bottom: -120px;
-            transform: translateX(0) rotate(0deg);
-        }
-
-        50% {
-            transform: translateX(30px) rotate(180deg);
-        }
-
-        100% {
-            bottom: calc(100% + 120px);
-            transform: translateX(0) rotate(360deg);
-        }
-    }
-
-    @keyframes floatUpRotateCCW {
-        0% {
-            bottom: -120px;
-            transform: translateX(0) rotate(0deg);
-        }
-
-        50% {
-            transform: translateX(-30px) rotate(-180deg);
-        }
-
-        100% {
-            bottom: calc(100% + 120px);
-            transform: translateX(0) rotate(-360deg);
-        }
-    }
-
-    .why-us-left {
-        flex: 1;
-        position: sticky;
-        top: 120px;
-    }
-
-    .why-us-title {
-        font-size: clamp(2.2rem, 5vw, 3.8rem);
-        color: #ffffff;
-        font-family: var(--font-display);
-        font-weight: 600;
-        line-height: 1.2;
-        margin: 0 !important;
-    }
-
-    .why-us-image {
-        max-width: 100%;
-        height: auto;
-        border-radius: 16px;
-        margin-top: 40px;
+    .hero-title .line > span {
         display: block;
     }
 
-    .why-us-right {
-        flex: 1.3;
+    .js .hero-title .line > span {
+        animation: rise 1.4s var(--ease) both;
+    }
+
+    .js .hero-title .line:nth-child(2) > span {
+        animation-delay: 0.14s;
+    }
+
+    @keyframes rise {
+        from {
+            transform: translateY(110%);
+        }
+
+        to {
+            transform: none;
+        }
+    }
+
+    .hero-text {
+        max-width: 31em;
+        margin: 28px 0 36px;
+        font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+        color: var(--on-dark-muted);
+    }
+
+    .hero-actions {
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 14px;
     }
 
-    .why-us-item {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 25px;
-        padding-bottom: 30px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        margin-bottom: 30px;
+    .hero-bar-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr 1.15fr 1fr;
+        border-top: 1px solid var(--on-dark-line);
     }
 
-    .why-us-item:last-child {
-        border-bottom: none;
-        margin-bottom: 0;
-        padding-bottom: 0;
+    .hero-cell {
+        padding: 26px 28px 30px;
+        border-left: 1px solid var(--on-dark-line);
+        font-size: 1rem;
     }
 
-    .why-us-num {
-        font-family: var(--font-display);
-        font-size: 2.2rem;
-        color: #ee6257;
-        /* brand red */
-        font-weight: 500;
-        line-height: 1;
-        opacity: 0.95;
+    .hero-cell:first-child {
+        padding-left: 0;
+        border-left: 0;
     }
 
-    .why-us-content {
-        flex: 1;
-    }
-
-    .why-us-content h3 {
-        font-size: 1.65rem;
-        color: #ffffff;
-        margin: 0 0 10px 0 !important;
+    .hero-cell-label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 0.72rem;
         font-weight: 600;
-        font-family: var(--font-display);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
     }
 
-    .why-us-content p {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        color: rgba(255, 255, 255, 0.8);
-        margin: 0 !important;
+    .hero-cell-value {
+        display: block;
+        font-family: var(--font-serif);
+        font-size: 1.55rem;
+        line-height: 1.15;
     }
 
-    @media (max-width: 1024px) {
+    .hero-cell-note {
+        display: block;
+        margin-top: 4px;
+        min-height: 1.6em;
+        color: var(--on-dark-muted);
+        font-size: 0.95rem;
+    }
 
-        /* Hide selected icons to prevent overcrowding on mobile screens */
-        .why-us-floating-icon.icon-4,
-        .why-us-floating-icon.icon-6,
-        .why-us-floating-icon.icon-11,
-        .why-us-floating-icon.icon-12 {
-            display: none;
-        }
+    .hero-cell a {
+        color: inherit;
+        text-decoration: none;
+    }
 
-        /* Adjust positions and scale down for mobile viewports to prevent collisions */
-        .why-us-floating-icon.icon-1 {
-            width: 40px;
-            left: 5%;
-        }
+    .hero-cell-note a {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
 
-        .why-us-floating-icon.icon-2 {
-            width: 45px;
-            left: 14%;
-        }
+    .status::before {
+        content: "";
+        display: none;
+        width: 9px;
+        height: 9px;
+        margin-right: 10px;
+        border-radius: 50%;
+        vertical-align: 0.12em;
+        background: var(--gold);
+    }
 
-        .why-us-floating-icon.icon-3 {
-            width: 35px;
-            left: 23%;
-        }
+    .status[data-state]::before {
+        display: inline-block;
+    }
 
-        .why-us-floating-icon.icon-5 {
-            width: 40px;
-            left: 32%;
-        }
+    .status[data-state="open"]::before {
+        background: #8ff0c8;
+    }
 
-        .why-us-floating-icon.icon-7 {
-            width: 35px;
-            left: 65%;
-        }
+    /* Ribbon */
+    .ribbon {
+        overflow: hidden;
+        padding: 22px 0;
+        background: var(--forest-2);
+        color: var(--gold-light);
+    }
 
-        .why-us-floating-icon.icon-8 {
-            width: 50px;
-            left: 74%;
-        }
+    .ribbon-track {
+        display: flex;
+        width: max-content;
+        animation: drift 60s linear infinite;
+    }
 
-        .why-us-floating-icon.icon-9 {
-            width: 40px;
-            left: 83%;
-        }
+    .ribbon-track span {
+        display: inline-flex;
+        align-items: center;
+        gap: 44px;
+        padding-right: 44px;
+        font-family: var(--font-serif);
+        font-size: 1.55rem;
+        font-style: italic;
+        white-space: nowrap;
+    }
 
-        .why-us-floating-icon.icon-10 {
-            width: 45px;
-            left: 92%;
-        }
+    .ribbon-track span::after {
+        content: "+";
+        font-style: normal;
+        color: var(--gold);
+        opacity: 0.7;
+    }
 
-        .why-us-section {
-            padding: 80px 20px;
-        }
-
-        .why-us-container {
-            flex-direction: column;
-            gap: 40px;
-        }
-
-        .why-us-left {
-            width: 100%;
-            position: static;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .why-us-title {
-            font-size: 2.4rem;
-        }
-
-        .why-us-image {
-            max-width: 280px;
-            margin-top: 25px;
-            margin-bottom: 20px;
-        }
-
-        .why-us-right {
-            width: 100%;
-        }
-
-        .why-us-item {
-            gap: 20px;
-            padding-bottom: 25px;
-            margin-bottom: 25px;
-        }
-
-        .why-us-num {
-            font-size: 1.8rem;
+    @keyframes drift {
+        to {
+            transform: translateX(-50%);
         }
     }
 
-    /* --- FAQ STYLES --- */
-    .faq-container {
-        width: 100vw;
-        padding: 100px 20px;
-        box-sizing: border-box;
+    /* Intro */
+    .intro {
+        padding-block: var(--section);
+    }
+
+    .statement {
+        max-width: 19em;
+        margin: 0;
+        font-family: var(--font-serif);
+        font-size: clamp(2.3rem, 5vw, 4.9rem);
+        line-height: 1.08;
+        letter-spacing: -0.015em;
+    }
+
+    .intro-media {
+        position: relative;
+        margin-top: clamp(56px, 8vw, 112px);
+        padding-right: clamp(0px, 22vw, 340px);
+    }
+
+    .intro-main {
+        position: relative;
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+        border-radius: 4px;
+    }
+
+    .parallax-img {
+        position: absolute;
+        left: 0;
+        top: -9%;
+        width: 100%;
+        height: 118%;
+        object-fit: cover;
+        will-change: transform;
+    }
+
+    .intro-inset {
+        position: absolute;
+        right: 0;
+        bottom: clamp(-56px, -4vw, -24px);
+        width: clamp(170px, 30vw, 460px);
+        aspect-ratio: 4 / 5;
+        overflow: hidden;
+        border: clamp(6px, 0.8vw, 12px) solid var(--ivory);
+        border-radius: 4px;
+    }
+
+    .intro-inset img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Services */
+    .services {
+        padding-block: var(--section);
+        background: var(--white);
+    }
+
+    .services-head {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 24px 64px;
+        margin-bottom: clamp(44px, 6vw, 80px);
+    }
+
+    .services-head .lede {
+        max-width: 24em;
+        margin: 0;
+    }
+
+    .tiles {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: clamp(12px, 1.4vw, 20px);
+    }
+
+    .tile {
+        position: relative;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        background-color: #ffffff;
-        margin-left: calc(-50vw + 50%);
+        justify-content: flex-end;
+        height: clamp(380px, 37vw, 560px);
+        padding: clamp(24px, 2.6vw, 38px);
+        overflow: hidden;
+        border-radius: 4px;
+        background: var(--forest);
+        color: var(--on-dark);
+        text-decoration: none;
     }
 
-    .faq {
+    .tile-4 { grid-column: span 4; }
+    .tile-5 { grid-column: span 5; }
+    .tile-7 { grid-column: span 7; }
+
+    .tile img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 1.6s var(--ease);
+    }
+
+    .tile:hover img {
+        transform: scale(1.06);
+    }
+
+    .tile::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(0deg, rgba(14, 42, 36, 0.9) 0%, rgba(14, 42, 36, 0.36) 42%, rgba(14, 42, 36, 0) 70%);
+    }
+
+    .tile-copy,
+    .tile-arrow {
         position: relative;
         z-index: 1;
-        margin: 0 auto;
-        background: transparent;
-        border-bottom: 1px solid rgba(25, 31, 79, 0.1);
-        overflow: hidden;
-        transition: all 0.3s ease;
-        width: 100%;
-        max-width: 900px;
-        opacity: 0;
-        transform: translateY(30px);
     }
 
-    .faq:first-of-type {
-        border-top: 1px solid rgba(25, 31, 79, 0.1);
+    .tile-name {
+        margin: 0;
+        font-size: clamp(2rem, 3.1vw, 3.1rem);
     }
 
-    .faq.visible {
-        opacity: 1;
-        transform: translateY(0);
-        transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+    .tile-text {
+        max-width: 26em;
+        margin: 10px 0 0;
+        color: var(--on-dark-muted);
     }
 
-    .faq:hover {
-        background: rgba(88, 140, 186, 0.03);
-    }
-
-    .faq-question {
-        padding: 30px 10px;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 1.3rem;
-        color: #191f4f;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        user-select: none;
-        font-family: var(--font-display);
-        transition: color 0.3s ease;
-    }
-
-    .faq-question::after {
-        content: '+';
-        font-size: 1.8rem;
-        color: #588cba;
-        font-weight: 300;
-        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .faq.active .faq-question {
-        color: #588cba;
-    }
-
-    .faq.active .faq-question::after {
-        transform: rotate(45deg);
-        color: #191f4f;
-    }
-
-    .faq-answer {
-        display: grid;
-        grid-template-rows: 0fr;
-        transition: grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .answer-content {
-        overflow: hidden;
-        opacity: 0;
-        transition: opacity 0.4s ease-out;
-        padding: 0 10px;
-    }
-
-    .answer-content p {
-        margin-top: 0;
-        margin-bottom: 30px;
-        color: #555;
-        line-height: 1.8;
-        font-size: 1.1rem;
-    }
-
-    .faq.active .faq-answer {
-        grid-template-rows: 1fr;
-    }
-
-    .faq.active .answer-content {
-        opacity: 1;
-        transition-delay: 0.1s;
-    }
-
-    /* --- BOOKING STYLES --- */
-    .booking-section {
-        padding: 100px 20px;
-        background: #ffffff;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        box-sizing: border-box;
-    }
-
-    .booking-container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    /* --- ENHANCED CONTACT STYLES --- */
-    .contact-details {
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-    }
-
-    .contact-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 20px;
-    }
-
-    .contact-icon {
-        font-size: 1.8rem;
-        background: #f2f8fc;
-        padding: 15px;
-        border-radius: 50%;
-        line-height: 1;
-        width: 60px;
-        height: 60px;
+    .tile-arrow {
+        position: absolute;
+        top: clamp(20px, 2vw, 28px);
+        right: clamp(20px, 2vw, 28px);
         display: flex;
         align-items: center;
         justify-content: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: rgba(246, 242, 234, 0.16);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        transition: background-color 0.35s ease, color 0.35s ease;
     }
 
-    .contact-item strong {
-        display: block;
-        font-size: 1.2rem;
-        color: #191f4f;
-        margin-bottom: 5px;
+    .tile:hover .tile-arrow {
+        background: var(--gold);
+        color: var(--forest);
     }
 
-    .contact-item p {
-        font-size: 1.1rem;
-        color: #555;
+    .more {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin-top: clamp(44px, 5vw, 72px);
+        border-top: 1px solid var(--line);
+    }
+
+    .more-item {
+        padding: 28px 28px 8px;
+        border-left: 1px solid var(--line);
+    }
+
+    .more-item:first-child {
+        padding-left: 0;
+        border-left: 0;
+    }
+
+    .more-item h3 {
+        margin: 0 0 8px;
+        font-size: 1.7rem;
+    }
+
+    .more-item p {
         margin: 0;
+        font-size: 0.98rem;
+        color: var(--muted);
+    }
+
+    /* Reasons */
+    .reasons {
+        padding-block: var(--section);
+        background: var(--forest);
+        color: var(--on-dark);
+    }
+
+    .reasons-head {
+        max-width: 900px;
+        margin-bottom: clamp(48px, 7vw, 96px);
+    }
+
+    .reasons-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: clamp(40px, 8vw, 128px);
+        align-items: start;
+    }
+
+    .reasons-stage {
+        position: sticky;
+        top: calc(var(--nav-h) + 32px);
+        aspect-ratio: 4 / 4.6;
+        max-height: calc(100vh - var(--nav-h) - 64px);
+        width: 100%;
+        overflow: hidden;
+        border-radius: 4px;
+    }
+
+    .reasons-stage img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transform: scale(1.05);
+        transition: opacity 0.9s ease, transform 1.8s var(--ease);
+    }
+
+    .reasons-stage img.is-active {
+        opacity: 1;
+        transform: none;
+    }
+
+    .reason {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 62vh;
+        padding-block: 32px;
+        border-top: 1px solid var(--on-dark-line);
+        opacity: 0.38;
+        transition: opacity 0.6s ease;
+    }
+
+    .reason.is-active {
+        opacity: 1;
+    }
+
+    .reason-num {
+        margin: 0 0 18px;
+        font-family: var(--font-serif);
+        font-size: 1.4rem;
+        font-style: italic;
+        color: var(--gold);
+    }
+
+    .reason h3 {
+        margin: 0;
+        font-size: clamp(2.3rem, 4vw, 3.9rem);
+    }
+
+    .reason p:last-child {
+        max-width: 28em;
+        margin: 18px 0 0;
+        font-size: 1.14rem;
+        color: var(--on-dark-muted);
+    }
+
+    .reason-img {
+        display: none;
+    }
+
+    /* Pharmacist */
+    .pharmacist {
+        padding-block: var(--section);
+    }
+
+    .pharmacist-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+        gap: clamp(40px, 9vw, 144px);
+        align-items: center;
+    }
+
+    .arch {
+        position: relative;
+        aspect-ratio: 4 / 5.2;
+        overflow: hidden;
+        border-radius: 999px 999px 4px 4px;
+    }
+
+    .pharmacist-name {
+        margin: 0;
+        font-family: var(--font-serif);
+        font-size: clamp(5rem, 12vw, 12rem);
+        line-height: 0.92;
+        letter-spacing: -0.025em;
+        color: var(--accent);
+        font-style: italic;
+    }
+
+    .pharmacist-title {
+        margin: 0 0 8px;
+        font-size: clamp(2rem, 3.4vw, 3rem);
+    }
+
+    .pharmacist .lede {
+        font-size: clamp(1.15rem, 1.7vw, 1.4rem);
         line-height: 1.5;
+        color: var(--ink);
     }
 
-    .map-hover:hover {
-        transform: scale(1.02);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    .pharmacist .btn {
+        margin-top: 36px;
     }
 
-    /* --- 8. SECTION ANCHOR OFFSET --- */
-    [id] {
-        scroll-margin-top: 100px;
+    /* Band */
+    .band {
+        position: relative;
+        padding-block: clamp(120px, 17vw, 260px);
+        overflow: hidden;
+        background: var(--forest);
+        color: var(--on-dark);
+        text-align: center;
     }
 
-    @media (max-width: 1024px) {
+    .band .parallax-img {
+        mix-blend-mode: luminosity;
+        opacity: 0.42;
+    }
 
-        .content-container-wide,
-        .content-container-wide.reverse {
-            flex-direction: column;
-            text-align: center;
-            gap: 30px;
+    .band-body {
+        position: relative;
+        z-index: 1;
+    }
+
+    .band .eyebrow {
+        justify-content: center;
+    }
+
+    .band .eyebrow::before {
+        display: none;
+    }
+
+    .band .section-title {
+        max-width: 12em;
+        margin-inline: auto;
+    }
+
+    .band-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px;
+        margin-top: 44px;
+    }
+
+    /* FAQ */
+    .faq {
+        padding-block: var(--section);
+    }
+
+    .faq-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+        gap: clamp(40px, 7vw, 112px);
+    }
+
+    .faq-item {
+        border-bottom: 1px solid var(--line);
+    }
+
+    .faq-item:first-child {
+        border-top: 1px solid var(--line);
+    }
+
+    .faq-item summary {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 24px;
+        padding: 28px 0;
+        font-family: var(--font-serif);
+        font-size: clamp(1.5rem, 2.2vw, 2rem);
+        line-height: 1.15;
+        list-style: none;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    .faq-item summary:hover {
+        color: var(--accent);
+    }
+
+    .faq-item summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .faq-item summary::after {
+        content: "+";
+        flex-shrink: 0;
+        font-size: 2rem;
+        line-height: 1;
+        color: var(--accent);
+        transition: transform 0.5s var(--ease);
+    }
+
+    .faq-item[open] summary::after {
+        transform: rotate(45deg);
+    }
+
+    .faq-item p {
+        max-width: 36em;
+        margin: 0 0 30px;
+        color: var(--muted);
+    }
+
+    .faq-item a {
+        color: var(--accent);
+        text-underline-offset: 3px;
+    }
+
+    /* Booking */
+    .booking {
+        padding-block: var(--section);
+        background: var(--forest);
+        color: var(--on-dark);
+    }
+
+    .booking-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+        gap: clamp(40px, 6vw, 96px);
+        align-items: start;
+    }
+
+    .booking-copy {
+        position: sticky;
+        top: calc(var(--nav-h) + 40px);
+    }
+
+    .booking-phone {
+        margin: 36px 0 0;
+        color: var(--on-dark-muted);
+    }
+
+    .booking-phone a {
+        color: var(--gold-light);
+    }
+
+    .booking-card {
+        overflow: hidden;
+        border-radius: 4px;
+        background: var(--white);
+    }
+
+    .calendly-inline-widget {
+        min-width: 300px;
+        height: 760px;
+    }
+
+    /* Visit */
+    .visit {
+        padding-block: var(--section);
+    }
+
+    .visit-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+        gap: clamp(40px, 7vw, 112px);
+        align-items: stretch;
+    }
+
+    .visit-address {
+        margin: 32px 0 0;
+        font-family: var(--font-serif);
+        font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+        font-style: normal;
+        line-height: 1.15;
+    }
+
+    .hours {
+        margin: 36px 0 0;
+    }
+
+    .hours-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 0;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+    }
+
+    .hours-row:last-child {
+        border-bottom: 1px solid var(--line);
+    }
+
+    .hours-row dt,
+    .hours-row dd {
+        margin: 0;
+        font-weight: inherit;
+    }
+
+    .hours-row.is-today {
+        color: var(--ink);
+        font-weight: 600;
+    }
+
+    .hours-note {
+        margin: 12px 0 0;
+        font-size: 0.88rem;
+        color: var(--muted);
+    }
+
+    .visit-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 32px;
+    }
+
+    .visit-map {
+        width: 100%;
+        height: 100%;
+        min-height: 520px;
+        border: 0;
+        border-radius: 4px;
+        background: var(--ivory-deep);
+        filter: grayscale(0.35) contrast(1.02);
+    }
+
+    @media (max-width: 1100px) {
+        .hero-bar-grid {
+            grid-template-columns: 1fr 1fr;
         }
 
-        .team-card {
-            flex-direction: column;
-            text-align: center;
-            padding: 30px 20px;
-            gap: 20px;
+        .hero-cell:nth-child(odd) {
+            padding-left: 0;
+            border-left: 0;
         }
 
-        .team-image {
-            width: 180px;
-            height: 180px;
+        .hero-cell:nth-child(n + 3) {
+            border-top: 1px solid var(--on-dark-line);
         }
 
-        .features-grid {
+        .more {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .more-item:nth-child(odd) {
+            padding-left: 0;
+            border-left: 0;
+        }
+    }
+
+    @media (max-width: 900px) {
+        .hero::after {
+            background:
+                linear-gradient(0deg, rgba(14, 42, 36, 0.95) 0%, rgba(14, 42, 36, 0.66) 55%, rgba(14, 42, 36, 0.16) 85%),
+                linear-gradient(180deg, rgba(14, 42, 36, 0.55) 0%, rgba(14, 42, 36, 0) 18%);
+        }
+
+        .tile-4,
+        .tile-5,
+        .tile-7 {
+            grid-column: span 12;
+        }
+
+        .tile {
+            height: clamp(340px, 88vw, 480px);
+        }
+
+        .reasons-grid,
+        .pharmacist-grid,
+        .faq-grid,
+        .booking-grid,
+        .visit-grid {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .reasons-stage {
+            display: none;
+        }
+
+        .reason {
+            min-height: 0;
+            padding-block: 36px;
+            opacity: 1;
+        }
+
+        .reason-img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 26px;
+        }
+
+        .arch {
+            max-width: 420px;
+        }
+
+        .booking-copy {
+            position: static;
+        }
+
+        .visit-map {
+            min-height: 360px;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .hero-film {
+            object-position: 100% 40%;
+        }
+    }
+
+    @media (max-width: 560px) {
+        .hero-actions .btn,
+        .band-actions .btn,
+        .visit-actions .btn {
+            flex: 1 1 100%;
+        }
+
+        .hero-cell {
+            padding: 14px 0 14px 16px;
+        }
+
+        .hero-cell-label {
+            margin-bottom: 4px;
+            font-size: 0.66rem;
+        }
+
+        .hero-cell-value {
+            font-size: 1.22rem;
+        }
+
+        .hero-cell-note {
+            font-size: 0.85rem;
+        }
+
+        .more {
             grid-template-columns: 1fr;
         }
 
-        .faq-container {
-            padding: 60px 20px;
-        }
-
-        .faq-question {
-            padding: 20px;
-            font-size: 1.3rem;
-        }
-
-        .answer-content {
-            padding: 0 20px;
-        }
-
-        /* Contact Mobile Fixes */
-        .contact-container {
-            flex-direction: column;
-            text-align: center;
-            align-items: center;
-        }
-
-        .contact-info {
-            width: 100%;
-            max-width: 100%;
-        }
-
-        .contact-details {
-            align-items: center;
-        }
-
-        .contact-item {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 15px;
-        }
-
-        .contact-icon {
-            margin-bottom: 5px;
+        .more-item {
+            padding: 22px 0 18px;
+            border-left: 0;
+            border-bottom: 1px solid var(--line);
         }
     }
 </style>
 
-<div class="hero-section">
-    <div class="hero-bg"></div>
-    <div class="hero-container">
-        <div class="hero-left">
-            <h1 class="hero-title">Your Trusted Neighborhood Pharmacy</h1>
-            <p class="hero-text">Right Corner. Right Care. Right Now.</p>
+{% set arrow %}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>{% endset %}
+
+<section class="hero" aria-label="Welcome">
+    <video class="hero-film" id="hero-film" autoplay muted loop playsinline preload="metadata" poster="/web/hero-poster.webp" aria-hidden="true">
+        <source src="/movie-mobile.mp4" type="video/mp4" media="(max-width: 700px)">
+        <source src="/web/hero-film.mp4" type="video/mp4">
+    </video>
+
+    <div class="wrap hero-body">
+        <p class="eyebrow" style="color: var(--gold);">{{ site.address.city }}, {{ site.address.regionName }}</p>
+        <h1 class="hero-title">
+            <span class="line"><span>Considered care,</span></span>
+            <span class="line"><span><em>close to home.</em></span></span>
+        </h1>
+        <p class="hero-text">Prescriptions, medication reviews, flu shots and a walk-in medical clinic, with {{ site.headPharmacist.name }} and the team on North Front Street.</p>
+        <div class="hero-actions">
+            <a class="btn btn-gold" href="#booking">Book an appointment {{ arrow | safe }}</a>
+            <a class="btn btn-ghost" href="{{ site.refillUrl }}" target="_blank" rel="noopener">Refill a prescription</a>
         </div>
     </div>
 
-    <div class="waves-container">
-        <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none"
-            shape-rendering="auto">
-            <defs>
-                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-            </defs>
-            <g class="parallax">
-                <use xlink:href="#gentle-wave" x="48" y="0" />
-                <use xlink:href="#gentle-wave" x="48" y="3" />
-                <use xlink:href="#gentle-wave" x="48" y="5" />
-                <use xlink:href="#gentle-wave" x="48" y="7" />
-            </g>
-        </svg>
-    </div>
-</div>
-
-<section class="intro-description-section">
-    <div class="intro-container">
-        <p class="intro-text-large">
-            Located in the heart of Ottawa at the corner of Rideau and Friel Street, I.D.A. Rideau Pharmacy is
-            a proud, locally operated community pharmacy. We believe that your pharmacist should be your most
-            accessible healthcare provider. Whether you live in the downtown core, work nearby, or are a student in the
-            area, our mission is to
-            provide you with fast, personalized, and comprehensive healthcare without the "big box" wait times.
-        </p>
-
+    <div class="wrap hero-bar">
+        <div class="hero-bar-grid">
+            <div class="hero-cell">
+                <span class="hero-cell-label">Today</span>
+                <span class="hero-cell-value status" id="status" aria-live="polite">Open weekdays</span>
+                <span class="hero-cell-note" id="status-detail"></span>
+            </div>
+            <div class="hero-cell">
+                <span class="hero-cell-label">Hours</span>
+                <span class="hero-cell-value">{{ site.hours[0].display }}</span>
+                <span class="hero-cell-note">{{ site.hours[0].label }}</span>
+            </div>
+            <div class="hero-cell">
+                <span class="hero-cell-label">Find us</span>
+                <span class="hero-cell-value">{{ site.address.street }}</span>
+                <span class="hero-cell-note"><a href="{{ site.directionsUrl }}" target="_blank" rel="noopener">Get directions</a></span>
+            </div>
+            <div class="hero-cell">
+                <span class="hero-cell-label">Call</span>
+                <span class="hero-cell-value"><a href="tel:{{ site.phoneHref }}">{{ site.phone }}</a></span>
+                <span class="hero-cell-note">Fax {{ site.fax }}</span>
+            </div>
+        </div>
     </div>
 </section>
 
-<div class="core-points-section">
-    <div class="core-points-container">
-        <div class="core-point">
-            <img src="/assets/pesronal.jpg" alt="Prescription Care">
-            <h3>Personalized Prescription Care</h3>
-            <p>We don’t just fill bottles; we manage your health with precision and expert consultation.</p>
-        </div>
-        <div class="core-point">
-            <img src="/assets/modern.jpg" alt="Modern Convenience">
-            <h3>Modern Convenience</h3>
-            <p>Easy transfers, online refills, and quick service without the "big box" wait times.</p>
-        </div>
-        <div class="core-point">
-            <img src="/assets/community.jpg" alt="Community Wellness">
-            <h3>Community First Wellness</h3>
-            <p>Locally owned and operated, dedicated to the families in our neighborhood.</p>
-        </div>
+<div class="ribbon" aria-hidden="true">
+    <div class="ribbon-track">
+        {% for pass in [1, 2, 3, 4] %}
+        {% for item in site.featuredServices %}<span>{{ item.name }}</span>{% endfor %}
+        {% endfor %}
     </div>
 </div>
 
-<div id="about-section">
-
-    <section class="content-section philosophy-section">
-        <div class="philosophy-container">
-            <!-- Left Column: Description paragraphs (Fades in/out) -->
-            <div class="philosophy-right-container">
-                <!-- Slide 1: Our Philosophy -->
-                <div class="philosophy-slide active">
-                    <h3 class="philosophy-subheading">Our Philosophy</h3>
-                    <p class="section-paragraph">
-                        Healthcare should not be a hassle. At Rideau Pharmacy, we go beyond counting pills offering on
-                        site telemedicine, prescribing for minor ailments, and custom medication compounding tailored to
-                        the unique needs of our Ottawa community.
-                    </p>
-                </div>
-
-                <!-- Slide 2: Multilingual Care -->
-                <div class="philosophy-slide">
-                    <h3 class="philosophy-subheading">Multilingual Care</h3>
-                    <p class="section-paragraph">
-                        We are proud to serve the diverse Ottawa community by offering comprehensive pharmacy services
-                        and consultations in English, French, and Arabic. Discussing your health in your preferred
-                        language helps us ensure you feel confident and supported.
-                    </p>
-                </div>
-
-                <!-- Slide 3: Medication Reviews -->
-                <div class="philosophy-slide">
-                    <h3 class="philosophy-subheading">Medication Reviews</h3>
-                    <p class="section-paragraph">
-                        Gain complete clarity about your health. We sit down with you to review your prescriptions, over
-                        the counter medications, and supplements, helping to identify potential drug interactions,
-                        manage side effects, and optimize your schedule.
-                    </p>
-                </div>
-
-                <!-- Slide 4: Health & Wellness Coaching -->
-                <div class="philosophy-slide">
-                    <h3 class="philosophy-subheading">Health & Wellness Coaching</h3>
-                    <p class="section-paragraph">
-                        Our care goes far beyond filling prescriptions. We partner with you to manage chronic conditions
-                        with on site blood pressure monitoring, diabetes support, and healthy lifestyle coaching
-                        tailored to your daily needs.
-                    </p>
-                </div>
-                <!-- Navigational Arrows -->
-                <div class="philosophy-nav-container">
-                    <button class="philosophy-nav-btn prev-btn" aria-label="Previous Slide">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
-                        </svg>
-                    </button>
-                    <button class="philosophy-nav-btn next-btn" aria-label="Next Slide">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-                        </svg>
-                    </button>
-                </div>
-                <!-- Progress Bar Indicator -->
-                <div class="philosophy-progress-track">
-                    <div class="philosophy-progress-bar animating"></div>
-                </div>
+<section class="intro">
+    <div class="wrap">
+        <p class="eyebrow" data-reveal>Bellfront Pharmacy</p>
+        <p class="statement" data-reveal>A neighbourhood pharmacy with room for <em>your questions,</em> your routine, and everything in between.</p>
+        <div class="intro-media" data-reveal>
+            <div class="intro-main">
+                <img class="parallax-img" data-parallax src="/web/interior.webp" alt="A bright pharmacy interior with wooden counters and well-stocked shelves" loading="lazy">
             </div>
-
-            <!-- Right Column: Persistent Icon -->
-            <div class="philosophy-left-container">
-                <!-- Persistent Cross Icon -->
-                <img src="/assets/cross2.png" alt="Pharmacy Icon" id="persistent-philosophy-icon"
-                    class="philosophy-icon" style="--phil-rotation: 0deg;">
+            <div class="intro-inset">
+                <img src="/web/capsules.webp" alt="Colourful capsules and tablets against a pale background" loading="lazy">
             </div>
         </div>
-    </section>
-
-    <section class="team-section">
-        <h2 class="section-title" style="text-align: center; margin-bottom: 50px;">Meet Our Team</h2>
-        <div class="team-card">
-            <img src="/assets/manager-photo.png" alt="Mirelle (Mira) Tawdrous" class="team-image">
-            <div class="team-info">
-                <h3>Mirelle (Mira) Tawdrous</h3>
-                <span class="team-role">Pharmacist & Manager</span>
-                <p class="section-paragraph">
-                    Led by Mira, our dedicated team is known for being friendly, knowledgeable, and always ready to
-                    help. Mira and
-                    our staff take the time to know our patients by name, review medications thoroughly to prevent
-                    interactions, and
-                    offer practical advice on managing your day-to-day health.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section class="why-us-section">
-        <!-- Floating background icons -->
-        <div class="why-us-bg-icons">
-            <img src="/assets/cross.png" class="why-us-floating-icon icon-1" alt="">
-            <img src="/assets/mortar.png" class="why-us-floating-icon icon-2" alt="">
-            <img src="/assets/wings.png" class="why-us-floating-icon icon-3" alt="">
-            <img src="/assets/cross.png" class="why-us-floating-icon icon-4" alt="">
-            <img src="/assets/mortar.png" class="why-us-floating-icon icon-5" alt="">
-            <img src="/assets/wings.png" class="why-us-floating-icon icon-6" alt="">
-            <img src="/assets/cross.png" class="why-us-floating-icon icon-7" alt="">
-            <img src="/assets/mortar.png" class="why-us-floating-icon icon-8" alt="">
-            <img src="/assets/wings.png" class="why-us-floating-icon icon-9" alt="">
-            <img src="/assets/cross.png" class="why-us-floating-icon icon-10" alt="">
-            <img src="/assets/mortar.png" class="why-us-floating-icon icon-11" alt="">
-            <img src="/assets/wings.png" class="why-us-floating-icon icon-12" alt="">
-        </div>
-
-        <div class="why-us-container">
-            <div class="why-us-left">
-                <h2 class="why-us-title">Why Choose Rideau Pharmacy?</h2>
-                <img src="/assets/pharmacist.png" alt="Pharmacist" class="why-us-image">
-            </div>
-            <div class="why-us-right">
-                <!-- Item 1 -->
-                <div class="why-us-item">
-                    <span class="why-us-num">01</span>
-                    <div class="why-us-content">
-                        <h3>Prescribing Pharmacists</h3>
-                        <p>Skip the clinic wait. We can assess and prescribe treatments for minor ailments like pink
-                            eye, rashes, UTIs, and insect bites right at the counter.</p>
-                    </div>
-                </div>
-
-                <!-- Item 2 -->
-                <div class="why-us-item">
-                    <span class="why-us-num">02</span>
-                    <div class="why-us-content">
-                        <h3>On Site Walk In Clinic</h3>
-                        <p>Need a doctor? Access our enhanced telemedicine clinic directly from the pharmacy for quick
-                            and easy consultations.</p>
-                    </div>
-                </div>
-
-                <!-- Item 3 -->
-                <div class="why-us-item">
-                    <span class="why-us-num">03</span>
-                    <div class="why-us-content">
-                        <h3>Modern Convenience</h3>
-                        <p>We offer easy prescription transfers, automatic refills, and free local delivery throughout
-                            the Ottawa area.</p>
-                    </div>
-                </div>
-
-                <!-- Item 4 -->
-                <div class="why-us-item">
-                    <span class="why-us-num">04</span>
-                    <div class="why-us-content">
-                        <h3>Tailored Care</h3>
-                        <p>From custom medication compounding to compliance blister packaging, we fit your healthcare to
-                            your lifestyle.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<div id="services-section" class="services-section">
-    <h2 class="services-main-title">Our Services</h2>
-    <p class="services-subtitle">Everything you need, all under one roof, delivered with care.</p>
-
-    <div class="srv-grid">
-
-        <!-- Card 1 – Immunizations -->
-        <div class="srv-card">
-            <div class="srv-img-wrap">
-                <img src="/assets/vaccine.jpg" alt="Vaccination" class="srv-img">
-            </div>
-            <div class="srv-body">
-                <div class="srv-icon">
-                    <!-- syringe icon -->
-                    <svg viewBox="0 0 24 24">
-                        <path d="M18 2l4 4-1.5 1.5-4-4L18 2z" />
-                        <path d="M10.5 9.5L14 6l4 4-3.5 3.5" />
-                        <path d="M2 22l6-6" />
-                        <path d="M7.5 16.5l-2-2 8-8 2 2-8 8z" />
-                    </svg>
-                </div>
-                <h3 class="srv-title">Immunizations &amp; Vaccinations</h3>
-                <p class="srv-text">Stay protected year round. From flu shots to travel vaccines, our pharmacists
-                    administer them safely, no appointment needed.</p>
-                <a href="#contact-section" class="srv-link">Learn more
-                    <svg viewBox="0 0 24 24">
-                        <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                </a>
-            </div>
-        </div>
-
-        <!-- Card 2 – Free Delivery -->
-        <div class="srv-card">
-            <div class="srv-img-wrap">
-                <img src="/assets/home-delivery.png" alt="Free Delivery" class="srv-img">
-            </div>
-            <div class="srv-body">
-                <div class="srv-icon">
-                    <!-- delivery / box icon -->
-                    <svg viewBox="0 0 24 24">
-                        <path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3" />
-                        <rect x="9" y="11" width="14" height="10" rx="2" />
-                        <path d="M9 15h14" />
-                    </svg>
-                </div>
-                <h3 class="srv-title">Free Local Delivery</h3>
-                <p class="srv-text">We bring your medications to your doorstep reliably and on time, at no extra
-                    charge throughout the Ottawa area.</p>
-                <a href="#contact-section" class="srv-link">Learn more
-                    <svg viewBox="0 0 24 24">
-                        <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                </a>
-            </div>
-        </div>
-
-        <!-- Card 3 – Compliance Packaging -->
-        <div class="srv-card">
-            <div class="srv-img-wrap">
-                <img src="/assets/pack.jpg" alt="Compliance Packaging" class="srv-img">
-            </div>
-            <div class="srv-body">
-                <div class="srv-icon">
-                    <!-- grid / blister pack icon -->
-                    <svg viewBox="0 0 24 24">
-                        <rect x="3" y="3" width="7" height="7" />
-                        <rect x="14" y="3" width="7" height="7" />
-                        <rect x="14" y="14" width="7" height="7" />
-                        <rect x="3" y="14" width="7" height="7" />
-                    </svg>
-                </div>
-                <h3 class="srv-title">Compliance Packaging</h3>
-                <p class="srv-text">We organise your daily doses into clearly labelled blister packs by day and time,
-                    making complex medication schedules effortless.</p>
-                <a href="#contact-section" class="srv-link">Learn more
-                    <svg viewBox="0 0 24 24">
-                        <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                </a>
-            </div>
-        </div>
-
-        <!-- Card 4 – Professional Consultations -->
-        <div class="srv-card">
-            <div class="srv-img-wrap">
-                <img src="/assets/consult.png" alt="Consultations" class="srv-img">
-            </div>
-            <div class="srv-body">
-                <div class="srv-icon">
-                    <!-- chat / consult icon -->
-                    <svg viewBox="0 0 24 24">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                    </svg>
-                </div>
-                <h3 class="srv-title">Professional Consultations</h3>
-                <p class="srv-text">Your pharmacist is your most accessible healthcare provider. Private, one on one
-                    sessions to review your medications and answer health questions.</p>
-                <a href="#contact-section" class="srv-link">Learn more
-                    <svg viewBox="0 0 24 24">
-                        <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                </a>
-            </div>
-        </div>
-
     </div>
-</div>
+</section>
 
+<section class="services" id="services">
+    <div class="wrap">
+        <div class="services-head">
+            <div data-reveal>
+                <p class="eyebrow">Services</p>
+                <h2 class="section-title">Everything you need,<br><em>in one place.</em></h2>
+            </div>
+            <p class="lede" data-reveal>From your first transfer to your next refill, here is what Bellfront can do for you.</p>
+        </div>
+
+        <div class="tiles">
+            {% for item in site.featuredServices %}
+            {% if item.link == "refill" %}{% set tileHref = site.refillUrl %}{% elif item.link == "visit" %}{% set tileHref = "#visit" %}{% else %}{% set tileHref = "#booking" %}{% endif %}
+            <a class="tile tile-{{ item.span }}" href="{{ tileHref }}"{% if item.link == "refill" %} target="_blank" rel="noopener"{% endif %} data-reveal>
+                <img src="{{ item.image }}" alt="{{ item.alt }}" loading="lazy">
+                <span class="tile-arrow">{{ arrow | safe }}</span>
+                <span class="tile-copy">
+                    <h3 class="tile-name">{{ item.name }}</h3>
+                    <p class="tile-text">{{ item.text }}</p>
+                </span>
+            </a>
+            {% endfor %}
+        </div>
+
+        <div class="more">
+            {% for item in site.moreServices %}
+            <div class="more-item" data-reveal style="--d: {{ loop.index0 * 0.08 }}s">
+                <h3>{{ item.name }}</h3>
+                <p>{{ item.text }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="reasons on-dark" aria-label="Why choose Bellfront">
+    <div class="wrap">
+        <div class="reasons-head" data-reveal>
+            <p class="eyebrow">Why Bellfront</p>
+            <h2 class="section-title">Care that fits <em>around your life.</em></h2>
+        </div>
+        <div class="reasons-grid">
+            <div class="reasons-stage" aria-hidden="true">
+                {% for item in site.reasons %}
+                <img src="{{ item.image }}" alt="" data-stage="{{ loop.index0 }}" {% if loop.first %}class="is-active"{% endif %} loading="lazy">
+                {% endfor %}
+            </div>
+            <div>
+                {% for item in site.reasons %}
+                <article class="reason{% if loop.first %} is-active{% endif %}" data-reason="{{ loop.index0 }}">
+                    <img class="reason-img" src="{{ item.image }}" alt="{{ item.alt }}" loading="lazy">
+                    <p class="reason-num">0{{ loop.index }}</p>
+                    <h3>{{ item.title }}</h3>
+                    <p>{{ item.text }}</p>
+                </article>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="pharmacist" id="pharmacist">
+    <div class="wrap pharmacist-grid">
+        <div class="arch" data-reveal>
+            <img class="parallax-img" data-parallax src="/web/hands.webp" alt="Several hands resting together on a wooden table" loading="lazy">
+        </div>
+        <div data-reveal>
+            <p class="eyebrow">Your {{ site.headPharmacist.role | lower }}</p>
+            <h2 class="pharmacist-title">Meet</h2>
+            <p class="pharmacist-name">{{ site.headPharmacist.name }}</p>
+            <p class="lede">{{ site.headPharmacist.name }} leads the team at Bellfront. Bring your questions about a new prescription, a medication review, or anything in your cabinet at home.</p>
+            <a class="btn btn-dark" href="#booking">Book time with a pharmacist {{ arrow | safe }}</a>
+        </div>
+    </div>
+</section>
+
+<section class="band on-dark" aria-label="Transfer your prescriptions">
+    <img class="parallax-img" data-parallax src="/web/pills.webp" alt="" loading="lazy">
+    <div class="wrap band-body" data-reveal>
+        <p class="eyebrow">Switching pharmacies</p>
+        <h2 class="section-title">Bring your prescriptions <em>to Bellfront.</em></h2>
+        <div class="band-actions">
+            <a class="btn btn-gold" href="{{ site.transferUrl }}" target="_blank" rel="noopener">Transfer a prescription {{ arrow | safe }}</a>
+            <a class="btn btn-ghost" href="tel:{{ site.phoneHref }}">Call {{ site.phone }}</a>
+        </div>
+    </div>
+</section>
+
+<section class="faq" id="faq">
+    <div class="wrap faq-grid">
+        <div data-reveal>
+            <p class="eyebrow">Questions</p>
+            <h2 class="section-title">Good <em>to know.</em></h2>
+        </div>
+        <div data-reveal>
+            <details class="faq-item">
+                <summary>How do I transfer my prescriptions to Bellfront?</summary>
+                <p>Use the <a href="{{ site.transferUrl }}" target="_blank" rel="noopener">online transfer form</a> or call us at <a href="tel:{{ site.phoneHref }}">{{ site.phone }}</a>.</p>
+            </details>
+            <details class="faq-item">
+                <summary>How do I refill a prescription online?</summary>
+                <p>Sign in to your <a href="{{ site.refillUrl }}" target="_blank" rel="noopener">online patient record</a> to request a refill, or call the pharmacy.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Can I book time with a pharmacist?</summary>
+                <p>Yes. <a href="#booking">Choose a time online</a> or call us at <a href="tel:{{ site.phoneHref }}">{{ site.phone }}</a>.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Do you deliver?</summary>
+                <p>Yes. Call us at <a href="tel:{{ site.phoneHref }}">{{ site.phone }}</a> to arrange delivery and confirm whether your address is covered.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Can I see someone at the walk-in clinic today?</summary>
+                <p>Clinic availability can change, so please call ahead at <a href="tel:{{ site.phoneHref }}">{{ site.phone }}</a> before you come in.</p>
+            </details>
+            <details class="faq-item">
+                <summary>What can I do with old or unused medication?</summary>
+                <p>Bring it to the pharmacy and we will take it back for safe disposal.</p>
+            </details>
+        </div>
+    </div>
+</section>
+
+<section class="booking on-dark" id="booking">
+    <div class="wrap booking-grid">
+        <div class="booking-copy" data-reveal>
+            <p class="eyebrow">Appointments</p>
+            <h2 class="section-title">Time set aside <em>for you.</em></h2>
+            <p class="lede">Choose a time that suits you for a medication review or a conversation with a pharmacist.</p>
+            <p class="booking-phone">Prefer to talk? Call <a href="tel:{{ site.phoneHref }}">{{ site.phone }}</a></p>
+        </div>
+        <div class="booking-card" data-reveal>
+            <div class="calendly-inline-widget" data-url="{{ site.calendlyUrl }}?hide_gdpr_banner=1&background_color=fffdf9&text_color=14241f&primary_color=1a5a4b"></div>
+            <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+        </div>
+    </div>
+</section>
+
+<section class="visit" id="visit">
+    <div class="wrap visit-grid">
+        <div data-reveal>
+            <p class="eyebrow">Visit</p>
+            <h2 class="section-title">Come <em>say hello.</em></h2>
+            <address class="visit-address">{{ site.address.street }}<br>{{ site.address.city }}, {{ site.address.region }} {{ site.address.postal }}</address>
+            <dl class="hours">
+                {% for row in site.hours %}
+                <div class="hours-row" data-days="{{ row.days | join(',') }}">
+                    <dt>{{ row.label }}</dt>
+                    <dd>{{ row.display }}</dd>
+                </div>
+                {% endfor %}
+            </dl>
+            <p class="hours-note">Holiday hours may vary.</p>
+            <div class="visit-actions">
+                <a class="btn btn-dark" href="{{ site.directionsUrl }}" target="_blank" rel="noopener">Get directions {{ arrow | safe }}</a>
+                <a class="btn btn-outline" href="tel:{{ site.phoneHref }}">{{ site.phone }}</a>
+            </div>
+        </div>
+        <iframe class="visit-map" data-reveal src="{{ site.mapEmbedUrl }}" title="Map showing {{ site.name }} on North Front Street, Belleville" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</section>
+
+<script type="application/json" id="hours-data">{{ site.hours | dump | safe }}</script>
 <script>
     (function () {
-        var cards = document.querySelectorAll('.srv-card');
-        if (!cards.length) return;
-        if ('IntersectionObserver' in window) {
-            var io = new IntersectionObserver(function (entries) {
+        var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Film: hold on the poster for visitors who prefer less motion.
+        var film = document.getElementById('hero-film');
+        if (film && reduceMotion) {
+            film.removeAttribute('autoplay');
+            film.pause();
+        }
+
+        // Scroll reveals
+        var revealItems = document.querySelectorAll('[data-reveal]');
+        if ('IntersectionObserver' in window && !reduceMotion) {
+            var revealObserver = new IntersectionObserver(function (entries) {
                 entries.forEach(function (entry) {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('revealed');
-                        io.unobserve(entry.target);
+                        entry.target.classList.add('is-in');
+                        revealObserver.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.12 });
-            cards.forEach(function (card) { io.observe(card); });
+            }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+            revealItems.forEach(function (item) { revealObserver.observe(item); });
         } else {
-            cards.forEach(function (card) { card.classList.add('revealed'); });
-        }
-    })();
-</script>
-
-<div class="parallax-divider">
-    <video id="parallax-video" autoplay loop muted playsinline>
-        <source src="/movie.mp4" type="video/mp4">
-    </video>
-</div>
-
-<script>
-    (function () {
-        var el = document.getElementById('parallax-video');
-        var container = el && el.closest('.parallax-divider');
-        if (!el || !container) return;
-
-        /* Disable parallax on mobile / touch devices */
-        if (window.innerWidth <= 768 || ('ontouchstart' in window)) return;
-
-        var containerOffsetTop = 0;
-        function calcOffset() {
-            containerOffsetTop = container.getBoundingClientRect().top + window.scrollY;
+            revealItems.forEach(function (item) { item.classList.add('is-in'); });
         }
 
-        var ticking = false;
-        function update() {
-            /* Shift the video by exactly the scroll amount so it appears fixed */
-            el.style.transform = 'translateY(' + (window.scrollY - containerOffsetTop) + 'px)';
-            ticking = false;
-        }
-
-        window.addEventListener('scroll', function () {
-            if (!ticking) { requestAnimationFrame(update); ticking = true; }
-        }, { passive: true });
-
-        window.addEventListener('resize', function () {
-            calcOffset();
-            update();
-        });
-
-        calcOffset();
-        update();
-    })();
-</script>
-
-<div id="faq-section" class="faq-container">
-    <h2 class="section-title" style="text-align: center; margin-bottom: 40px;">Frequently Asked Questions</h2>
-    <div class="faq">
-        <div class="faq-question">How do I transfer my prescriptions to Rideau Pharmacy?</div>
-        <div class="faq-answer">
-            <div class="answer-content">
-                <p>It's incredibly easy! Simply give us a call at (613) 789-4444 or bring in your current medication
-                    bottles. Our team will handle the rest by contacting your previous pharmacy to transfer your files
-                    seamlessly.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="faq">
-        <div class="faq-question">Do you offer prescription delivery?</div>
-        <div class="faq-answer">
-            <div class="answer-content">
-                <p>Yes, we offer free local delivery throughout the Ottawa area. Just let us know when you request your
-                    refill, and we will bring your medications straight to your door.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="faq">
-        <div class="faq-question">Can the pharmacist prescribe medications?</div>
-        <div class="faq-answer">
-            <div class="answer-content">
-                <p>Our prescribing pharmacists can assess and write prescriptions for a variety of minor ailments right
-                    at the counter, including pink eye, UTIs, cold sores, and insect bites.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="faq">
-        <div class="faq-question">How does the on site telemedicine clinic work?</div>
-        <div class="faq-answer">
-            <div class="answer-content">
-                <p>Consult with a licensed physician via a secure video link from our pharmacy. The doctor can diagnose
-                    conditions and send prescriptions straight to our pharmacists for immediate pickup.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="faq">
-        <div class="faq-question">Do you provide compliance blister packaging?</div>
-        <div class="faq-answer">
-            <div class="answer-content">
-                <p>Absolutely. We offer custom blister packaging to help you organize your daily doses by day and time,
-                    ensuring you take the right medication exactly when needed.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="faq">
-        <div class="faq-question">What languages are spoken at Rideau Pharmacy?</div>
-        <div class="faq-answer">
-            <div class="answer-content">
-                <p>Our friendly team is fluent and ready to assist you in English, French, and Arabic.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<section id="booking-section" class="booking-section">
-    <div class="booking-container">
-        <h2 class="section-title" style="text-align: center;">Book an Appointment</h2>
-        <p class="section-paragraph" style="text-align: center; max-width: 700px; margin: 0 auto 40px;">
-            Select a time that works for you. Our pharmacists are available for consultations, minor ailment
-            prescribing, and medication reviews.
-        </p>
-
-        <div class="calendly-inline-widget" data-url="https://calendly.com/YOUR_LINK_HERE"
-            style="min-width:320px;height:700px;"></div>
-        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-    </div>
-</section>
-
-<section id="contact-section" class="quick-contact">
-    <div class="contact-container">
-        <div class="contact-info">
-            <h2 class="contact-title">Visit Us Today</h2>
-            <p class="contact-subtitle">We are conveniently located in the heart of the community, ready to serve your
-                healthcare needs.</p>
-            <div class="contact-details">
-                <div class="contact-item">
-                    <span class="contact-icon">📍</span>
-                    <div class="info-text">
-                        <strong>Our Address</strong>
-                        <p>390 Rideau St, Ottawa, ON K1N 5Y8</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon">📞</span>
-                    <div class="info-text">
-                        <strong>Give Us a Call</strong>
-                        <p>(613) 789-4444</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon">🕒</span>
-                    <div class="info-text">
-                        <strong>Opening Hours</strong>
-                        <p>Mon - Fri: 8:00 AM - 6:00 PM</p>
-                        <p>Saturday: 9:00 AM - 4:00 PM</p>
-                        <p>Sunday: 9:00 AM - 3:00 PM</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="contact-map-placeholder">
-            <a href="https://www.google.com/maps/search/?api=1&query=390+Rideau+St+Ottawa+ON+K1N+5Y8" target="_blank">
-                <img src="/assets/rideau-House.png" alt="Rideau Pharmacy Location" class="contact-image map-hover">
-            </a>
-            <p style="text-align: center; font-size: 0.9rem; color: #666; margin-top: 10px;">Click map to open in Google
-                Maps</p>
-        </div>
-    </div>
-</section>
-
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        // 1. FAQ Scroll Trigger
-        const faqs = document.querySelectorAll(".faq");
-        const faqContainer = document.querySelector('.faq-container');
-
-        const faqObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    faqs.forEach((item, index) => {
-                        setTimeout(() => {
-                            item.classList.add("visible");
-                        }, index * 150);
-                    });
-                    faqObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        if (faqContainer) {
-            faqObserver.observe(faqContainer);
-        }
-
-        // 2. FAQ Accordion Handler
-        const questions = document.querySelectorAll('.faq-question');
-        questions.forEach((question) => {
-            question.addEventListener('click', () => {
-                const parent = question.parentElement;
-                const isActive = parent.classList.contains('active');
-
-                // Close others
-                document.querySelectorAll('.faq.active').forEach(openFaq => {
-                    if (openFaq !== parent) openFaq.classList.remove('active');
+        // Image parallax
+        var parallaxItems = document.querySelectorAll('[data-parallax]');
+        if (!reduceMotion && window.innerWidth > 900 && parallaxItems.length) {
+            var ticking = false;
+            function updateParallax() {
+                var viewport = window.innerHeight;
+                parallaxItems.forEach(function (img) {
+                    var rect = img.parentElement.getBoundingClientRect();
+                    if (rect.bottom < 0 || rect.top > viewport) return;
+                    var progress = (rect.top + rect.height / 2 - viewport / 2) / viewport;
+                    img.style.transform = 'translate3d(0,' + (progress * -7).toFixed(2) + '%,0)';
                 });
+                ticking = false;
+            }
+            window.addEventListener('scroll', function () {
+                if (!ticking) { requestAnimationFrame(updateParallax); ticking = true; }
+            }, { passive: true });
+            updateParallax();
+        }
 
-                parent.classList.toggle('active');
-            });
+        // Reasons: swap the sticky photo to match the item in view
+        var reasons = document.querySelectorAll('[data-reason]');
+        var stageImages = document.querySelectorAll('[data-stage]');
+        if ('IntersectionObserver' in window && reasons.length) {
+            var reasonObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    var index = entry.target.dataset.reason;
+                    reasons.forEach(function (el) { el.classList.toggle('is-active', el === entry.target); });
+                    stageImages.forEach(function (img) { img.classList.toggle('is-active', img.dataset.stage === index); });
+                });
+            }, { rootMargin: '-48% 0px -48% 0px' });
+            reasons.forEach(function (item) { reasonObserver.observe(item); });
+        }
+
+        // Live open/closed status on the pharmacy's clock
+        var statusEl = document.getElementById('status');
+        var detailEl = document.getElementById('status-detail');
+        var hours = JSON.parse(document.getElementById('hours-data').textContent);
+        var DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        var DAY_KEYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+        function toMinutes(hhmm) {
+            var parts = hhmm.split(':');
+            return Number(parts[0]) * 60 + Number(parts[1]);
+        }
+
+        function toLabel(hhmm) {
+            var minutes = toMinutes(hhmm);
+            var hour = Math.floor(minutes / 60);
+            var suffix = hour >= 12 ? 'PM' : 'AM';
+            var mins = String(minutes % 60).padStart(2, '0');
+            return ((hour % 12) || 12) + ':' + mins + ' ' + suffix;
+        }
+
+        function hoursFor(day) {
+            return hours.filter(function (row) {
+                return row.days.indexOf(day) !== -1 && row.open;
+            })[0];
+        }
+
+        var parts = {};
+        new Intl.DateTimeFormat('en-CA', {
+            timeZone: 'America/Toronto',
+            weekday: 'short',
+            hour: '2-digit',
+            minute: '2-digit',
+            hourCycle: 'h23'
+        }).formatToParts(new Date()).forEach(function (part) {
+            parts[part.type] = part.value;
         });
 
+        var today = DAY_KEYS.indexOf(parts.weekday.slice(0, 3));
+        var now = Number(parts.hour) * 60 + Number(parts.minute);
 
-        // Hero scroll parallax driver
-        const heroSection = document.querySelector('.hero-section');
-        if (heroSection) {
-            const onHeroScroll = () => {
-                const scrollY = window.scrollY;
-                if (scrollY <= 800) {
-                    heroSection.style.setProperty('--scroll-y', scrollY + 'px');
-                }
-            };
-            window.addEventListener('scroll', onHeroScroll, { passive: true });
-            onHeroScroll();
-        }
-
-        // 4. Philosophy Rotation Manager (10s intervals)
-        const philSlides = document.querySelectorAll('.philosophy-slide');
-        const philIcon = document.getElementById('persistent-philosophy-icon');
-        const philProgressBar = document.querySelector('.philosophy-progress-bar');
-        let currentPhilSlide = 0;
-        let philRotation = 0;
-        let philInterval;
-
-        function showPhilSlide(index, direction = 'forward') {
-            if (index === currentPhilSlide && philRotation !== 0) return;
-
-            philSlides.forEach(slide => slide.classList.remove('active'));
-
-            philSlides[index].classList.add('active');
-
-            if (index !== currentPhilSlide) {
-                if (direction === 'backward') {
-                    philRotation -= 90;
-                } else {
-                    philRotation += 90;
-                }
-                if (philIcon) {
-                    philIcon.style.setProperty('--phil-rotation', philRotation + 'deg');
-                }
+        document.querySelectorAll('.hours-row').forEach(function (row) {
+            if (row.dataset.days.split(',').map(Number).indexOf(today) !== -1) {
+                row.classList.add('is-today');
             }
+        });
 
-            // Restart progress bar animation
-            if (philProgressBar) {
-                philProgressBar.classList.remove('animating');
-                void philProgressBar.offsetWidth; // Trigger reflow to restart CSS keyframe animation
-                philProgressBar.classList.add('animating');
+        var current = hoursFor(today);
+        if (current && now >= toMinutes(current.open) && now < toMinutes(current.close)) {
+            statusEl.dataset.state = 'open';
+            statusEl.textContent = 'Open now';
+            detailEl.textContent = 'Until ' + toLabel(current.close) + ' today';
+            return;
+        }
+
+        statusEl.dataset.state = 'closed';
+        statusEl.textContent = 'Closed now';
+        if (current && now < toMinutes(current.open)) {
+            detailEl.textContent = 'Opens today at ' + toLabel(current.open);
+            return;
+        }
+        for (var offset = 1; offset <= 7; offset++) {
+            var day = (today + offset) % 7;
+            var next = hoursFor(day);
+            if (next) {
+                detailEl.textContent = 'Opens ' + (offset === 1 ? 'tomorrow' : DAY_NAMES[day]) + ' at ' + toLabel(next.open);
+                return;
             }
-
-            currentPhilSlide = index;
         }
-
-        function nextPhilSlide() {
-            let next = (currentPhilSlide + 1) % philSlides.length;
-            showPhilSlide(next, 'forward');
-        }
-
-        function startPhilRotation() {
-            philInterval = setInterval(nextPhilSlide, 15000);
-        }
-
-        function resetPhilRotation() {
-            clearInterval(philInterval);
-            startPhilRotation();
-        }
-
-        const prevBtn = document.querySelector('.prev-btn');
-        const nextBtn = document.querySelector('.next-btn');
-
-        if (prevBtn) {
-            prevBtn.addEventListener('click', () => {
-                let prev = (currentPhilSlide - 1 + philSlides.length) % philSlides.length;
-                showPhilSlide(prev, 'backward');
-                resetPhilRotation();
-            });
-        }
-
-        if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                let next = (currentPhilSlide + 1) % philSlides.length;
-                showPhilSlide(next, 'forward');
-                resetPhilRotation();
-            });
-        }
-
-        if (philSlides.length > 0) {
-            startPhilRotation();
-        }
-    });
+    })();
 </script>
