@@ -144,9 +144,9 @@ navOverlay: true
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        min-height: clamp(660px, 100svh, 1000px);
+        min-height: min(100svh, 1000px);
         margin-top: calc(-1 * var(--nav-h) - 1px);
-        padding-top: calc(var(--nav-h) + 40px);
+        padding-top: calc(var(--nav-h) + clamp(12px, 4svh, 40px));
         background: var(--forest);
         color: var(--on-dark);
         overflow: hidden;
@@ -178,13 +178,13 @@ navOverlay: true
     }
 
     .hero-body {
-        padding-bottom: clamp(36px, 5vw, 64px);
+        padding-bottom: clamp(20px, min(max(36px, 5vw), 7.5svh), 64px);
     }
 
     .hero-title {
         max-width: 11.5em;
         margin: 0;
-        font-size: clamp(3.7rem, 9vw, 9rem);
+        font-size: clamp(3.7rem, min(9vw, 30svh - 110px), 9rem);
         line-height: 0.96;
         letter-spacing: -0.02em;
     }
@@ -220,7 +220,7 @@ navOverlay: true
 
     .hero-text {
         max-width: 31em;
-        margin: 28px 0 36px;
+        margin: clamp(12px, 3.2svh, 28px) 0 clamp(16px, 4.2svh, 36px);
         font-size: clamp(1.1rem, 1.5vw, 1.3rem);
         color: var(--on-dark-muted);
     }
@@ -238,7 +238,7 @@ navOverlay: true
     }
 
     .hero-cell {
-        padding: 26px 28px 30px;
+        padding: clamp(14px, 3svh, 26px) 28px clamp(14px, 3.4svh, 30px);
         border-left: 1px solid var(--on-dark-line);
         font-size: 1rem;
     }
@@ -300,44 +300,6 @@ navOverlay: true
 
     .status[data-state="open"]::before {
         background: #8ff0c8;
-    }
-
-    /* Ribbon */
-    .ribbon {
-        overflow: hidden;
-        padding: 22px 0;
-        background: var(--forest-2);
-        color: var(--gold-light);
-    }
-
-    .ribbon-track {
-        display: flex;
-        width: max-content;
-        animation: drift 60s linear infinite;
-    }
-
-    .ribbon-track span {
-        display: inline-flex;
-        align-items: center;
-        gap: 44px;
-        padding-right: 44px;
-        font-family: var(--font-serif);
-        font-size: 1.55rem;
-        font-style: italic;
-        white-space: nowrap;
-    }
-
-    .ribbon-track span::after {
-        content: "+";
-        font-style: normal;
-        color: var(--gold);
-        opacity: 0.7;
-    }
-
-    @keyframes drift {
-        to {
-            transform: translateX(-50%);
-        }
     }
 
     /* Intro */
@@ -894,6 +856,45 @@ navOverlay: true
         }
     }
 
+    /* Short tablets: keep the hero info bar on one row so it fits the screen */
+    @media (min-width: 961px) and (max-width: 1100px) and (max-height: 820px) {
+        .hero-bar-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .hero-cell {
+            padding-inline: 16px;
+        }
+
+        .hero-cell:first-child {
+            padding-left: 0;
+        }
+
+        .hero-cell:nth-child(3) {
+            padding-left: 16px;
+            border-left: 1px solid var(--on-dark-line);
+        }
+
+        .hero-cell:nth-child(n + 3) {
+            border-top: 0;
+        }
+
+        .hero-cell-value {
+            font-size: 1.2rem;
+        }
+    }
+
+    /* With the hamburger menu showing, this info lives in the menu drawer */
+    @media (max-width: 960px) {
+        .hero-bar {
+            display: none;
+        }
+
+        .hero-body {
+            padding-bottom: clamp(28px, 7svh, 64px);
+        }
+    }
+
     @media (max-width: 900px) {
         .hero::after {
             background:
@@ -952,9 +953,29 @@ navOverlay: true
         }
     }
 
+    /* Wider screens show this frame until the film starts */
+    @media (min-width: 701px) {
+        .hero {
+            background: var(--forest) url('/web/hero-poster.webp') 62% 40% / cover no-repeat;
+        }
+    }
+
+    /* Phones get a still photo; the film's source is limited to wider screens */
     @media (max-width: 700px) {
+        .hero {
+            background: var(--forest) url('/web/consult-talk.webp') center top / cover no-repeat;
+        }
+
         .hero-film {
-            object-position: 100% 40%;
+            display: none;
+        }
+    }
+
+    /* Short phones: hold the photo's scale so faces stay clear of the headline */
+    @media (max-width: 480px) and (max-height: 725px) {
+        .hero {
+            background-position: center bottom;
+            background-size: auto 725px;
         }
     }
 
@@ -963,23 +984,6 @@ navOverlay: true
         .band-actions .btn,
         .visit-actions .btn {
             flex: 1 1 100%;
-        }
-
-        .hero-cell {
-            padding: 14px 0 14px 16px;
-        }
-
-        .hero-cell-label {
-            margin-bottom: 4px;
-            font-size: 0.66rem;
-        }
-
-        .hero-cell-value {
-            font-size: 1.22rem;
-        }
-
-        .hero-cell-note {
-            font-size: 0.85rem;
         }
 
         .more {
@@ -992,14 +996,29 @@ navOverlay: true
             border-bottom: 1px solid var(--line);
         }
     }
+
+    /* Short desktop windows: let the intro run wider so it takes fewer lines */
+    @media (min-width: 561px) and (max-height: 720px) {
+        .hero .eyebrow {
+            margin-bottom: 10px;
+        }
+
+        .hero-text {
+            max-width: 48em;
+        }
+
+        .hero-cell-label {
+            margin-bottom: 4px;
+        }
+    }
+
 </style>
 
 {% set arrow %}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>{% endset %}
 
 <section class="hero" aria-label="Welcome">
-    <video class="hero-film" id="hero-film" autoplay muted loop playsinline preload="metadata" poster="/web/hero-poster.webp" aria-hidden="true">
-        <source src="/movie-mobile.mp4" type="video/mp4" media="(max-width: 700px)">
-        <source src="/web/hero-film.mp4" type="video/mp4">
+    <video class="hero-film" id="hero-film" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+        <source src="/web/hero-film.mp4" type="video/mp4" media="(min-width: 701px)">
     </video>
 
     <div class="wrap hero-body">
@@ -1041,24 +1060,16 @@ navOverlay: true
     </div>
 </section>
 
-<div class="ribbon" aria-hidden="true">
-    <div class="ribbon-track">
-        {% for pass in [1, 2, 3, 4] %}
-        {% for item in site.featuredServices %}<span>{{ item.name }}</span>{% endfor %}
-        {% endfor %}
-    </div>
-</div>
-
 <section class="intro">
     <div class="wrap">
         <p class="eyebrow" data-reveal>Bellfront Pharmacy</p>
         <p class="statement" data-reveal>A neighbourhood pharmacy with room for <em>your questions,</em> your routine, and everything in between.</p>
         <div class="intro-media" data-reveal>
             <div class="intro-main">
-                <img class="parallax-img" data-parallax src="/web/storefront.webp" alt="The Guardian Bellfront Pharmacy storefront on North Front Street" loading="lazy">
+                <img class="parallax-img" data-parallax src="/web/storefront.webp" width="1800" height="1327" alt="The Guardian Bellfront Pharmacy storefront on North Front Street" loading="lazy">
             </div>
             <div class="intro-inset">
-                <img src="/web/orchid.webp" alt="A pink orchid in a silver pot inside the pharmacy" loading="lazy">
+                <img src="/web/orchid.webp" width="920" height="1150" alt="A pink orchid in a silver pot inside the pharmacy" loading="lazy">
             </div>
         </div>
     </div>
@@ -1078,7 +1089,7 @@ navOverlay: true
             {% for item in site.featuredServices %}
             {% if item.link == "refill" %}{% set tileHref = site.refillUrl %}{% elif item.link == "visit" %}{% set tileHref = "#visit" %}{% else %}{% set tileHref = "#booking" %}{% endif %}
             <a class="tile tile-{{ item.span }}" href="{{ tileHref }}"{% if item.link == "refill" %} target="_blank" rel="noopener"{% endif %} data-reveal>
-                <img src="{{ item.image }}" alt="{{ item.alt }}" loading="lazy">
+                <img src="{{ item.image }}" width="{{ item.width }}" height="{{ item.height }}" alt="{{ item.alt }}" loading="lazy">
                 <span class="tile-arrow">{{ arrow | safe }}</span>
                 <span class="tile-copy">
                     <h3 class="tile-name">{{ item.name }}</h3>
@@ -1108,13 +1119,13 @@ navOverlay: true
         <div class="reasons-grid">
             <div class="reasons-stage" aria-hidden="true">
                 {% for item in site.reasons %}
-                <img src="{{ item.image }}" alt="" data-stage="{{ loop.index0 }}" {% if loop.first %}class="is-active"{% endif %} loading="lazy">
+                <img src="{{ item.image }}" width="{{ item.width }}" height="{{ item.height }}" alt="" data-stage="{{ loop.index0 }}" {% if loop.first %}class="is-active"{% endif %} loading="lazy">
                 {% endfor %}
             </div>
             <div>
                 {% for item in site.reasons %}
                 <article class="reason{% if loop.first %} is-active{% endif %}" data-reason="{{ loop.index0 }}">
-                    <img class="reason-img" src="{{ item.image }}" alt="{{ item.alt }}" loading="lazy">
+                    <img class="reason-img" src="{{ item.image }}" width="{{ item.width }}" height="{{ item.height }}" alt="{{ item.alt }}" loading="lazy">
                     <p class="reason-num">0{{ loop.index }}</p>
                     <h3>{{ item.title }}</h3>
                     <p>{{ item.text }}</p>
@@ -1128,7 +1139,7 @@ navOverlay: true
 <section class="pharmacist" id="pharmacist">
     <div class="wrap pharmacist-grid">
         <div class="arch" data-reveal>
-            <img class="parallax-img" data-parallax src="/web/praful.webp" alt="{{ site.headPharmacist.name }}, head pharmacist at Bellfront Pharmacy, in a white coat" loading="lazy">
+            <img class="parallax-img" data-parallax src="/web/praful.webp" width="1100" height="1692" alt="{{ site.headPharmacist.name }}, head pharmacist at Bellfront Pharmacy, in a white coat" loading="lazy">
         </div>
         <div data-reveal>
             <p class="eyebrow">Your {{ site.headPharmacist.role | lower }}</p>
@@ -1141,7 +1152,7 @@ navOverlay: true
 </section>
 
 <section class="band on-dark" aria-label="Transfer your prescriptions">
-    <img class="parallax-img" data-parallax src="/web/pills.webp" alt="" loading="lazy">
+    <img class="parallax-img" data-parallax src="/web/pills.webp" width="2000" height="1333" alt="" loading="lazy">
     <div class="wrap band-body" data-reveal>
         <p class="eyebrow">Switching pharmacies</p>
         <h2 class="section-title">Bring your prescriptions <em>to Bellfront.</em></h2>
@@ -1226,7 +1237,6 @@ navOverlay: true
     </div>
 </section>
 
-<script type="application/json" id="hours-data">{{ site.hours | dump | safe }}</script>
 <script>
     (function () {
         var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1289,73 +1299,18 @@ navOverlay: true
             reasons.forEach(function (item) { reasonObserver.observe(item); });
         }
 
-        // Live open/closed status on the pharmacy's clock
+        // Live open/closed status, worked out in the navbar script
+        var status = window.siteStatus();
         var statusEl = document.getElementById('status');
-        var detailEl = document.getElementById('status-detail');
-        var hours = JSON.parse(document.getElementById('hours-data').textContent);
-        var DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        var DAY_KEYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-        function toMinutes(hhmm) {
-            var parts = hhmm.split(':');
-            return Number(parts[0]) * 60 + Number(parts[1]);
-        }
-
-        function toLabel(hhmm) {
-            var minutes = toMinutes(hhmm);
-            var hour = Math.floor(minutes / 60);
-            var suffix = hour >= 12 ? 'PM' : 'AM';
-            var mins = String(minutes % 60).padStart(2, '0');
-            return ((hour % 12) || 12) + ':' + mins + ' ' + suffix;
-        }
-
-        function hoursFor(day) {
-            return hours.filter(function (row) {
-                return row.days.indexOf(day) !== -1 && row.open;
-            })[0];
-        }
-
-        var parts = {};
-        new Intl.DateTimeFormat('en-CA', {
-            timeZone: 'America/Toronto',
-            weekday: 'short',
-            hour: '2-digit',
-            minute: '2-digit',
-            hourCycle: 'h23'
-        }).formatToParts(new Date()).forEach(function (part) {
-            parts[part.type] = part.value;
-        });
-
-        var today = DAY_KEYS.indexOf(parts.weekday.slice(0, 3));
-        var now = Number(parts.hour) * 60 + Number(parts.minute);
+        statusEl.dataset.state = status.state;
+        statusEl.textContent = status.label;
+        document.getElementById('status-detail').textContent = status.detail;
 
         document.querySelectorAll('.hours-row').forEach(function (row) {
-            if (row.dataset.days.split(',').map(Number).indexOf(today) !== -1) {
+            if (row.dataset.days.split(',').map(Number).indexOf(status.today) !== -1) {
                 row.classList.add('is-today');
             }
         });
-
-        var current = hoursFor(today);
-        if (current && now >= toMinutes(current.open) && now < toMinutes(current.close)) {
-            statusEl.dataset.state = 'open';
-            statusEl.textContent = 'Open now';
-            detailEl.textContent = 'Until ' + toLabel(current.close) + ' today';
-            return;
-        }
-
-        statusEl.dataset.state = 'closed';
-        statusEl.textContent = 'Closed now';
-        if (current && now < toMinutes(current.open)) {
-            detailEl.textContent = 'Opens today at ' + toLabel(current.open);
-            return;
-        }
-        for (var offset = 1; offset <= 7; offset++) {
-            var day = (today + offset) % 7;
-            var next = hoursFor(day);
-            if (next) {
-                detailEl.textContent = 'Opens ' + (offset === 1 ? 'tomorrow' : DAY_NAMES[day]) + ' at ' + toLabel(next.open);
-                return;
-            }
-        }
     })();
 </script>

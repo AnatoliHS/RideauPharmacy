@@ -3,7 +3,7 @@
     "shortName": "Bellfront Pharmacy",
     "banner": "Guardian",
     "title": "Community Pharmacy in Belleville, Ontario",
-    "description": "Guardian Bellfront Pharmacy on North Front Street in Belleville, Ontario. Prescriptions and online refills, flu shots, medication reviews, blister packs, delivery and a walk-in medical clinic.",
+    "description": "Prescriptions, online refills, flu shots, medication reviews, delivery and a walk-in clinic at Guardian Bellfront Pharmacy on North Front Street in Belleville.",
     "url": "",
     "phone": "613.779.9779",
     "phoneHref": "+16137799779",
@@ -49,13 +49,13 @@
         }
     ],
     "featuredServices": [
-        { "name": "Medication reviews", "text": "Sit down with a pharmacist and go through everything you take.", "image": "/web/waiting-room.webp", "alt": "The waiting area and Patient Counselling room door at Bellfront Pharmacy", "span": 7, "link": "booking" },
-        { "name": "Flu shots", "text": "Seasonal flu vaccination at the pharmacy.", "image": "/web/flu.webp", "alt": "A patient receiving a vaccination in the upper arm", "span": 5, "link": "booking" },
-        { "name": "Blister packs", "text": "Your doses, sorted by day and time.", "image": "/web/blister.webp", "alt": "A weekly pill organiser on a pale blue surface", "span": 4, "link": "booking" },
-        { "name": "Blood pressure screening", "text": "Know your numbers.", "image": "/web/bp-station.webp", "alt": "The PharmaSmart blood pressure check station at Bellfront Pharmacy", "span": 4, "link": "booking" },
-        { "name": "Delivery", "text": "Ask us about having your medications delivered.", "image": "/web/delivery.webp", "alt": "A courier handing a paper bag to a customer at the front door", "span": 4, "link": "visit" },
-        { "name": "Walk-in medical clinic", "text": "Call us for current clinic hours and availability.", "image": "/web/consult-tablet.webp", "alt": "A pharmacist and a patient reviewing a tablet in a pharmacy", "span": 5, "link": "visit" },
-        { "name": "Online refills", "text": "Reorder through your online patient record, any time.", "image": "/web/prescriptions-sign.webp", "alt": "The blue Prescriptions sign above the dispensary at Bellfront Pharmacy", "span": 7, "link": "refill" }
+        { "name": "Medication reviews", "text": "Sit down with a pharmacist and go through everything you take.", "image": "/web/waiting-room.webp", "width": 1400, "height": 1120, "alt": "The waiting area and Patient Counselling room door at Bellfront Pharmacy", "span": 7, "link": "booking" },
+        { "name": "Flu shots", "text": "Seasonal flu vaccination at the pharmacy.", "image": "/web/flu.webp", "width": 1200, "height": 800, "alt": "A patient receiving a vaccination in the upper arm", "span": 5, "link": "booking" },
+        { "name": "Blister packs", "text": "Your doses, sorted by day and time.", "image": "/web/blister.webp", "width": 1000, "height": 1500, "alt": "A weekly pill organiser on a pale blue surface", "span": 4, "link": "booking" },
+        { "name": "Blood pressure screening", "text": "Know your numbers.", "image": "/web/bp-station.webp", "width": 900, "height": 1124, "alt": "The PharmaSmart blood pressure check station at Bellfront Pharmacy", "span": 4, "link": "booking" },
+        { "name": "Delivery", "text": "Ask us about having your medications delivered.", "image": "/web/delivery.webp", "width": 1000, "height": 1000, "alt": "A courier handing a paper bag to a customer at the front door", "span": 4, "link": "visit" },
+        { "name": "Walk-in medical clinic", "text": "Call us for current clinic hours and availability.", "image": "/web/consult-tablet.webp", "width": 1024, "height": 1024, "alt": "A pharmacist and a patient reviewing a tablet in a pharmacy", "span": 5, "link": "visit" },
+        { "name": "Online refills", "text": "Reorder through your online patient record, any time.", "image": "/web/prescriptions-sign.webp", "width": 1400, "height": 1121, "alt": "The blue Prescriptions sign above the dispensary at Bellfront Pharmacy", "span": 7, "link": "refill" }
     ],
     "moreServices": [
         { "name": "Prescription transfers", "text": "Move your prescriptions to Bellfront from another pharmacy." },
@@ -64,9 +64,9 @@
         { "name": "Senior discount", "text": "Ask in store for details." }
     ],
     "reasons": [
-        { "title": "Reviewed, not just refilled", "text": "Book a medication review and go through your prescriptions with a pharmacist, one question at a time.", "image": "/web/counselling-door.webp", "alt": "The Patient Counselling room door at Bellfront Pharmacy" },
-        { "title": "More care under one banner", "text": "A walk-in medical clinic, flu shots and blood pressure screening, all through Bellfront.", "image": "/web/shelves.webp", "alt": "Well-stocked shelves of cold, flu and pain relief products at Bellfront Pharmacy" },
-        { "title": "Refills on your schedule", "text": "Request a refill from your online patient record, then ask us about having it delivered.", "image": "/web/marble.webp", "alt": "A few capsules resting on a white marble surface" },
-        { "title": "Medication, made simpler", "text": "Blister packs sorted by day and time, and a safe place to return what you no longer need.", "image": "/web/organiser.webp", "alt": "A hand taking a capsule from a daily pill organiser" }
+        { "title": "Reviewed, not just refilled", "text": "Book a medication review and go through your prescriptions with a pharmacist, one question at a time.", "image": "/web/counselling-door.webp", "width": 1100, "height": 1265, "alt": "The Patient Counselling room door at Bellfront Pharmacy" },
+        { "title": "More care under one banner", "text": "A walk-in medical clinic, flu shots and blood pressure screening, all through Bellfront.", "image": "/web/shelves.webp", "width": 1100, "height": 1265, "alt": "Well-stocked shelves of cold, flu and pain relief products at Bellfront Pharmacy" },
+        { "title": "Refills on your schedule", "text": "Request a refill from your online patient record, then ask us about having it delivered.", "image": "/web/marble.webp", "width": 1400, "height": 933, "alt": "A few capsules resting on a white marble surface" },
+        { "title": "Medication, made simpler", "text": "Blister packs sorted by day and time, and a safe place to return what you no longer need.", "image": "/web/organiser.webp", "width": 1200, "height": 1800, "alt": "A hand taking a capsule from a daily pill organiser" }
     ]
 }

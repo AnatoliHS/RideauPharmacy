@@ -89,25 +89,254 @@
   }
 
   .site-nav-toggle {
+    position: relative;
     display: none;
     width: 44px;
     height: 44px;
     padding: 0;
-    align-items: center;
-    justify-content: center;
     border: 0;
     background: transparent;
     color: inherit;
     cursor: pointer;
   }
 
-  .site-nav-toggle svg {
+  .site-nav-toggle span {
+    position: absolute;
+    top: 21px;
+    left: 9px;
     width: 26px;
-    height: 26px;
-    stroke: currentColor;
-    stroke-width: 1.5;
-    stroke-linecap: round;
+    height: 1.5px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform 0.55s var(--ease);
+  }
+
+  .site-nav-toggle span:first-child {
+    transform: translateY(-4px);
+  }
+
+  .site-nav-toggle span:last-child {
+    transform: translateY(4px);
+  }
+
+  .site-nav.is-menu-open .site-nav-toggle span:first-child {
+    transform: rotate(45deg);
+  }
+
+  .site-nav.is-menu-open .site-nav-toggle span:last-child {
+    transform: rotate(-45deg);
+  }
+
+  /* While the drawer is open the bar sits transparently on top of it */
+  .site-nav.is-menu-open {
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border-bottom-color: transparent;
+  }
+
+  html.nav-locked {
+    overflow: hidden;
+  }
+
+  /* Mobile drawer: a sibling of the bar, so it never affects page layout */
+  .site-drawer {
+    --bloom-x: calc(100% - 36px);
+    --bloom-y: 36px;
+    --bloom-r: 150vmax;
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: none;
+    padding: var(--nav-h) 0 12px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    color: var(--ink);
+    background: var(--ivory);
+    line-height: 1.45;
+    visibility: hidden;
+    clip-path: circle(0 at var(--bloom-x) var(--bloom-y));
+    transition: clip-path 0.5s cubic-bezier(0.32, 0.72, 0, 1), visibility 0s linear 0.5s;
+  }
+
+  .site-drawer.is-open {
+    visibility: visible;
+    clip-path: circle(var(--bloom-r) at var(--bloom-x) var(--bloom-y));
+    transition: clip-path 1s cubic-bezier(0.5, 0, 0.15, 1), visibility 0s;
+  }
+
+  .site-drawer :where(a) {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .site-drawer-inner {
+    max-width: 600px;
+    padding-inline: var(--gutter);
+  }
+
+  .site-drawer-item {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+    transition: opacity 0.18s ease, transform 0.3s ease;
+  }
+
+  .site-drawer.is-open .site-drawer-item {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.6s ease, transform 0.85s var(--ease);
+    transition-delay: calc(0.34s + var(--i, 0) * 0.06s);
+  }
+
+  .site-drawer-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 8px;
+  }
+
+  .site-drawer-link {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 7.2vw, 1.85rem);
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+
+  .site-drawer-tiles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .site-drawer-tile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 58px;
+    padding: 8px 12px;
+    border-radius: 14px;
+    background: var(--white);
+    font-size: 0.92rem;
+    font-weight: 500;
+    line-height: 1.15;
+  }
+
+  .site-drawer-tile.is-lead {
+    background: var(--forest);
+    color: var(--on-dark);
+  }
+
+  .site-drawer-tile svg {
+    width: 22px;
+    height: 22px;
+    flex: none;
     fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .site-drawer-tile.is-lead svg {
+    stroke: var(--gold);
+  }
+
+  .site-drawer-info {
+    margin-top: 8px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    background: var(--forest);
+    color: var(--on-dark);
+  }
+
+  .site-drawer-status {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 8px;
+    margin: 0 0 4px;
+    font-size: 0.86rem;
+  }
+
+  .site-drawer-status i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  .site-drawer-status[data-state="open"] i {
+    background: #8ff0c8;
+  }
+
+  .site-drawer-status b {
+    font-weight: 600;
+  }
+
+  .site-drawer-status span {
+    color: var(--on-dark-muted);
+  }
+
+  .site-drawer-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 2px 0;
+    color: var(--on-dark-muted);
+    font-size: 0.84rem;
+  }
+
+  .site-drawer-row span:last-child {
+    text-align: right;
+  }
+
+  .site-drawer-row.is-today {
+    color: var(--gold-light);
+    font-weight: 600;
+  }
+
+  .site-drawer-rows + .site-drawer-rows {
+    margin-top: 4px;
+    padding-top: 4px;
+    border-top: 1px solid var(--on-dark-line);
+  }
+
+  .site-drawer-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .site-drawer-actions a {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    border: 1px solid var(--on-dark-line);
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  /* Taller screens have room for the large, stacked links */
+  @media (min-height: 740px) {
+    .site-drawer-links {
+      grid-template-columns: 1fr;
+    }
+
+    .site-drawer-link {
+      font-size: 2.35rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-drawer.is-open .site-drawer-item {
+      transition-delay: 0s;
+    }
   }
 
   @media (max-width: 960px) {
@@ -116,9 +345,7 @@
     }
 
     .site-nav-inner {
-      flex-wrap: wrap;
-      gap: 0 12px;
-      align-content: center;
+      gap: 12px;
     }
 
     .site-nav-cta {
@@ -128,28 +355,15 @@
     }
 
     .site-nav-toggle {
-      display: inline-flex;
+      display: block;
     }
 
     .site-nav-links {
       display: none;
-      order: 4;
-      flex-basis: 100%;
-      flex-direction: column;
-      gap: 0;
-      margin: 0;
-      padding: 4px 0 16px;
     }
 
-    .site-nav-links.is-open {
-      display: flex;
-    }
-
-    .site-nav-links a {
-      padding: 12px 0;
-      font-family: var(--font-serif);
-      font-size: 1.7rem;
-      font-weight: 400;
+    .site-drawer {
+      display: block;
     }
   }
 
@@ -180,37 +394,185 @@
       <a href="/#visit">Visit</a>
     </div>
     <a href="/#booking" class="site-nav-cta">Book appointment</a>
-    <button class="site-nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav-links">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h18M3 16h18"/></svg>
+    <button class="site-nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-drawer">
+      <span></span><span></span>
     </button>
   </div>
 </nav>
 
+<div class="site-drawer" id="site-drawer" inert>
+  <div class="site-drawer-inner">
+    <div class="site-drawer-links">
+      <a class="site-drawer-link site-drawer-item" style="--i: 0" href="/#services">Services</a>
+      <a class="site-drawer-link site-drawer-item" style="--i: 1" href="/#pharmacist">Your pharmacist</a>
+      <a class="site-drawer-link site-drawer-item" style="--i: 2" href="/#faq">Questions</a>
+      <a class="site-drawer-link site-drawer-item" style="--i: 3" href="/#visit">Visit</a>
+    </div>
+
+    <div class="site-drawer-tiles">
+      <a class="site-drawer-tile is-lead site-drawer-item" style="--i: 5" href="{{ site.refillUrl }}" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="8" width="19" height="8" rx="4" transform="rotate(-40 12 12)"/><path d="m9 8.3 6 7.3"/></svg>
+        Refill a prescription
+      </a>
+      <a class="site-drawer-tile site-drawer-item" style="--i: 6" href="/#booking">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+        Book an appointment
+      </a>
+      <a class="site-drawer-tile site-drawer-item" style="--i: 7" href="{{ site.transferUrl }}" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h15M15 4l4 4-4 4M20 16H5M9 12l-4 4 4 4"/></svg>
+        Transfer a prescription
+      </a>
+      <a class="site-drawer-tile site-drawer-item" style="--i: 8" href="tel:{{ site.phoneHref }}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 16.5v3a1.7 1.7 0 0 1-1.9 1.7A17.5 17.5 0 0 1 2.8 4.9 1.7 1.7 0 0 1 4.5 3h3a1.7 1.7 0 0 1 1.7 1.4c.1.9.4 1.8.7 2.6a1.7 1.7 0 0 1-.4 1.8L8.3 10a14 14 0 0 0 5.7 5.7l1.2-1.2a1.7 1.7 0 0 1 1.8-.4c.8.3 1.7.6 2.6.7a1.7 1.7 0 0 1 1.4 1.7Z"/></svg>
+        Call {{ site.phone }}
+      </a>
+    </div>
+
+    <div class="site-drawer-info site-drawer-item" style="--i: 9">
+      <p class="site-drawer-status" id="site-drawer-status"><i></i><b>Open weekdays</b> <span></span></p>
+      <div class="site-drawer-rows">
+        {% for row in site.hours %}<div class="site-drawer-row" data-days="{{ row.days | join(',') }}"><span>{{ row.label }}</span><span>{{ row.display }}</span></div>
+        {% endfor %}
+      </div>
+      <div class="site-drawer-rows">
+        <div class="site-drawer-row"><span>Find us</span><span>{{ site.address.street }}</span></div>
+        <div class="site-drawer-row"><span>Fax</span><span>{{ site.fax }}</span></div>
+      </div>
+      <div class="site-drawer-actions">
+        <a href="tel:{{ site.phoneHref }}">Call us</a>
+        <a href="{{ site.directionsUrl }}" target="_blank" rel="noopener">Directions</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   (function () {
+    var root = document.documentElement;
     var nav = document.querySelector('.site-nav');
     var toggle = document.querySelector('.site-nav-toggle');
-    var links = document.getElementById('site-nav-links');
+    var drawer = document.getElementById('site-drawer');
+    var drawerStatus = document.getElementById('site-drawer-status');
+    var hours = {{ site.hours | dump | safe }};
+    var DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var DAY_KEYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    function toMinutes(hhmm) {
+      var parts = hhmm.split(':');
+      return Number(parts[0]) * 60 + Number(parts[1]);
+    }
+
+    function toLabel(hhmm) {
+      var minutes = toMinutes(hhmm);
+      var hour = Math.floor(minutes / 60);
+      return ((hour % 12) || 12) + ':' + String(minutes % 60).padStart(2, '0') + (hour >= 12 ? ' PM' : ' AM');
+    }
+
+    function hoursFor(day) {
+      return hours.filter(function (row) {
+        return row.days.indexOf(day) !== -1 && row.open;
+      })[0];
+    }
+
+    // Open or closed right now, on the pharmacy's clock. Also used by the home page.
+    function readStatus() {
+      var parts = {};
+      new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'America/Toronto',
+        weekday: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+        hourCycle: 'h23'
+      }).formatToParts(new Date()).forEach(function (part) {
+        parts[part.type] = part.value;
+      });
+
+      var today = DAY_KEYS.indexOf(parts.weekday.slice(0, 3));
+      var now = Number(parts.hour) * 60 + Number(parts.minute);
+      var current = hoursFor(today);
+
+      if (current && now >= toMinutes(current.open) && now < toMinutes(current.close)) {
+        return { today: today, state: 'open', label: 'Open now', detail: 'Until ' + toLabel(current.close) + ' today' };
+      }
+
+      var status = { today: today, state: 'closed', label: 'Closed now', detail: '' };
+      if (current && now < toMinutes(current.open)) {
+        status.detail = 'Opens today at ' + toLabel(current.open);
+        return status;
+      }
+      for (var offset = 1; offset <= 7; offset++) {
+        var day = (today + offset) % 7;
+        var next = hoursFor(day);
+        if (next) {
+          status.detail = 'Opens ' + (offset === 1 ? 'tomorrow' : DAY_NAMES[day]) + ' at ' + toLabel(next.open);
+          break;
+        }
+      }
+      return status;
+    }
+
+    function paintDrawerStatus() {
+      var status = readStatus();
+      drawerStatus.dataset.state = status.state;
+      drawerStatus.querySelector('b').textContent = status.label;
+      drawerStatus.querySelector('span').textContent = status.detail;
+      drawer.querySelectorAll('[data-days]').forEach(function (row) {
+        row.classList.toggle('is-today', row.dataset.days.split(',').map(Number).indexOf(status.today) !== -1);
+      });
+    }
+
+    window.siteStatus = readStatus;
 
     function menuOpen() {
-      return links.classList.contains('is-open');
+      return drawer.classList.contains('is-open');
     }
 
     function updateSolid() {
       nav.classList.toggle('is-solid', window.scrollY > 40 || menuOpen());
     }
 
+    // Start the circle at the menu icon and size it to reach the farthest corner.
+    function placeBloom() {
+      var box = toggle.getBoundingClientRect();
+      var x = box.left + box.width / 2;
+      var y = box.top + box.height / 2;
+      var radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+      drawer.style.setProperty('--bloom-x', x + 'px');
+      drawer.style.setProperty('--bloom-y', y + 'px');
+      drawer.style.setProperty('--bloom-r', Math.ceil(radius) + 'px');
+      void drawer.offsetWidth;
+    }
+
     function setOpen(open) {
-      links.classList.toggle('is-open', open);
+      if (open === menuOpen()) return;
+      if (open) {
+        paintDrawerStatus();
+        placeBloom();
+        drawer.scrollTop = 0;
+      }
+      drawer.classList.toggle('is-open', open);
+      drawer.inert = !open;
+      nav.classList.toggle('is-menu-open', open);
+      root.classList.toggle('nav-locked', open);
       toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
       updateSolid();
     }
 
     toggle.addEventListener('click', function () {
       setOpen(!menuOpen());
     });
-    links.addEventListener('click', function (event) {
+    drawer.addEventListener('click', function (event) {
       if (event.target.closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && menuOpen()) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+    window.matchMedia('(min-width: 961px)').addEventListener('change', function (event) {
+      if (event.matches) setOpen(false);
     });
     window.addEventListener('scroll', updateSolid, { passive: true });
     updateSolid();

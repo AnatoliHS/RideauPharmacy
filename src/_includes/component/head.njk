@@ -2,18 +2,23 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>{% if title and title != "Home" %}{{ title }} | {{ site.name }}{% else %}{{ site.name }} | {{ site.address.city }}, {{ site.address.regionName }}{% endif %}</title>
+  {% set pageTitle = (title + " | " + site.name) if (title and title != "Home") else (site.name + " | Community Pharmacy in " + site.address.city) %}
+  {% set pageDescription = description or site.description %}
 
-  <meta name="description" content="{{ site.description }}" />
+  <title>{{ pageTitle }}</title>
+
+  <meta name="description" content="{{ pageDescription }}" />
   <meta name="author" content="{{ site.name }}" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="{{ 'noindex' if noindex else 'index, follow' }}" />
   <meta name="theme-color" content="#0e2a24" />
+  {% if site.url and not noindex %}<link rel="canonical" href="{{ site.url }}{{ page.url }}" />{% endif %}
 
-  <meta property="og:title" content="{{ site.name }} | {{ site.address.city }}, {{ site.address.regionName }}" />
-  <meta property="og:description" content="{{ site.description }}" />
+  <meta property="og:title" content="{{ pageTitle }}" />
+  <meta property="og:description" content="{{ pageDescription }}" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="{{ site.name }}" />
-  {% if site.url %}<meta property="og:url" content="{{ site.url }}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  {% if site.url and not noindex %}<meta property="og:url" content="{{ site.url }}{{ page.url }}" />
   <meta property="og:image" content="{{ site.url }}/web/hero-poster.webp" />{% endif %}
 
   <script type="application/ld+json">
@@ -21,7 +26,8 @@
     "@context": "https://schema.org",
     "@type": "Pharmacy",
     "name": {{ site.name | dump | safe }},
-    {% if site.url %}"url": {{ site.url | dump | safe }},{% endif %}
+    {% if site.url %}"url": {{ site.url | dump | safe }},
+    "image": {{ (site.url + "/web/storefront.webp") | dump | safe }},{% endif %}
     "description": {{ site.description | dump | safe }},
     "telephone": {{ site.phoneHref | dump | safe }},
     "faxNumber": {{ site.fax | dump | safe }},
@@ -54,8 +60,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  {# Only the old starter pages still rely on Startr's utility styles. #}
-  {% if title != "Home" and title != "Privacy Policy" %}<link rel="stylesheet" href="https://startr.style/style.css" />{% endif %}
 
   <style>
     :root {
@@ -119,6 +123,10 @@
     iframe {
       display: block;
       max-width: 100%;
+    }
+
+    img {
+      height: auto;
     }
 
     h1,

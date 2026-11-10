@@ -1,0 +1,70 @@
+---
+title: Page not found
+permalink: /404.html
+noindex: true
+eleventyExcludeFromCollections: true
+---
+
+<style>
+    .notfound {
+        max-width: 760px;
+        margin-inline: auto;
+        padding: clamp(72px, 12vw, 150px) var(--gutter);
+    }
+
+    .notfound-code {
+        margin: 0 0 14px;
+        font-size: 0.76rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+    }
+
+    .notfound h1 {
+        margin: 0 0 18px;
+        font-size: clamp(2.8rem, 8vw, 5rem);
+    }
+
+    .notfound p {
+        color: var(--muted);
+    }
+
+    .notfound p a {
+        color: var(--accent);
+    }
+
+    .notfound-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 30px;
+    }
+
+    .notfound-actions a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 50px;
+        padding: 0 26px;
+        border: 1px solid var(--forest);
+        border-radius: 999px;
+        color: var(--forest);
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    .notfound-actions a:first-child {
+        background: var(--forest);
+        color: var(--on-dark);
+    }
+</style>
+
+<section class="notfound">
+    <p class="notfound-code">Error 404</p>
+    <h1>We can't find that page.</h1>
+    <p>It may have moved, or the link may be out of date. For help with a prescription, call us at <a href="tel:{{ site.phoneHref }}">{{ site.phone }}</a>.</p>
+    <div class="notfound-actions">
+        <a href="/">Back to home</a>
+        <a href="{{ site.refillUrl }}" target="_blank" rel="noopener">Refill a prescription</a>
+    </div>
+</section>

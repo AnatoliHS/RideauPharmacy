@@ -7,12 +7,19 @@ const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 const sectionizePlugin = require("./_plugins/eleventy-plugin-sectionize");
 
 module.exports = function(eleventyConfig) {
+  // Publish only what the site uses. src/assets also holds raw originals
+  // (phone photos and videos) that must stay out of the public build.
   eleventyConfig.addPassthroughCopy({
-    "./assets/": "/",
+    "./assets/web": "/web",
+    "./assets/script.js": "/script.js",
+    "./assets/site.webmanifest": "/site.webmanifest",
+    "./assets/favicon.ico": "/favicon.ico",
+    "./assets/favicon-16x16.png": "/favicon-16x16.png",
+    "./assets/favicon-32x32.png": "/favicon-32x32.png",
+    "./assets/apple-touch-icon.png": "/apple-touch-icon.png",
+    "./assets/android-chrome-192x192.png": "/android-chrome-192x192.png",
+    "./assets/android-chrome-512x512.png": "/android-chrome-512x512.png",
   });
-  // Copy any image file to `_site`, via Glob pattern
-	// Keeps the same directory structure.
-	eleventyConfig.addPassthroughCopy("**/*.{png,jpg,jpeg,gif,svg,otf,mp4,webm}");
 
 
   eleventyConfig.addPlugin(sectionizePlugin);
