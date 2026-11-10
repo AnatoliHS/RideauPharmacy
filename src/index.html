@@ -702,6 +702,7 @@ navOverlay: true
         display: grid;
         grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
         gap: clamp(40px, 7vw, 112px);
+        align-items: start;
     }
 
     .faq-item {
@@ -772,7 +773,8 @@ navOverlay: true
         align-items: start;
     }
 
-    .booking-copy {
+    .booking-copy,
+    .faq-copy {
         position: sticky;
         top: calc(var(--nav-h) + 40px);
     }
@@ -940,7 +942,8 @@ navOverlay: true
             max-width: 420px;
         }
 
-        .booking-copy {
+        .booking-copy,
+        .faq-copy {
             position: static;
         }
 
@@ -1052,10 +1055,10 @@ navOverlay: true
         <p class="statement" data-reveal>A neighbourhood pharmacy with room for <em>your questions,</em> your routine, and everything in between.</p>
         <div class="intro-media" data-reveal>
             <div class="intro-main">
-                <img class="parallax-img" data-parallax src="/web/interior.webp" alt="A bright pharmacy interior with wooden counters and well-stocked shelves" loading="lazy">
+                <img class="parallax-img" data-parallax src="/web/storefront.webp" alt="The Guardian Bellfront Pharmacy storefront on North Front Street" loading="lazy">
             </div>
             <div class="intro-inset">
-                <img src="/web/capsules.webp" alt="Colourful capsules and tablets against a pale background" loading="lazy">
+                <img src="/web/orchid.webp" alt="A pink orchid in a silver pot inside the pharmacy" loading="lazy">
             </div>
         </div>
     </div>
@@ -1125,7 +1128,7 @@ navOverlay: true
 <section class="pharmacist" id="pharmacist">
     <div class="wrap pharmacist-grid">
         <div class="arch" data-reveal>
-            <img class="parallax-img" data-parallax src="/web/hands.webp" alt="Several hands resting together on a wooden table" loading="lazy">
+            <img class="parallax-img" data-parallax src="/web/praful.webp" alt="{{ site.headPharmacist.name }}, head pharmacist at Bellfront Pharmacy, in a white coat" loading="lazy">
         </div>
         <div data-reveal>
             <p class="eyebrow">Your {{ site.headPharmacist.role | lower }}</p>
@@ -1151,7 +1154,7 @@ navOverlay: true
 
 <section class="faq" id="faq">
     <div class="wrap faq-grid">
-        <div data-reveal>
+        <div class="faq-copy" data-reveal>
             <p class="eyebrow">Questions</p>
             <h2 class="section-title">Good <em>to know.</em></h2>
         </div>
