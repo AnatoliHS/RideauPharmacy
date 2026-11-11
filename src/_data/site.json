@@ -60,13 +60,13 @@
     "moreServices": [
         { "name": "Prescription transfers", "text": "Move your prescriptions to Bellfront from another pharmacy." },
         { "name": "Medication take-back", "text": "Bring in expired or unused medications for safe disposal." },
-        { "name": "Naloxone kits", "text": "Ask a member of our team." },
-        { "name": "Senior discount", "text": "Ask in store for details." }
+        { "name": "Naloxone kits", "text": "Ask a member of our team." }
     ],
     "reasons": [
         { "title": "Reviewed, not just refilled", "text": "Book a medication review and go through your prescriptions with a pharmacist, one question at a time.", "image": "/web/counselling-door.webp", "width": 1100, "height": 1265, "alt": "The Patient Counselling room door at Bellfront Pharmacy" },
         { "title": "More care under one banner", "text": "A walk-in medical clinic, flu shots and blood pressure screening, all through Bellfront.", "image": "/web/shelves.webp", "width": 1100, "height": 1265, "alt": "Well-stocked shelves of cold, flu and pain relief products at Bellfront Pharmacy" },
-        { "title": "Refills on your schedule", "text": "Request a refill from your online patient record, then ask us about having it delivered.", "image": "/web/marble.webp", "width": 1400, "height": 933, "alt": "A few capsules resting on a white marble surface" },
-        { "title": "Medication, made simpler", "text": "Blister packs sorted by day and time, and a safe place to return what you no longer need.", "image": "/web/organiser.webp", "width": 1200, "height": 1800, "alt": "A hand taking a capsule from a daily pill organiser" }
+        { "title": "Refills on your schedule", "text": "Request a refill from your online patient record, then ask us about having it delivered.", "image": "/web/hand-pills.webp", "width": 2000, "height": 1494, "alt": "A few tablets resting in the palm of a hand" },
+        { "title": "Medication, made simpler", "text": "Blister packs sorted by day and time, and a safe place to return what you no longer need.", "image": "/web/pills-sorted.webp", "width": 1600, "height": 1068, "alt": "Tablets sorted into the compartments of a green pill organiser" },
+        { "title": "Senior discount", "text": "Ask in store for details.", "image": "/web/seniors.webp", "width": 1100, "height": 1281, "alt": "An older couple sharing a kiss on a grey day at the beach" }
     ]
 }
