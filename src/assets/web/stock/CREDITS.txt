@@ -1,0 +1,12 @@
+# Stock photo credits
+
+All photos are free to use under the Unsplash License (https://unsplash.com/license).
+Attribution is not required, but these are kept for reference.
+
+| File | Photographer | Source |
+|---|---|---|
+| willow-shore.jpg | Mark Ashford | https://unsplash.com/photos/5B-izOaYRSs |
+| lake-dusk.jpg | Darcy Kertzer | https://unsplash.com/photos/-XW_ICmyQ0E |
+| leaf-shadow.jpg | Augustine Wong | https://unsplash.com/photos/njhPkg0Oe5M |
+| pharmacy-room.jpg | Barnaby Woodrow | https://unsplash.com/photos/PjmNoFo6Y0s |
+| healthcare-fern.jpg | Total Shape | https://unsplash.com/photos/yn8KzjHGtak |

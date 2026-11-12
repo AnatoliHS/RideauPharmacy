@@ -5,29 +5,6 @@ navOverlay: true
 ---
 
 <style>
-    /* Shared */
-    .eyebrow {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        margin: 0 0 24px;
-        font-size: 0.76rem;
-        font-weight: 600;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: var(--accent);
-    }
-
-    .eyebrow::before {
-        content: "";
-        width: 36px;
-        height: 1px;
-        background: currentColor;
-    }
-
-    .on-dark .eyebrow {
-        color: var(--gold);
-    }
 
     .section-title {
         margin: 0;
@@ -35,13 +12,11 @@ navOverlay: true
     }
 
     .section-title em,
-    .hero-title em,
     .statement em {
         color: var(--accent);
     }
 
-    .on-dark .section-title em,
-    .hero-title em {
+    .on-dark .section-title em {
         color: var(--gold);
     }
 
@@ -138,67 +113,54 @@ navOverlay: true
         transform: none;
     }
 
-    /* Hero */
+    /* Hero: Bellfront loader, then title + orchid mosaic on a deep green gradient */
     .hero {
+        --intro: 1.45s;
+        /* Chartreuse glow top-left, teal bottom-left, settling into deep forest on the right.
+           Shared with the loader so the hand-off is seamless. */
+        /* Mirrored: the light glow sits top right behind the mosaic, deep forest on the left behind the text */
+        --hero-bg:
+            radial-gradient(55% 75% at 100% 8%, rgba(176, 186, 78, 0.82) 0%, rgba(176, 186, 78, 0) 70%),
+            radial-gradient(45% 55% at 100% 88%, rgba(44, 102, 118, 0.85) 0%, rgba(44, 102, 118, 0) 72%),
+            radial-gradient(50% 60% at 62% 0%, rgba(116, 134, 56, 0.75) 0%, rgba(116, 134, 56, 0) 72%),
+            linear-gradient(245deg, #6e8238 0%, #3c5634 32%, #213a2c 62%, var(--forest-deep) 100%);
         position: relative;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
-        min-height: min(100svh, 980px);
+        min-height: 100svh;
         margin-top: calc(-1 * var(--nav-h));
-        background: var(--forest);
+        padding: calc(var(--nav-h) + clamp(16px, 3svh, 40px)) 0 clamp(32px, 6svh, 64px);
+        background: var(--hero-bg);
         color: var(--on-dark);
         overflow: hidden;
     }
 
-    .hero-film {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: 62% 40%;
+    /* Returning visitors in the same session skip the loader */
+    .hero.no-intro {
+        --intro: 0s;
     }
 
-    .js .hero-film {
-        animation: settle 2.8s var(--ease) both;
-    }
-
-    @keyframes settle {
-        from {
-            transform: scale(1.12);
-        }
-
-        to {
-            transform: none;
-        }
-    }
-
-    .hero::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background:
-            linear-gradient(0deg, rgba(14, 42, 36, 0.66) 0%, rgba(14, 42, 36, 0) 58%),
-            linear-gradient(180deg, rgba(14, 42, 36, 0.42) 0%, rgba(14, 42, 36, 0) 24%);
-    }
-
-    .hero-body {
-        position: relative;
-        z-index: 1;
-        padding-top: calc(var(--nav-h) + 48px);
-        padding-bottom: clamp(28px, 5svh, 48px);
-    }
-
-    .hero .eyebrow {
-        color: var(--gold);
+    .hero-grid {
+        flex: 1;
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+        gap: 24px;
+        align-items: center;
     }
 
     .hero-title {
         margin: 0;
-        font-size: clamp(3.2rem, min(10.5vw, 22svh), 10.5rem);
-        line-height: 0.9;
-        letter-spacing: -0.02em;
+        /* Capped so each title line stays on one line in the 1440px-wide layout */
+        font-size: clamp(3rem, 8.6vw, 7.8rem);
+        line-height: 0.92;
+        letter-spacing: -0.025em;
+        color: #fffaf0;
+        /* A soft dark halo keeps the letters crisp over the bright chartreuse */
+        text-shadow: 0 2px 28px rgba(12, 32, 22, 0.35);
+    }
+
+    .hero .hero-title em {
+        color: #f7e6bf;
     }
 
     .hero-title .line {
@@ -212,84 +174,212 @@ navOverlay: true
         display: block;
     }
 
-    .js .hero-title .line > span {
-        animation: rise 1.4s var(--ease) both;
-    }
-
-    .js .hero-title .line:nth-child(2) > span {
-        animation-delay: 0.14s;
-    }
-
-    @keyframes rise {
-        from {
-            transform: translateY(110%);
-        }
-
-        to {
-            transform: none;
-        }
-    }
-
-    .hero-foot {
-        display: grid;
-        grid-template-columns: minmax(0, 1.2fr) repeat(3, minmax(0, 1fr));
-        gap: 24px;
-        align-items: end;
-        margin-top: clamp(28px, 5svh, 56px);
-        padding-top: 22px;
-        border-top: 1px solid var(--on-dark-line);
-    }
-
-    .js .hero-foot {
-        animation: fade-up 1.2s var(--ease) 0.45s both;
-    }
-
-    @keyframes fade-up {
-        from {
-            opacity: 0;
-            transform: translateY(14px);
-        }
-
-        to {
-            opacity: 1;
-            transform: none;
-        }
-    }
-
-    .hero-foot p {
-        max-width: 30em;
-        margin: 0;
-        font-size: 0.98rem;
+    .hero-lede {
+        max-width: 31em;
+        margin: clamp(20px, 3svh, 28px) 0 0;
+        font-size: clamp(1.05rem, 1.4vw, 1.2rem);
         color: var(--on-dark-muted);
     }
 
-    .hero-foot dl {
-        margin: 0;
+    .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px 24px;
+        margin-top: clamp(20px, 3.5svh, 32px);
     }
 
-    .hero-foot dt {
-        margin-bottom: 6px;
-        font-size: 0.72rem;
-        font-weight: 600;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--on-dark-muted);
-    }
-
-    .hero-foot dd {
-        margin: 0;
-        font-size: 1.05rem;
-    }
-
-    .hero-foot dd a {
-        color: inherit;
+    .hero-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        color: var(--forest);
         text-decoration: none;
     }
 
-    .hero-note {
-        display: block;
-        font-size: 0.88rem;
+    .hero-cta span,
+    .hero-cta i {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 54px;
+        border-radius: 999px;
+        background: #efe6d4;
+        transition: background-color 0.35s ease, transform 0.5s var(--ease);
+    }
+
+    .hero-cta span {
+        padding: 0 28px;
+        font-size: 1.02rem;
+        font-weight: 500;
+    }
+
+    .hero-cta i {
+        width: 54px;
+    }
+
+    .hero-cta:hover span,
+    .hero-cta:hover i {
+        background: var(--gold-light);
+    }
+
+    .hero-cta:hover i {
+        transform: rotate(45deg);
+    }
+
+    .hero-cta svg {
+        width: 18px;
+        height: 18px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .hero-link {
+        color: var(--on-dark);
+        font-weight: 500;
+        text-decoration: underline;
+        text-decoration-color: var(--gold);
+        text-underline-offset: 6px;
+    }
+
+    .hero-status {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 18px;
+        margin: clamp(18px, 3svh, 28px) 0 0;
+        padding: 0;
+        list-style: none;
+        font-size: 0.95rem;
         color: var(--on-dark-muted);
+    }
+
+    .hero-status strong {
+        font-weight: 500;
+        color: var(--on-dark);
+    }
+
+    .hero-status a {
+        color: inherit;
+    }
+
+    /* One photo, sliced across rounded tiles. Each tile shows its own window onto the image. */
+    .hero-mosaic {
+        position: relative;
+        justify-self: end;
+        width: min(calc(100% + var(--gutter)), calc(100svh - var(--nav-h) - 120px));
+        margin-right: calc(-1 * var(--gutter));
+        aspect-ratio: 1 / 1;
+        /* Crop window onto the photo, in % of the mosaic.
+           --zx zooms; --zy keeps the photo's 4:5 proportions inside the square frame. */
+        --zx: 1.1;
+        --zy: calc(var(--zx) * 1.25);
+        --ox: 4.8;
+        --oy: 2.4;
+    }
+
+    .hero-tile {
+        position: absolute;
+        left: calc(var(--x) * 1%);
+        top: calc(var(--y) * 1%);
+        width: calc(var(--w) * 1%);
+        height: calc(var(--h) * 1%);
+        border-radius: clamp(10px, 1.2vw, 18px);
+        background-image: url("/web/orchid.webp");
+        background-repeat: no-repeat;
+        background-size: calc(100% * var(--zx) * 100 / var(--w)) calc(100% * var(--zy) * 100 / var(--h));
+        background-position:
+            calc((var(--x) + var(--ox)) / (var(--zx) * 100 - var(--w)) * 100%)
+            calc((var(--y) + var(--oy)) / (var(--zy) * 100 - var(--h)) * 100%);
+        box-shadow: 0 24px 50px rgba(6, 18, 14, 0.35);
+    }
+
+    /* Loader: same gradient as the hero, so only the wordmark splits away */
+    .hero-curtain {
+        position: fixed;
+        inset: 0;
+        z-index: 300;
+        display: none;
+        place-items: center;
+        background: var(--hero-bg);
+        color: #fffaf0;
+        pointer-events: none;
+    }
+
+    .hero-mark {
+        display: flex;
+        font-family: var(--font-serif);
+        font-size: clamp(3.4rem, 10vw, 9rem);
+        line-height: 1;
+        letter-spacing: -0.02em;
+    }
+
+    .hero-mark span:last-child {
+        font-style: italic;
+        color: #f7e6bf;
+    }
+
+    /* Motion only runs once the inline script has marked the hero (JS on, motion allowed) */
+    .hero.is-playing:not(.no-intro) .hero-curtain {
+        display: grid;
+        animation: curtain 2.4s var(--ease) both;
+    }
+
+    .hero.is-playing .hero-mark span:first-child {
+        animation: split-left 2.4s var(--ease) both;
+    }
+
+    .hero.is-playing .hero-mark span:last-child {
+        animation: split-right 2.4s var(--ease) both;
+    }
+
+    .hero.is-playing .hero-title .line > span {
+        animation: rise 1.4s var(--ease) calc(var(--intro) + var(--d, 0s)) both;
+    }
+
+    .hero.is-playing .hero-lede,
+    .hero.is-playing .hero-actions,
+    .hero.is-playing .hero-status {
+        animation: fade-up 1.2s var(--ease) calc(var(--intro) + var(--d, 0.35s)) both;
+    }
+
+    .hero.is-playing .hero-tile {
+        animation: tile-in 1.3s var(--ease) calc(var(--intro) + 0.05s + var(--i) * 0.08s) both;
+    }
+
+    @keyframes curtain {
+        0%, 55% { visibility: visible; opacity: 1; }
+        99% { visibility: visible; opacity: 0; }
+        100% { visibility: hidden; opacity: 0; }
+    }
+
+    @keyframes split-left {
+        0% { opacity: 0; transform: translateX(8%); }
+        25%, 45% { opacity: 1; transform: none; }
+        100% { opacity: 0; transform: translateX(-40%); }
+    }
+
+    @keyframes split-right {
+        0% { opacity: 0; transform: translateX(-8%); }
+        25%, 45% { opacity: 1; transform: none; }
+        100% { opacity: 0; transform: translateX(40%); }
+    }
+
+    @keyframes rise {
+        from { transform: translateY(110%); }
+        to { transform: none; }
+    }
+
+    @keyframes fade-up {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: none; }
+    }
+
+    @keyframes tile-in {
+        from { opacity: 0; transform: translateY(28px) scale(0.94); }
+        to { opacity: 1; transform: none; }
     }
 
     .status::before {
@@ -309,6 +399,7 @@ navOverlay: true
 
     .status[data-state="open"]::before {
         background: #8ff0c8;
+        box-shadow: 0 0 0 4px rgba(143, 240, 200, 0.18);
     }
 
     /* Intro */
@@ -318,14 +409,6 @@ navOverlay: true
 
     .intro-head {
         text-align: center;
-    }
-
-    .intro-head .eyebrow {
-        justify-content: center;
-    }
-
-    .intro-head .eyebrow::before {
-        display: none;
     }
 
     .statement {
@@ -434,7 +517,7 @@ navOverlay: true
         height: clamp(380px, 37vw, 560px);
         padding: clamp(24px, 2.6vw, 38px);
         overflow: hidden;
-        border-radius: 4px;
+        border-radius: clamp(16px, 1.8vw, 26px);
         background: var(--forest);
         color: var(--on-dark);
         text-decoration: none;
@@ -461,7 +544,8 @@ navOverlay: true
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(0deg, rgba(14, 42, 36, 0.9) 0%, rgba(14, 42, 36, 0.36) 42%, rgba(14, 42, 36, 0) 70%);
+        /* Neutral dark fade (no green tint) so the photos keep their own colour */
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.32) 42%, rgba(0, 0, 0, 0) 70%);
     }
 
     .tile-copy,
@@ -678,14 +762,6 @@ navOverlay: true
         z-index: 1;
     }
 
-    .band .eyebrow {
-        justify-content: center;
-    }
-
-    .band .eyebrow::before {
-        display: none;
-    }
-
     .band .section-title {
         max-width: 12em;
         margin-inline: auto;
@@ -883,23 +959,26 @@ navOverlay: true
 
     }
 
-
-
-    @media (max-width: 1000px) {
-        .hero-foot {
-            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-        }
-
-        .hero-foot p {
-            grid-column: 1 / -1;
-        }
-    }
-
     @media (max-width: 900px) {
-        .hero::after {
-            background:
-                linear-gradient(0deg, rgba(14, 42, 36, 0.95) 0%, rgba(14, 42, 36, 0.66) 55%, rgba(14, 42, 36, 0.16) 85%),
-                linear-gradient(180deg, rgba(14, 42, 36, 0.55) 0%, rgba(14, 42, 36, 0) 18%);
+        /* Narrow screens: text first, then the mosaic */
+        .hero-grid {
+            grid-template-columns: 1fr;
+            align-items: start;
+            gap: 40px;
+        }
+
+        .hero-title {
+            font-size: clamp(2.6rem, 15vw, 5.4rem);
+        }
+
+        .hero-lede {
+            font-size: 1rem;
+        }
+
+        .hero-mosaic {
+            justify-self: center;
+            width: min(88vw, 46svh);
+            margin-right: 0;
         }
 
         .tile-4,
@@ -953,34 +1032,7 @@ navOverlay: true
         }
     }
 
-    /* Wider screens show this frame until the film starts */
-    @media (min-width: 701px) {
-        .hero {
-            background: var(--forest) url('/web/hero-poster.webp') 62% 40% / cover no-repeat;
-        }
-    }
-
-    /* Phones get a still photo; the film's source is limited to wider screens */
-    @media (max-width: 700px) {
-        .hero {
-            background: var(--forest) url('/web/consult-talk.webp') center top / cover no-repeat;
-        }
-
-        .hero-film {
-            display: none;
-        }
-    }
-
-    /* Short phones: hold the photo's scale so faces stay clear of the headline */
-    @media (max-width: 480px) and (max-height: 725px) {
-        .hero {
-            background-position: center bottom;
-            background-size: auto 725px;
-        }
-    }
-
     @media (max-width: 560px) {
-        .hero-actions .btn,
         .band-actions .btn,
         .visit-actions .btn {
             flex: 1 1 100%;
@@ -997,36 +1049,53 @@ navOverlay: true
         }
     }
 
-
 </style>
 
 {% set arrow %}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>{% endset %}
 
 <section class="hero" aria-label="Welcome">
-    <video class="hero-film" id="hero-film" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-        <source src="/web/hero-film.mp4" type="video/mp4" media="(min-width: 701px)">
-    </video>
+    <script>
+        // Play the loader once per visit; skip all intro motion for visitors who prefer less.
+        (function () {
+            var hero = document.currentScript.parentNode;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            var seen = false;
+            try { seen = sessionStorage.getItem('bf-intro') === '1'; sessionStorage.setItem('bf-intro', '1'); } catch (e) {}
+            if (seen) hero.classList.add('no-intro');
+            hero.classList.add('is-playing');
+        })();
+    </script>
+    <div class="hero-curtain" aria-hidden="true">
+        <div class="hero-mark"><span>Bell</span><span>front</span></div>
+    </div>
 
-    <div class="wrap hero-body">
-        <p class="eyebrow">{{ site.address.city }}, {{ site.address.regionName }}</p>
-        <h1 class="hero-title">
-            <span class="line"><span>Considered care,</span></span>
-            <span class="line"><span><em>close to home.</em></span></span>
-        </h1>
-        <div class="hero-foot">
-            <p>Prescriptions, medication reviews, flu shots and a walk-in medical clinic, with {{ site.headPharmacist.name }} and the team on North Front Street.</p>
-            <dl>
-                <dt>Today</dt>
-                <dd><span class="status" id="status" aria-live="polite">Open weekdays</span><span class="hero-note" id="status-detail"></span></dd>
-            </dl>
-            <dl>
-                <dt>Hours</dt>
-                <dd>{{ site.hours[0].display }}<span class="hero-note">{{ site.hours[0].label }}</span></dd>
-            </dl>
-            <dl>
-                <dt>Call</dt>
-                <dd><a href="tel:{{ site.phoneHref }}">{{ site.phone }}</a><span class="hero-note">Fax {{ site.fax }}</span></dd>
-            </dl>
+    <div class="wrap hero-grid">
+        <div class="hero-text">
+            <h1 class="hero-title">
+                <span class="line"><span>The pharmacy</span></span>
+                <span class="line" style="--d:.15s"><span><em>that knows you.</em></span></span>
+            </h1>
+            <p class="hero-lede" style="--d:.35s">Prescriptions, medication reviews, flu shots and a walk-in medical clinic, with {{ site.headPharmacist.name }} and the team on North Front Street.</p>
+            <div class="hero-actions" style="--d:.45s">
+                <a class="hero-cta" href="#booking"><span>Book appointment</span><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></i></a>
+                <a class="hero-link" href="{{ site.refillUrl }}" target="_blank" rel="noopener">Refill a prescription</a>
+            </div>
+            <ul class="hero-status" style="--d:.55s">
+                <li><span class="status" id="status" aria-live="polite">Open weekdays</span> <span id="status-detail"></span></li>
+                <li><strong>{{ site.hours[0].display }}</strong> {{ site.hours[0].label }}</li>
+                <li><a href="tel:{{ site.phoneHref }}">{{ site.phone }}</a></li>
+            </ul>
+        </div>
+
+        <div class="hero-mosaic" role="img" aria-label="A pink orchid in the pharmacy">
+        <span class="hero-tile" style="--x:8;--y:14;--w:18;--h:22;--i:3"></span>
+        <span class="hero-tile" style="--x:0;--y:38;--w:26;--h:30;--i:0"></span>
+        <span class="hero-tile" style="--x:6;--y:70;--w:20;--h:16;--i:1"></span>
+        <span class="hero-tile" style="--x:28;--y:0;--w:34;--h:36;--i:4"></span>
+        <span class="hero-tile" style="--x:28;--y:38;--w:34;--h:30;--i:6"></span>
+        <span class="hero-tile" style="--x:28;--y:70;--w:34;--h:30;--i:2"></span>
+        <span class="hero-tile" style="--x:64;--y:18;--w:30;--h:32;--i:5"></span>
+        <span class="hero-tile" style="--x:64;--y:52;--w:30;--h:34;--i:7"></span>
         </div>
     </div>
 </section>
@@ -1034,7 +1103,6 @@ navOverlay: true
 <section class="intro" id="pharmacy">
     <div class="wrap">
         <div class="intro-head">
-            <p class="eyebrow" data-reveal>The pharmacy</p>
             <p class="statement" data-reveal>A neighbourhood pharmacy with room for <span class="chip-img"><img src="/web/orchid.webp" width="920" height="1150" alt=""></span> your questions, your routine <span class="chip-img"><img src="/web/organiser.webp" width="1200" height="1800" alt=""></span> and everything <em>in between.</em></p>
             <p class="intro-sub" data-reveal>Step in from North Front Street, take a seat, and talk to a pharmacist who has the time to listen.</p>
         </div>
@@ -1053,7 +1121,6 @@ navOverlay: true
     <div class="wrap">
         <div class="services-head">
             <div data-reveal>
-                <p class="eyebrow">Services</p>
                 <h2 class="section-title">Everything you need,<br><em>in one place.</em></h2>
             </div>
             <p class="lede" data-reveal>From your first transfer to your next refill, here is what Bellfront can do for you.</p>
@@ -1087,7 +1154,6 @@ navOverlay: true
 <section class="reasons on-dark" aria-label="Why choose Bellfront">
     <div class="wrap">
         <div class="reasons-head" data-reveal>
-            <p class="eyebrow">Why Bellfront</p>
             <h2 class="section-title">Care that fits <em>around your life.</em></h2>
         </div>
         <div class="reasons-grid">
@@ -1116,7 +1182,6 @@ navOverlay: true
             <img class="parallax-img" data-parallax src="/web/praful.webp" width="1100" height="1692" alt="{{ site.headPharmacist.name }}, head pharmacist at Bellfront Pharmacy, in a white coat" loading="lazy">
         </div>
         <div data-reveal>
-            <p class="eyebrow">Your {{ site.headPharmacist.role | lower }}</p>
             <h2 class="pharmacist-title">Meet</h2>
             <p class="pharmacist-name">{{ site.headPharmacist.name }}</p>
             <p class="lede">{{ site.headPharmacist.name }} leads the team at Bellfront. Bring your questions about a new prescription, a medication review, or anything in your cabinet at home.</p>
@@ -1128,7 +1193,6 @@ navOverlay: true
 <section class="band on-dark" aria-label="Transfer your prescriptions">
     <img class="parallax-img" data-parallax src="/web/pills.webp" width="2000" height="1333" alt="" loading="lazy">
     <div class="wrap band-body" data-reveal>
-        <p class="eyebrow">Switching pharmacies</p>
         <h2 class="section-title">Bring your prescriptions <em>to Bellfront.</em></h2>
         <div class="band-actions">
             <a class="btn btn-gold" href="{{ site.transferUrl }}" target="_blank" rel="noopener">Transfer a prescription {{ arrow | safe }}</a>
@@ -1140,7 +1204,6 @@ navOverlay: true
 <section class="faq" id="faq">
     <div class="wrap faq-grid">
         <div class="faq-copy" data-reveal>
-            <p class="eyebrow">Questions</p>
             <h2 class="section-title">Good <em>to know.</em></h2>
         </div>
         <div data-reveal>
@@ -1175,7 +1238,6 @@ navOverlay: true
 <section class="booking on-dark" id="booking">
     <div class="wrap booking-grid">
         <div class="booking-copy" data-reveal>
-            <p class="eyebrow">Appointments</p>
             <h2 class="section-title">Time set aside <em>for you.</em></h2>
             <p class="lede">Choose a time that suits you for a medication review or a conversation with a pharmacist.</p>
             <p class="booking-phone">Prefer to talk? Call <a href="tel:{{ site.phoneHref }}">{{ site.phone }}</a></p>
@@ -1190,7 +1252,6 @@ navOverlay: true
 <section class="visit" id="visit">
     <div class="wrap visit-grid">
         <div data-reveal>
-            <p class="eyebrow">Visit</p>
             <h2 class="section-title">Come <em>say hello.</em></h2>
             <address class="visit-address">{{ site.address.street }}<br>{{ site.address.city }}, {{ site.address.region }} {{ site.address.postal }}</address>
             <dl class="hours">
@@ -1216,13 +1277,6 @@ navOverlay: true
 <script>
     (function () {
         var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        // Film: hold on the poster for visitors who prefer less motion.
-        var film = document.getElementById('hero-film');
-        if (film && reduceMotion) {
-            film.removeAttribute('autoplay');
-            film.pause();
-        }
 
         // Scroll reveals
         var revealItems = document.querySelectorAll('[data-reveal]');

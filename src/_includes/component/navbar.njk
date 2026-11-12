@@ -1,6 +1,7 @@
 <style>
   :root {
     --nav-h: 76px;
+    --menu-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   }
 
   .site-nav {
@@ -40,14 +41,29 @@
   }
 
   .nav-brand small {
+    position: relative;
     display: block;
+    width: max-content;
     margin-top: 4px;
+    padding-bottom: 6px;
     font-family: var(--font-sans);
     font-size: 0.6rem;
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    opacity: 0.7;
+    opacity: 0.85;
+  }
+
+  /* Guardian's red bar, as on the store sign, under "GUARDIAN PHARMACY" */
+  .nav-brand small::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0.2em;
+    bottom: 0;
+    height: 3px;
+    border-radius: 1px;
+    background: var(--guardian-red);
   }
 
   .site-nav-links {
@@ -115,16 +131,76 @@
     cursor: pointer;
   }
 
-  .site-nav-toggle span {
-    display: grid;
-    gap: 5px;
+  /* Label rolls Menu → Close */
+  .site-nav-label {
+    display: block;
+    height: 1.3em;
+    line-height: 1.3em;
+    overflow: hidden;
   }
 
-  .site-nav-toggle i {
+  .site-nav-label > span {
+    display: block;
+    transition: transform 0.45s var(--menu-ease);
+  }
+
+  .site-nav.is-menu .site-nav-label > span {
+    transform: translateY(-1.3em);
+  }
+
+  /* Two lines become an X */
+  .site-nav-icon {
+    position: relative;
     display: block;
     width: 22px;
+    height: 12px;
+  }
+
+  .site-nav-icon::before,
+  .site-nav-icon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
     height: 1px;
     background: currentColor;
+    transition: transform 0.4s var(--menu-ease), top 0.4s var(--menu-ease);
+  }
+
+  .site-nav-icon::before {
+    top: 3px;
+  }
+
+  .site-nav-icon::after {
+    top: 8px;
+  }
+
+  .site-nav.is-menu .site-nav-icon::before {
+    top: 5.5px;
+    transform: rotate(45deg);
+  }
+
+  .site-nav.is-menu .site-nav-icon::after {
+    top: 5.5px;
+    transform: rotate(-45deg);
+  }
+
+  /* While the menu is open the bar sits clear on top of it, in light text */
+  .site-nav.is-menu {
+    color: var(--on-dark);
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .site-nav.is-menu .site-nav-links {
+    visibility: hidden;
+  }
+
+  .site-nav.is-menu .site-nav-cta:hover {
+    background: var(--on-dark);
+    border-color: var(--on-dark);
+    color: var(--forest);
   }
 
   html.nav-locked {
@@ -132,27 +208,66 @@
   }
 
   /* Menu: a photo on one half, the links on a deep green panel on the other */
+  /* Revealed as a circle growing from the Menu button (its centre is set in --ox/--oy on open) */
   .site-drawer {
+    --ox: calc(100% - 60px);
+    --oy: 38px;
     position: fixed;
     inset: 0;
-    z-index: 110;
+    z-index: 99;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    background: var(--forest);
+    background: var(--forest-menu);
     color: var(--on-dark);
     visibility: hidden;
-    clip-path: inset(0 0 100% 0);
-    transition: clip-path 0.9s var(--ease), visibility 0s linear 0.9s;
+    clip-path: circle(0px at var(--ox) var(--oy));
+    transition: clip-path 0.6s var(--menu-ease), visibility 0s linear 0.6s;
   }
 
   .site-drawer.is-open {
     visibility: visible;
-    clip-path: inset(0 0 0 0);
-    transition: clip-path 0.9s var(--ease), visibility 0s;
+    clip-path: circle(150vmax at var(--ox) var(--oy));
+    transition: clip-path 0.75s var(--menu-ease), visibility 0s;
   }
 
+  /* Photo panel: the orchid to start, then a photo matching the hovered link */
   .site-drawer-img {
-    background: url('/web/aisle.webp') center / cover no-repeat;
+    position: relative;
+    overflow: hidden;
+    background: var(--forest-menu);
+    opacity: 0;
+    transform: scale(1.08);
+    transition: opacity 0.2s ease, transform 0.3s var(--menu-ease);
+  }
+
+  .site-drawer.is-open .site-drawer-img {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.6s ease 0.2s, transform 1.2s var(--menu-ease) 0.2s;
+  }
+
+  .site-drawer-img img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.06);
+    transition: opacity 0.6s ease, transform 1.2s var(--menu-ease);
+  }
+
+  .site-drawer-img img.is-on {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Top fade keeps the logo readable where the bar sits over the photo */
+  .site-drawer-img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10, 30, 26, 0.7) 0%, rgba(10, 30, 26, 0) 22%);
   }
 
   .site-drawer-body {
@@ -161,37 +276,36 @@
     justify-content: space-between;
     gap: 32px;
     min-width: 0;
-    padding: 24px var(--gutter) 36px;
+    padding: calc(var(--nav-h) + 24px) var(--gutter) 36px;
     overflow-y: auto;
-  }
-
-  .site-drawer-close {
-    align-self: flex-end;
-    min-height: 44px;
-    padding: 0;
-    border: 0;
-    background: none;
-    color: inherit;
-    font: inherit;
-    font-size: 0.76rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    cursor: pointer;
   }
 
   .site-drawer nav {
     display: grid;
     gap: 4px;
+    margin-block: auto;
+  }
+
+  /* Each link rises out of its own masked line, one after another */
+  .site-drawer-line {
+    display: block;
+    overflow: hidden;
   }
 
   .site-drawer nav a {
+    display: inline-block;
     color: inherit;
     font-family: var(--font-serif);
     font-size: clamp(2.2rem, 4.6vw, 3.8rem);
     line-height: 1.12;
     text-decoration: none;
-    transition: color 0.4s ease, padding 0.6s var(--ease);
+    transform: translateY(105%);
+    transition: transform 0.3s var(--menu-ease), color 0.4s ease, padding 0.6s var(--ease);
+  }
+
+  .site-drawer.is-open nav a {
+    transform: none;
+    transition: transform 0.7s var(--menu-ease) calc(0.12s + var(--i) * 0.04s), color 0.4s ease, padding 0.6s var(--ease);
   }
 
   .site-drawer nav a:hover {
@@ -205,6 +319,15 @@
     gap: 8px 32px;
     color: var(--on-dark-muted);
     font-size: 0.92rem;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.2s ease, transform 0.3s var(--menu-ease);
+  }
+
+  .site-drawer.is-open .site-drawer-foot {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.5s ease 0.35s, transform 0.6s var(--menu-ease) 0.35s;
   }
 
   .site-drawer-foot a {
@@ -223,6 +346,16 @@
 
     .site-nav-links {
       display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-drawer,
+    .site-drawer *,
+    .site-nav-label > span,
+    .site-nav-icon::before,
+    .site-nav-icon::after {
+      transition: none !important;
     }
   }
 
@@ -252,22 +385,29 @@
     </div>
     <div class="site-nav-end">
       <a href="/#booking" class="site-nav-cta">Book appointment</a>
-      <button class="site-nav-toggle" type="button" aria-expanded="false" aria-controls="site-drawer">Menu <span aria-hidden="true"><i></i><i></i></span></button>
+      <button class="site-nav-toggle" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Menu"><span class="site-nav-label" aria-hidden="true"><span>Menu<br>Close</span></span><i class="site-nav-icon" aria-hidden="true"></i></button>
     </div>
   </div>
 </nav>
 
 <div class="site-drawer" id="site-drawer" inert>
-  <div class="site-drawer-img" aria-hidden="true"></div>
+  <div class="site-drawer-img" aria-hidden="true">
+    <img data-src="/web/orchid.webp" alt="" class="is-on" style="object-position:50% 40%">
+    <img data-src="/web/shelves.webp" alt="" style="object-position:50% 50%">
+    <img data-src="/web/praful.webp" alt="" style="object-position:50% 25%">
+    <img data-src="/web/consult-tablet.webp" alt="" style="object-position:50% 50%">
+    <img data-src="/web/prescriptions-sign.webp" alt="" style="object-position:30% 50%">
+    <img data-src="/web/consult-talk.webp" alt="" style="object-position:50% 30%">
+    <img data-src="/web/storefront.webp" alt="" style="object-position:50% 50%">
+  </div>
   <div class="site-drawer-body">
-    <button class="site-drawer-close" type="button">Close ✕</button>
     <nav aria-label="Menu">
-      <a href="/#services">Services</a>
-      <a href="/#pharmacist">Your pharmacist</a>
-      <a href="/#booking">Book an appointment</a>
-      <a href="{{ site.refillUrl }}" target="_blank" rel="noopener">Refill a prescription</a>
-      <a href="/#faq">Questions</a>
-      <a href="/#visit">Hours &amp; directions</a>
+      <span class="site-drawer-line"><a href="/#services" style="--i:0" data-img="1">Services</a></span>
+      <span class="site-drawer-line"><a href="/#pharmacist" style="--i:1" data-img="2">Your pharmacist</a></span>
+      <span class="site-drawer-line"><a href="/#booking" style="--i:2" data-img="3">Book an appointment</a></span>
+      <span class="site-drawer-line"><a href="{{ site.refillUrl }}" target="_blank" rel="noopener" style="--i:3" data-img="4">Refill a prescription</a></span>
+      <span class="site-drawer-line"><a href="/#faq" style="--i:4" data-img="5">Questions</a></span>
+      <span class="site-drawer-line"><a href="/#visit" style="--i:5" data-img="6">Hours &amp; directions</a></span>
     </nav>
     <div class="site-drawer-foot">
       <span>{{ site.address.street }}, {{ site.address.city }}</span>
@@ -283,7 +423,6 @@
     var nav = document.querySelector('.site-nav');
     var toggle = document.querySelector('.site-nav-toggle');
     var drawer = document.getElementById('site-drawer');
-    var closeBtn = drawer.querySelector('.site-drawer-close');
     var hours = {{ site.hours | dump | safe }};
     var DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     var DAY_KEYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -344,31 +483,65 @@
 
     window.siteStatus = readStatus;
 
-    // Over the home hero the bar stays clear; it turns solid once the hero has passed.
+    // Over the home hero the bar starts clear and turns solid as soon as the page scrolls.
     function updateSolid() {
-      var hero = nav.classList.contains('is-overlay') && document.querySelector('.hero');
-      var limit = hero ? hero.offsetHeight - nav.offsetHeight : 40;
-      nav.classList.toggle('is-solid', window.scrollY > limit);
+      nav.classList.toggle('is-solid', window.scrollY > 4);
     }
 
     function menuOpen() {
       return drawer.classList.contains('is-open');
     }
 
+    // The menu grows as a circle from the Menu button; the same button closes it.
     function setOpen(open) {
       if (open === menuOpen()) return;
+      if (open) {
+        var icon = toggle.querySelector('.site-nav-icon').getBoundingClientRect();
+        drawer.style.setProperty('--ox', (icon.left + icon.width / 2) + 'px');
+        drawer.style.setProperty('--oy', (icon.top + icon.height / 2) + 'px');
+      }
       drawer.classList.toggle('is-open', open);
+      nav.classList.toggle('is-menu', open);
       drawer.inert = !open;
       root.classList.toggle('nav-locked', open);
       toggle.setAttribute('aria-expanded', String(open));
-      if (open) closeBtn.focus();
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
     }
 
-    toggle.addEventListener('click', function () { setOpen(true); });
-    closeBtn.addEventListener('click', function () {
-      setOpen(false);
-      toggle.focus();
+    toggle.addEventListener('click', function () { setOpen(!menuOpen()); });
+
+    // Photo panel: orchid by default; hovering or focusing a link shows its photo.
+    var photoPanel = drawer.querySelector('.site-drawer-img');
+    var photos = Array.prototype.slice.call(photoPanel.querySelectorAll('img'));
+    var menuNav = drawer.querySelector('nav');
+
+    function showPhoto(index) {
+      photos.forEach(function (img, k) { img.classList.toggle('is-on', k === index); });
+    }
+
+    // Photos load the first time the menu opens, and only where the panel is shown (not on phones).
+    function loadPhotos() {
+      if (getComputedStyle(photoPanel).display === 'none') return;
+      photos.forEach(function (img) {
+        if (img.dataset.src) {
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+        }
+      });
+    }
+
+    toggle.addEventListener('click', function () {
+      if (menuOpen()) {
+        loadPhotos();
+        showPhoto(0);
+      }
     });
+    menuNav.querySelectorAll('a[data-img]').forEach(function (link) {
+      var show = function () { showPhoto(Number(link.dataset.img)); };
+      link.addEventListener('mouseenter', show);
+      link.addEventListener('focus', show);
+    });
+    menuNav.addEventListener('mouseleave', function () { showPhoto(0); });
     drawer.addEventListener('click', function (event) {
       if (event.target.closest('a')) setOpen(false);
     });
