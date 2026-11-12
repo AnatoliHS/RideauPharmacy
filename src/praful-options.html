@@ -1,0 +1,662 @@
+---
+title: Meet Praful options
+noindex: true
+eleventyExcludeFromCollections: true
+permalink: /praful-options/
+---
+
+{% set arrow %}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>{% endset %}
+{% set alt = site.headPharmacist.name + ", head pharmacist at Bellfront Pharmacy, in a white coat" %}
+
+{% macro copy() %}
+<div>
+    <h2 class="pf-title">Meet</h2>
+    <p class="pf-name">{{ site.headPharmacist.name }}</p>
+    <p class="pf-lede">{{ site.headPharmacist.name }} leads the team at Bellfront. Bring your questions about a new prescription, a medication review, or anything in your cabinet at home.</p>
+    <a class="pf-btn" href="/#booking">Book time with a pharmacist <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+</div>
+{% endmacro %}
+
+<style>
+    /* ---------- Page shell ---------- */
+    .po-intro {
+        padding: clamp(48px, 7vw, 96px) 0 clamp(24px, 3vw, 40px);
+        background: var(--ivory);
+    }
+
+    .po-intro h1 {
+        margin: 0;
+        font-size: clamp(2.6rem, 5.4vw, 5rem);
+    }
+
+    .po-intro h1 em {
+        color: var(--accent);
+    }
+
+    .po-intro p {
+        max-width: 46em;
+        margin: 16px 0 0;
+        color: var(--muted);
+    }
+
+    .po-label {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 6px 20px;
+        padding: 18px 0;
+        border-top: 1px solid var(--line);
+    }
+
+    .po-label b {
+        font-family: var(--font-serif);
+        font-size: 1.6rem;
+        font-weight: 400;
+    }
+
+    .po-label span {
+        color: var(--muted);
+        font-size: 0.95rem;
+    }
+
+    .po-sec {
+        padding: var(--section) 0;
+        overflow-x: clip;
+    }
+
+    /* ---------- The section, as on the homepage ---------- */
+    .pf-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+        gap: clamp(56px, 9vw, 144px);
+        align-items: center;
+    }
+
+    .pf-title {
+        margin: 0 0 8px;
+        font-size: clamp(2rem, 3.4vw, 3rem);
+    }
+
+    .pf-name {
+        margin: 0;
+        font-family: var(--font-serif);
+        font-size: clamp(5rem, 12vw, 12rem);
+        font-style: italic;
+        line-height: 0.92;
+        letter-spacing: -0.025em;
+        color: var(--accent);
+    }
+
+    .pf-lede {
+        max-width: 34em;
+        margin: 24px 0 0;
+        font-size: clamp(1.15rem, 1.7vw, 1.4rem);
+        line-height: 1.5;
+    }
+
+    .pf-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        min-height: 58px;
+        margin-top: 36px;
+        padding: 0 32px;
+        border-radius: 999px;
+        background: var(--forest);
+        color: var(--on-dark);
+        font-weight: 500;
+        text-decoration: none;
+        transition: background-color 0.35s ease;
+    }
+
+    .pf-btn:hover {
+        background: var(--accent);
+    }
+
+    .pf-btn svg {
+        width: 18px;
+        height: 18px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        transition: transform 0.5s var(--ease);
+    }
+
+    .pf-btn:hover svg {
+        transform: translateX(5px);
+    }
+
+    /* ---------- Shared frame ----------
+       --mx / --my run from -1 to 1 as the pointer moves over the frame (set in JS, eased back to 0 on leave). */
+    .pf-frame {
+        --mx: 0;
+        --my: 0;
+        --arch: 999px 999px 4px 4px;
+        --ease-move: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        position: relative;
+        aspect-ratio: 4 / 5.2;
+    }
+
+    .pf-arch {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        overflow: hidden;
+        border-radius: var(--arch);
+        background: var(--ivory-deep);
+    }
+
+    .pf-arch img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1.12);
+        transition: transform var(--ease-move);
+    }
+
+    .pf-back {
+        position: absolute;
+        inset: 0;
+        border-radius: var(--arch);
+        transition: transform var(--ease-move), background-color 0.4s ease, border-color 0.4s ease;
+    }
+
+    /* ---------- P1 · Off-register ---------- */
+    .p1 .pf-back {
+        border: 1.5px solid var(--accent);
+        transform:
+            translate(calc(22px + var(--mx) * -16px), calc(26px + var(--my) * -16px))
+            rotate(-2.5deg);
+    }
+
+    .p1 .pf-arch {
+        transform: translate(calc(var(--mx) * 8px), calc(var(--my) * 8px));
+        transition: transform var(--ease-move);
+    }
+
+    .p1 .pf-arch img {
+        transform: scale(1.12) translate(calc(var(--mx) * -3%), calc(var(--my) * -3%));
+    }
+
+    .p1 .pf-frame:hover .pf-back {
+        border-color: var(--gold);
+    }
+
+    /* ---------- P2 · Stacked arches ---------- */
+    .p2 .pf-back.a {
+        background: var(--gold-light);
+        transform: rotate(4deg) translate(10px, 6px);
+    }
+
+    .p2 .pf-back.b {
+        background: var(--accent);
+        opacity: 0.22;
+        transform: rotate(-5deg) translate(-12px, 10px);
+    }
+
+    .p2 .pf-frame:hover .pf-back.a {
+        transform: rotate(9deg) translate(calc(34px + var(--mx) * 10px), 14px);
+    }
+
+    .p2 .pf-frame:hover .pf-back.b {
+        transform: rotate(-10deg) translate(calc(-36px + var(--mx) * 10px), 18px);
+    }
+
+    .p2 .pf-frame:hover .pf-arch img {
+        transform: scale(1.04);
+    }
+
+    /* ---------- P3 · Passe-partout and badge ---------- */
+    .p3 .pf-arch::after {
+        content: "";
+        position: absolute;
+        inset: 14px;
+        border: 1px solid rgba(255, 253, 249, 0.75);
+        border-radius: var(--arch);
+        pointer-events: none;
+        transition: inset var(--ease-move);
+    }
+
+    .p3 .pf-frame:hover .pf-arch::after {
+        inset: 22px;
+    }
+
+    .p3 .pf-arch img {
+        transform: scale(1.1) translate(calc(var(--mx) * -2.5%), calc(var(--my) * -2.5%));
+    }
+
+    .p3-badge {
+        position: absolute;
+        z-index: 2;
+        left: -44px;
+        bottom: 12%;
+        width: clamp(118px, 12vw, 150px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: var(--forest);
+        color: var(--gold-light);
+        transform: translate(calc(var(--mx) * 14px), calc(var(--my) * 14px));
+        transition: transform var(--ease-move);
+    }
+
+    .p3-badge svg {
+        width: 100%;
+        height: 100%;
+        animation: p3-spin 22s linear infinite;
+    }
+
+    .p3-badge text {
+        fill: currentColor;
+        font-size: 10.4px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+    }
+
+    .p3-badge b {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        font-family: var(--font-serif);
+        font-size: 2.4rem;
+        font-weight: 400;
+        font-style: italic;
+    }
+
+    @keyframes p3-spin {
+        to { transform: rotate(360deg); }
+    }
+
+    /* ---------- P4 · Drawn outline ---------- */
+    .p4-line {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        pointer-events: none;
+        transform: translate(-18px, 18px);
+        transition: transform var(--ease-move);
+    }
+
+    .p4-line path {
+        fill: none;
+        stroke: var(--accent);
+        stroke-width: 1.5;
+        vector-effect: non-scaling-stroke;
+    }
+
+    .p4 .pf-frame:hover .p4-line {
+        transform: translate(calc(-30px + var(--mx) * -10px), calc(30px + var(--my) * -10px));
+    }
+
+    .p4 .pf-arch {
+        transition: clip-path 1.3s cubic-bezier(0.65, 0, 0.35, 1) 0.5s;
+    }
+
+    .p4 .pf-frame:hover .pf-arch img {
+        transform: scale(1.05);
+    }
+
+    .js .p4 .p4-line path {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        transition: stroke-dashoffset 1.8s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    .js .p4 .pf-arch {
+        clip-path: inset(100% 0 0 0);
+    }
+
+    .js .p4 .is-in .p4-line path {
+        stroke-dashoffset: 0;
+    }
+
+    .js .p4 .is-in .pf-arch {
+        clip-path: inset(0 0 0 0);
+    }
+
+    /* ---------- P5 · Tilt and glare ---------- */
+    .p5 .pf-frame {
+        perspective: 1100px;
+    }
+
+    .p5-card {
+        position: absolute;
+        inset: 0;
+        transform-style: preserve-3d;
+        transform: rotateY(calc(var(--mx) * 9deg)) rotateX(calc(var(--my) * -9deg));
+        transition: transform var(--ease-move);
+    }
+
+    .p5 .pf-arch {
+        box-shadow: 0 30px 60px -30px rgba(10, 30, 26, 0.45);
+    }
+
+    .p5 .pf-arch::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(60% 45% at calc(50% + var(--mx) * 40%) calc(40% + var(--my) * 40%), rgba(255, 253, 249, 0.35), rgba(255, 253, 249, 0) 70%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        pointer-events: none;
+    }
+
+    .p5 .pf-frame:hover .pf-arch::after {
+        opacity: 1;
+    }
+
+    .p5 .pf-arch img {
+        transform: scale(1.1) translate(calc(var(--mx) * -2%), calc(var(--my) * -2%));
+    }
+
+    .p5-chip {
+        position: absolute;
+        z-index: 2;
+        right: -28px;
+        bottom: 10%;
+        display: grid;
+        gap: 2px;
+        padding: 14px 22px;
+        border-radius: 14px;
+        background: var(--white);
+        box-shadow: 0 18px 40px -16px rgba(10, 30, 26, 0.35);
+        transform: translateZ(60px);
+    }
+
+    .p5-chip b {
+        font-family: var(--font-serif);
+        font-size: 1.5rem;
+        font-weight: 400;
+        line-height: 1;
+    }
+
+    .p5-chip span {
+        color: var(--muted);
+        font-size: 0.78rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+    }
+
+    /* ---------- Compare ---------- */
+    .px {
+        padding: var(--section) 0 calc(var(--section) + 40px);
+        background: var(--white);
+    }
+
+    .px h2 {
+        margin: 0;
+        font-size: clamp(2.8rem, 5.6vw, 5.4rem);
+    }
+
+    .px h2 em {
+        color: var(--accent);
+    }
+
+    .px-scroll {
+        margin-top: 32px;
+        overflow-x: auto;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+    }
+
+    .px table {
+        width: 100%;
+        min-width: 960px;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+        line-height: 1.45;
+    }
+
+    .px th,
+    .px td {
+        padding: 15px 18px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+    }
+
+    .px tr:last-child > * {
+        border-bottom: 0;
+    }
+
+    .px thead th {
+        background: var(--ivory);
+        font-family: var(--font-serif);
+        font-size: 1.25rem;
+        font-weight: 400;
+    }
+
+    .px tbody th {
+        width: 130px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+    }
+
+    .po-switch {
+        position: fixed;
+        left: 50%;
+        bottom: 18px;
+        z-index: 90;
+        translate: -50% 0;
+        display: flex;
+        gap: 4px;
+        max-width: calc(100vw - 24px);
+        padding: 6px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 253, 249, 0.94);
+        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 12px 40px rgba(10, 30, 26, 0.18);
+        font-size: 0.86rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .po-switch a {
+        flex: none;
+        display: inline-flex;
+        align-items: center;
+        min-height: 40px;
+        padding: 0 14px;
+        border-radius: 999px;
+        color: var(--ink);
+        text-decoration: none;
+        white-space: nowrap;
+    }
+
+    .po-switch a:hover {
+        background: var(--ivory-deep);
+    }
+
+    /* ---------- Phones ---------- */
+    @media (max-width: 900px) {
+        .pf-grid {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .pf-frame {
+            width: min(100% - 40px, 420px);
+            margin-inline: auto;
+        }
+
+        .p3-badge {
+            left: -20px;
+        }
+
+        .p5-chip {
+            right: -16px;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .p3-badge svg {
+            animation: none;
+        }
+
+        .js .p4 .p4-line path {
+            stroke-dashoffset: 0;
+        }
+
+        .js .p4 .pf-arch {
+            clip-path: none;
+        }
+    }
+</style>
+
+<section class="po-intro">
+    <div class="wrap">
+        <h1>Meet <em>{{ site.headPharmacist.name }}.</em></h1>
+        <p>Five ways to frame the photo in the “Meet {{ site.headPharmacist.name }}” section. Move your pointer over each photo: most of them shift in layers to give depth. The current homepage version is a plain arch with a slow scroll parallax.</p>
+    </div>
+</section>
+
+<!-- P1 · Off-register -->
+<div class="wrap po-label" id="p1"><b>P1 · Off-register</b><span>A thin green outline of the arch, knocked slightly out of line behind the photo. On hover the photo and the outline drift in opposite directions, like two layers.</span></div>
+<section class="po-sec p1">
+    <div class="wrap pf-grid">
+        <div class="pf-frame" data-tilt>
+            <div class="pf-back"></div>
+            <div class="pf-arch"><img src="/web/praful.webp" width="1100" height="1692" alt="{{ alt }}" loading="lazy"></div>
+        </div>
+        {{ copy() }}
+    </div>
+</section>
+
+<!-- P2 · Stacked arches -->
+<div class="wrap po-label" id="p2"><b>P2 · Stacked arches</b><span>Two coloured arches peek out from behind the photo, like a small stack of cards. On hover they fan out to each side.</span></div>
+<section class="po-sec p2">
+    <div class="wrap pf-grid">
+        <div class="pf-frame" data-tilt>
+            <div class="pf-back b"></div>
+            <div class="pf-back a"></div>
+            <div class="pf-arch"><img src="/web/praful.webp" width="1100" height="1692" alt="{{ alt }}" loading="lazy"></div>
+        </div>
+        {{ copy() }}
+    </div>
+</section>
+
+<!-- P3 · Passe-partout and badge -->
+<div class="wrap po-label" id="p3"><b>P3 · The badge</b><span>A fine ivory line inside the arch, like a framed print, and a slowly turning badge that says what Praful does. On hover the photo pans and the badge drifts towards you.</span></div>
+<section class="po-sec p3">
+    <div class="wrap pf-grid">
+        <div class="pf-frame" data-tilt>
+            <div class="pf-arch"><img src="/web/praful.webp" width="1100" height="1692" alt="{{ alt }}" loading="lazy"></div>
+            <div class="p3-badge" aria-hidden="true">
+                <svg viewBox="0 0 100 100">
+                    <defs><path id="p3-ring" d="M50 50 m-37 0 a37 37 0 1 1 74 0 a37 37 0 1 1 -74 0"/></defs>
+                    <text><textPath href="#p3-ring" textLength="230">Head pharmacist · Bellfront ·</textPath></text>
+                </svg>
+                <b>Rx</b>
+            </div>
+        </div>
+        {{ copy() }}
+    </div>
+</section>
+
+<!-- P4 · Drawn outline -->
+<div class="wrap po-label" id="p4"><b>P4 · Drawn in</b><span>When the section scrolls into view, a green outline draws the arch, then the photo rises into it. The outline sits slightly off, and moves further away on hover.</span></div>
+<section class="po-sec p4">
+    <div class="wrap pf-grid">
+        <div class="pf-frame" data-tilt data-draw>
+            <div class="pf-arch"><img src="/web/praful.webp" width="1100" height="1692" alt="{{ alt }}" loading="lazy"></div>
+            <svg class="p4-line" viewBox="0 0 400 520" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M1 519 V200 A199 199 0 0 1 399 200 V519 Z" pathLength="1"/>
+            </svg>
+        </div>
+        {{ copy() }}
+    </div>
+</section>
+
+<!-- P5 · Tilt and glare -->
+<div class="wrap po-label" id="p5"><b>P5 · Tilt and glare</b><span>The photo tilts in 3D towards your pointer, with a soft light passing over it. A name card floats in front and moves more than the photo, which adds depth.</span></div>
+<section class="po-sec p5">
+    <div class="wrap pf-grid">
+        <div class="pf-frame" data-tilt>
+            <div class="p5-card">
+                <div class="pf-arch"><img src="/web/praful.webp" width="1100" height="1692" alt="{{ alt }}" loading="lazy"></div>
+                <div class="p5-chip" aria-hidden="true"><b>{{ site.headPharmacist.name }}</b><span>{{ site.headPharmacist.role }}</span></div>
+            </div>
+        </div>
+        {{ copy() }}
+    </div>
+</section>
+
+<!-- Compare -->
+<section class="px" id="compare">
+    <div class="wrap">
+        <h2>Which frame <em>fits best?</em></h2>
+        <div class="px-scroll">
+            <table>
+                <thead><tr><td></td><th>P1 · Off-register</th><th>P2 · Stacked</th><th>P3 · Badge</th><th>P4 · Drawn in</th><th>P5 · Tilt</th></tr></thead>
+                <tbody>
+                    <tr><th scope="row">Feel</th><td>Editorial, quiet</td><td>Warm, playful</td><td>Crafted, like a label</td><td>Calm, a little theatrical</td><td>Lively, techy</td></tr>
+                    <tr><th scope="row">Hover</th><td>Two layers drift apart</td><td>Arches fan out</td><td>Photo pans, badge floats</td><td>Outline pulls away</td><td>3D tilt with light</td></tr>
+                    <tr><th scope="row">On scroll</th><td>Nothing extra</td><td>Nothing extra</td><td>Badge keeps turning</td><td>Outline draws, photo rises</td><td>Nothing extra</td></tr>
+                    <tr><th scope="row">Adds</th><td>Just a line</td><td>Gold and green colour</td><td>His role, at a glance</td><td>Just a line</td><td>His name and role</td></tr>
+                    <tr><th scope="row">Phones</th><td>Offset line stays</td><td>Stack stays, no fan</td><td>Badge stays, still turns</td><td>Draws in, no hover</td><td>Flat, card stays</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<nav class="po-switch" aria-label="Options">
+    <a href="#p1">P1 · Off-register</a>
+    <a href="#p2">P2 · Stacked</a>
+    <a href="#p3">P3 · Badge</a>
+    <a href="#p4">P4 · Drawn in</a>
+    <a href="#p5">P5 · Tilt</a>
+    <a href="#compare">Compare ↓</a>
+</nav>
+
+<script>
+(function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    /* P4: draw the outline once the frame is in view */
+    var draws = document.querySelectorAll('[data-draw]');
+    if (!('IntersectionObserver' in window)) {
+        draws.forEach(function (el) { el.classList.add('is-in'); });
+    } else {
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) {
+                if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+            });
+        }, { threshold: 0.35 });
+        draws.forEach(function (el) { io.observe(el); });
+    }
+
+    /* Pointer parallax: write --mx / --my (-1 to 1) on each frame */
+    if (reduce || !fine) return;
+    document.querySelectorAll('[data-tilt]').forEach(function (el) {
+        var raf = 0;
+        el.addEventListener('pointermove', function (e) {
+            var r = el.getBoundingClientRect();
+            var x = ((e.clientX - r.left) / r.width) * 2 - 1;
+            var y = ((e.clientY - r.top) / r.height) * 2 - 1;
+            cancelAnimationFrame(raf);
+            raf = requestAnimationFrame(function () {
+                el.style.setProperty('--mx', Math.max(-1, Math.min(1, x)).toFixed(3));
+                el.style.setProperty('--my', Math.max(-1, Math.min(1, y)).toFixed(3));
+            });
+        });
+        el.addEventListener('pointerleave', function () {
+            cancelAnimationFrame(raf);
+            el.style.setProperty('--mx', 0);
+            el.style.setProperty('--my', 0);
+        });
+    });
+})();
+</script>

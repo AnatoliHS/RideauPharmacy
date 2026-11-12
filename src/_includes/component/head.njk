@@ -88,6 +88,13 @@
       --section: clamp(88px, 11vw, 168px);
       --nav-h: 88px;
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      /* Deep green gradient shared by the hero, loader, reasons, booking and footer:
+         light glow top right, deep forest bottom left */
+      --hero-bg:
+        radial-gradient(55% 75% at 100% 8%, rgba(176, 186, 78, 0.82) 0%, rgba(176, 186, 78, 0) 70%),
+        radial-gradient(45% 55% at 100% 88%, rgba(44, 102, 118, 0.85) 0%, rgba(44, 102, 118, 0) 72%),
+        radial-gradient(50% 60% at 62% 0%, rgba(116, 134, 56, 0.75) 0%, rgba(116, 134, 56, 0) 72%),
+        linear-gradient(245deg, #6e8238 0%, #3c5634 32%, #213a2c 62%, var(--forest-deep) 100%);
     }
 
     *,

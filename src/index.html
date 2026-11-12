@@ -116,14 +116,6 @@ navOverlay: true
     /* Hero: Bellfront loader, then title + orchid mosaic on a deep green gradient */
     .hero {
         --intro: 1.45s;
-        /* Chartreuse glow top-left, teal bottom-left, settling into deep forest on the right.
-           Shared with the loader so the hand-off is seamless. */
-        /* Mirrored: the light glow sits top right behind the mosaic, deep forest on the left behind the text */
-        --hero-bg:
-            radial-gradient(55% 75% at 100% 8%, rgba(176, 186, 78, 0.82) 0%, rgba(176, 186, 78, 0) 70%),
-            radial-gradient(45% 55% at 100% 88%, rgba(44, 102, 118, 0.85) 0%, rgba(44, 102, 118, 0) 72%),
-            radial-gradient(50% 60% at 62% 0%, rgba(116, 134, 56, 0.75) 0%, rgba(116, 134, 56, 0) 72%),
-            linear-gradient(245deg, #6e8238 0%, #3c5634 32%, #213a2c 62%, var(--forest-deep) 100%);
         position: relative;
         display: flex;
         flex-direction: column;
@@ -617,7 +609,7 @@ navOverlay: true
     /* Reasons */
     .reasons {
         padding-block: var(--section);
-        background: var(--forest);
+        background: var(--hero-bg);
         color: var(--on-dark);
     }
 
@@ -710,11 +702,56 @@ navOverlay: true
         align-items: center;
     }
 
+    /* Arch photo inside a thin outline that draws itself in, then the photo rises into it */
+    .arch-frame {
+        position: relative;
+    }
+
     .arch {
         position: relative;
         aspect-ratio: 4 / 5.2;
         overflow: hidden;
         border-radius: 999px 999px 4px 4px;
+    }
+
+    .arch-line {
+        position: absolute;
+        inset: calc(-1 * clamp(12px, 1.6vw, 20px));
+        width: calc(100% + 2 * clamp(12px, 1.6vw, 20px));
+        height: calc(100% + 2 * clamp(12px, 1.6vw, 20px));
+        overflow: visible;
+        pointer-events: none;
+        transition: transform 0.8s var(--ease);
+    }
+
+    .arch-line path {
+        fill: none;
+        stroke: var(--accent);
+        stroke-width: 1.5;
+        vector-effect: non-scaling-stroke;
+    }
+
+    .arch-frame:hover .arch-line {
+        transform: scale(1.02);
+    }
+
+    .js .arch-line path {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        transition: stroke-dashoffset 1.8s cubic-bezier(0.65, 0, 0.35, 1) 0.2s;
+    }
+
+    .js .arch {
+        clip-path: inset(100% 0 0 0);
+        transition: clip-path 1.3s cubic-bezier(0.65, 0, 0.35, 1) 0.9s;
+    }
+
+    .js .arch-frame.is-in .arch-line path {
+        stroke-dashoffset: 0;
+    }
+
+    .js .arch-frame.is-in .arch {
+        clip-path: inset(0 0 0 0);
     }
 
     .pharmacist-name {
@@ -830,6 +867,11 @@ navOverlay: true
         transform: rotate(45deg);
     }
 
+    /* While an answer is sliding shut, the cross already turns back into a plus */
+    .faq-item.is-closing summary::after {
+        transform: none;
+    }
+
     .faq-item p {
         max-width: 36em;
         margin: 0 0 30px;
@@ -844,7 +886,7 @@ navOverlay: true
     /* Booking */
     .booking {
         padding-block: var(--section);
-        background: var(--forest);
+        background: var(--hero-bg);
         color: var(--on-dark);
     }
 
@@ -859,6 +901,43 @@ navOverlay: true
     .faq-copy {
         position: sticky;
         top: calc(var(--nav-h) + 40px);
+    }
+
+    .faq-copy .lede a {
+        color: var(--accent);
+        text-underline-offset: 3px;
+    }
+
+    /* Orchid photo split into tiles, like the hero mosaic.
+       Each tile is a window onto one photo spread across the whole 4:3 frame. */
+    .faq-mosaic {
+        position: relative;
+        max-width: 440px;
+        margin: clamp(32px, 4vw, 48px) 0 0;
+        aspect-ratio: 4 / 3;
+        --z: 1.04;
+        --ox: 2;
+        --oy: 2;
+    }
+
+    .faq-tile {
+        position: absolute;
+        left: calc(var(--x) * 1%);
+        top: calc(var(--y) * 1%);
+        width: calc(var(--w) * 1%);
+        height: calc(var(--h) * 1%);
+        border-radius: clamp(8px, 1vw, 14px);
+        background-image: url("/web/orchid-shelf.webp");
+        background-repeat: no-repeat;
+        background-size: calc(100% * var(--z) * 100 / var(--w)) calc(100% * var(--z) * 100 / var(--h));
+        background-position:
+            calc((var(--x) + var(--ox)) / (var(--z) * 100 - var(--w)) * 100%)
+            calc((var(--y) + var(--oy)) / (var(--z) * 100 - var(--h)) * 100%);
+        box-shadow: 0 18px 40px rgba(6, 18, 14, 0.16);
+    }
+
+    .js .faq-copy.is-in .faq-tile {
+        animation: tile-in 1.3s var(--ease) calc(0.25s + var(--i) * 0.08s) both;
     }
 
     .booking-phone {
@@ -1018,8 +1097,9 @@ navOverlay: true
             margin-bottom: 26px;
         }
 
-        .arch {
-            max-width: 420px;
+        .arch-frame {
+            width: min(100% - 32px, 420px);
+            margin-inline: auto;
         }
 
         .booking-copy,
@@ -1046,6 +1126,17 @@ navOverlay: true
             padding: 22px 0 18px;
             border-left: 0;
             border-bottom: 1px solid var(--line);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .js .arch-line path,
+        .js .arch {
+            transition: none;
+        }
+
+        .js .faq-copy.is-in .faq-tile {
+            animation: none;
         }
     }
 
@@ -1154,7 +1245,7 @@ navOverlay: true
 <section class="reasons on-dark" aria-label="Why choose Bellfront">
     <div class="wrap">
         <div class="reasons-head" data-reveal>
-            <h2 class="section-title">Care that fits <em>around your life.</em></h2>
+            <h2 class="section-title">Care that fits<br> <em>around your life.</em></h2>
         </div>
         <div class="reasons-grid">
             <div class="reasons-stage" aria-hidden="true">
@@ -1178,8 +1269,13 @@ navOverlay: true
 
 <section class="pharmacist" id="pharmacist">
     <div class="wrap pharmacist-grid">
-        <div class="arch" data-reveal>
-            <img class="parallax-img" data-parallax src="/web/praful.webp" width="1100" height="1692" alt="{{ site.headPharmacist.name }}, head pharmacist at Bellfront Pharmacy, in a white coat" loading="lazy">
+        <div class="arch-frame" data-reveal>
+            <div class="arch">
+                <img class="parallax-img" data-parallax src="/web/praful.webp" width="1100" height="1692" alt="{{ site.headPharmacist.name }}, head pharmacist at Bellfront Pharmacy, in a white coat" loading="lazy">
+            </div>
+            <svg class="arch-line" viewBox="0 0 400 520" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M1 519 V200 A199 199 0 0 1 399 200 V519 Z" pathLength="1"/>
+            </svg>
         </div>
         <div data-reveal>
             <h2 class="pharmacist-title">Meet</h2>
@@ -1205,6 +1301,15 @@ navOverlay: true
     <div class="wrap faq-grid">
         <div class="faq-copy" data-reveal>
             <h2 class="section-title">Good <em>to know.</em></h2>
+            <p class="lede">Can’t find your question here? Call us at <a href="tel:{{ site.phoneHref }}">{{ site.phone }}</a>, or ask at the counter. We have a private room for anything you’d rather not discuss out loud.</p>
+            <div class="faq-mosaic" role="img" aria-label="Three potted orchids on a cabinet inside Bellfront Pharmacy">
+                <span class="faq-tile" style="--x:0;--y:12;--w:30;--h:36;--i:2"></span>
+                <span class="faq-tile" style="--x:0;--y:50;--w:30;--h:32;--i:4"></span>
+                <span class="faq-tile" style="--x:32;--y:0;--w:36;--h:46;--i:0"></span>
+                <span class="faq-tile" style="--x:32;--y:48;--w:36;--h:46;--i:3"></span>
+                <span class="faq-tile" style="--x:70;--y:16;--w:30;--h:34;--i:1"></span>
+                <span class="faq-tile" style="--x:70;--y:52;--w:30;--h:38;--i:5"></span>
+            </div>
         </div>
         <div data-reveal>
             <details class="faq-item">
@@ -1342,5 +1447,48 @@ navOverlay: true
                 row.classList.add('is-today');
             }
         });
+
+        // FAQ: slide answers open and shut instead of snapping
+        if (!reduceMotion && Element.prototype.animate) {
+            var faqEase = 'cubic-bezier(0.16, 1, 0.3, 1)';
+            document.querySelectorAll('.faq-item').forEach(function (item) {
+                var summary = item.querySelector('summary');
+                var answer = item.querySelector('p');
+                var anim = null;
+
+                summary.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    var start = item.offsetHeight;
+                    if (anim) anim.cancel();
+
+                    var closing = item.open && !item.classList.contains('is-closing');
+                    var end;
+                    if (closing) {
+                        item.classList.add('is-closing');
+                        end = summary.offsetHeight + (item.offsetHeight - item.clientHeight);
+                    } else {
+                        item.classList.remove('is-closing');
+                        item.open = true;
+                        end = item.offsetHeight;
+                        answer.animate(
+                            { opacity: [0, 1], transform: ['translateY(-10px)', 'none'] },
+                            { duration: 500, delay: 80, easing: faqEase, fill: 'backwards' }
+                        );
+                    }
+
+                    item.style.overflow = 'hidden';
+                    anim = item.animate(
+                        { height: [start + 'px', end + 'px'] },
+                        { duration: closing ? 420 : 560, easing: faqEase }
+                    );
+                    anim.onfinish = function () {
+                        anim = null;
+                        if (closing) item.open = false;
+                        item.classList.remove('is-closing');
+                        item.style.overflow = '';
+                    };
+                });
+            });
+        }
     })();
 </script>

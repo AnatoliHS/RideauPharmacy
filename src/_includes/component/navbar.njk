@@ -32,6 +32,9 @@
 
   .nav-brand {
     justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
     color: inherit;
     font-family: var(--font-serif);
     font-size: 1.65rem;
@@ -40,30 +43,18 @@
     text-decoration: none;
   }
 
+  /* The Guardian wordmark beside "Bellfront", split by a thin rule */
   .nav-brand small {
-    position: relative;
     display: block;
-    width: max-content;
-    margin-top: 4px;
-    padding-bottom: 6px;
-    font-family: var(--font-sans);
-    font-size: 0.6rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    opacity: 0.85;
+    padding-left: 12px;
+    border-left: 1px solid currentColor;
+    border-left-color: color-mix(in srgb, currentColor 35%, transparent);
   }
 
-  /* Guardian's red bar, as on the store sign, under "GUARDIAN PHARMACY" */
-  .nav-brand small::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0.2em;
-    bottom: 0;
-    height: 3px;
-    border-radius: 1px;
-    background: var(--guardian-red);
+  .nav-brand .guardian-logo {
+    display: block;
+    width: auto;
+    height: 27px;
   }
 
   .site-nav-links {
@@ -371,12 +362,17 @@
     .site-drawer-img {
       display: none;
     }
+
+    /* A little more air between the links on phones */
+    .site-drawer nav {
+      gap: 14px;
+    }
   }
 </style>
 
 <nav class="site-nav{% if navOverlay %} is-overlay{% endif %}" aria-label="Main">
   <div class="wrap site-nav-inner">
-    <a href="/" class="nav-brand" aria-label="{{ site.name }}, home">Bellfront<small>{{ site.banner }} Pharmacy</small></a>
+    <a href="/" class="nav-brand" aria-label="{{ site.name }}, home">Bellfront<small>{% include "component/guardian-logo.svg" %}</small></a>
     <div class="site-nav-links">
       <a href="/#services">Services</a>
       <a href="/#pharmacist">Your pharmacist</a>
@@ -398,7 +394,7 @@
     <img data-src="/web/consult-tablet.webp" alt="" style="object-position:50% 50%">
     <img data-src="/web/prescriptions-sign.webp" alt="" style="object-position:30% 50%">
     <img data-src="/web/consult-talk.webp" alt="" style="object-position:50% 30%">
-    <img data-src="/web/storefront.webp" alt="" style="object-position:50% 50%">
+    <img data-src="/map.svg" alt="" style="object-position:51% 56%">
   </div>
   <div class="site-drawer-body">
     <nav aria-label="Menu">
